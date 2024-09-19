@@ -1,15 +1,18 @@
 // app/blog/[slug]/page.tsx
-import { BlogPost } from '../../../types/blogs';
+import { blogPosts } from '../../../data/blogs';
+import { BlogPost } from '../../../types/blog';
 import { notFound } from 'next/navigation';
 
-async function fetchPostBySlug(slug: string): Promise<BlogPost | undefined> {
-  const res = await fetch(`/api/posts`);
-  const posts = await res.json();
-  return posts.find((post: BlogPost) => post.slug === slug);
+interface BlogPostPageProps {
+  params: { slug: string };
 }
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = await fetchPostBySlug(params.slug);
+function findPostBySlug(slug: string): BlogPost | undefined {
+  return blogPosts.find(post => post.slug === slug);
+}
+
+export default function BlogPostPage({ params }: BlogPostPageProps) {
+  const post = findPostBySlug(params.slug);
 
   if (!post) {
     notFound();
@@ -18,9 +21,9 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
   return (
     <div className="container mx-auto p-4">
       <article>
-        <img src={post.featuredImage} alt={post.title} className="w-full h-64 object-cover mb-4"/>
+        <img src={post.featuredImage} alt={post.title} className="w-full h-64 object-cover mb-4" />
         <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
-        <p className="text-gray-600 mb-4">{post.publishedAt.toDateString()}</p>
+        <p className="text-gray-600 mb-4">{new Date(post.publishedAt).toDateString()}</p>
         <div className="prose">
           {/* Use a markdown parser or any HTML rendering if `content` is in HTML format */}
           <div dangerouslySetInnerHTML={{ __html: post.content }} />
@@ -28,4 +31,28 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
       </article>
     </div>
   );
+}
+
+// Fetch static paths for all blog posts
+export async function getStaticPaths() {
+  const paths = blogPosts.map(post => ({
+    params: { slug: post.slug },
+  }));
+
+  return { paths, fallback: false };
+}
+
+// Fetch the specific blog post statically
+export async function getStaticProps({ params }: { params: { slug: string } }) {
+  const post = findPostBySlug(params.slug);
+
+  if (!post) {
+    return { notFound: true };
+  }
+
+  return {
+    props: {
+      post,
+    },
+  };
 }
