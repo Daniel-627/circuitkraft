@@ -7,10 +7,12 @@ interface BlogPostPageProps {
   params: { slug: string };
 }
 
+// Find the post based on slug
 function findPostBySlug(slug: string): BlogPost | undefined {
   return blogPosts.find(post => post.slug === slug);
 }
 
+// Component to display a blog post
 export default function BlogPostPage({ params }: BlogPostPageProps) {
   const post = findPostBySlug(params.slug);
 
@@ -33,26 +35,9 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   );
 }
 
-// Fetch static paths for all blog posts
-export async function getStaticPaths() {
-  const paths = blogPosts.map(post => ({
-    params: { slug: post.slug },
+// Generates static paths for all blog posts
+export async function generateStaticParams() {
+  return blogPosts.map(post => ({
+    slug: post.slug,
   }));
-
-  return { paths, fallback: false };
-}
-
-// Fetch the specific blog post statically
-export async function getStaticProps({ params }: { params: { slug: string } }) {
-  const post = findPostBySlug(params.slug);
-
-  if (!post) {
-    return { notFound: true };
-  }
-
-  return {
-    props: {
-      post,
-    },
-  };
 }

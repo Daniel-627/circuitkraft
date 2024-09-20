@@ -1,39 +1,71 @@
-// app/blog/page.tsx
-import { blogPosts } from '../../data/blogs';
-import { BlogPost } from '../../types/blog';
-import Link from 'next/link';
+'use client'
 
-interface BlogPageProps {
-  posts: BlogPost[];
-}
+import { useState } from 'react';
+import { blogPosts } from '@/data/blogs';
+import PostWidget from '@/components/PostWidget';
+import { FaSearch } from 'react-icons/fa'; // Import the search icon
 
-export default function BlogPage({ posts }: BlogPageProps) {
+const BlogPage = () => {
+  const [query, setQuery] = useState('');
+  const [filteredPosts, setFilteredPosts] = useState(blogPosts);
+
+  const handleSearch = () => {
+    if (query.length >= 3) {
+      const lowercasedQuery = query.toLowerCase();
+      const results = blogPosts.filter(post =>
+        post.title.toLowerCase().includes(lowercasedQuery) ||
+        post.tags.some(tag => tag.toLowerCase().includes(lowercasedQuery)) ||
+        post.categories.some(category => category.toLowerCase().includes(lowercasedQuery))
+      );
+      setFilteredPosts(results);
+    } else {
+      setFilteredPosts(blogPosts); // Reset to all posts if query is less than 3 characters
+    }
+  };
+
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-4xl font-bold mb-8">Blog</h1>
-      <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {posts.map(post => (
-          <div key={post.id} className="border rounded-lg overflow-hidden">
-            <img src={post.featuredImage} alt={post.title} className="w-full h-48 object-cover" />
-            <div className="p-4">
-              <h2 className="text-2xl font-semibold mb-2">
-                <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-              </h2>
-              <p className="text-gray-600 mb-4">{post.excerpt}</p>
-              <p className="text-sm text-gray-500">{new Date(post.publishedAt).toDateString()}</p>
+    <div className="container mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="col-span-2">
+        <h1 className="text-3xl font-bold mb-6">Blog</h1>
+        
+        <div className="flex items-center mb-4">
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search..."
+            className="border p-2 rounded-l w-full"
+          />
+          <button
+            onClick={handleSearch}
+            className="bg-blue-500 text-white p-2 rounded-r flex items-center"
+          >
+            <FaSearch className="mr-2" /> {/* Add the search icon here */}
+            Search
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 gap-6">
+          {filteredPosts.map(post => (
+            <div key={post.id} className="border rounded-lg p-4">
+              <img src={post.featuredImage} alt={post.title} className="w-full h-48 object-cover rounded-t-lg" />
+              <h2 className="text-xl font-semibold mt-2">{post.title}</h2>
+              <p className="text-gray-600">{post.excerpt}</p>
+              <p className="text-gray-400 text-sm">{new Date(post.publishedAt).toLocaleDateString()}</p>
+              <div className="mt-4">
+                <a href={`/blog/${post.slug}`} className="text-blue-500">Read more</a>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+      </div>
+
+      {/* Widget on the right */}
+      <div className="hidden md:block col-span-1">
+        <PostWidget />
       </div>
     </div>
   );
-}
+};
 
-// Fetch the blog posts statically using getStaticProps or directly pass from dummy data
-export async function getStaticProps() {
-  return {
-    props: {
-      posts: blogPosts, // Passing the blog posts as props
-    },
-  };
-}
+export default BlogPage;
