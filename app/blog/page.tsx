@@ -45,7 +45,7 @@ const BlogPage = () => {
           </button>
         </div>
 
-        <div className="grid grid-cols-1 gap-6">
+        <div className="grid grid-cols-3 gap-6">
           {filteredPosts.map(post => (
             <div key={post.id} className="border rounded-lg p-4">
               <img src={post.featuredImage} alt={post.title} className="w-full h-48 object-cover rounded-t-lg" />
