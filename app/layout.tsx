@@ -7,11 +7,11 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from '@/components/Footer';
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
+{/*const ZenDots = localFont({
+  src: "./fonts/ZenDots.tff",
+  variable: "--font-zen-dots",
   weight: "100 900",
-});
+});*/}
 
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} mx-auto container bg-gray-50 text-gray-800 antialiased`}
+        className={`${geistMono.variable} mx-auto container bg-gray-50 text-gray-800 antialiased`}
       >
         <Navbar />
         <main>{children}</main>

@@ -7,6 +7,7 @@ export interface BlogPost {
   excerpt: string;
   featuredImage: string;
   author: Author;
+  mainCategory: string;
   tags: string[];
   categories: string[];
   publishedAt: Date;

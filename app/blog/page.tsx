@@ -24,8 +24,8 @@ const BlogPage = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div className="col-span-2">
+    <div className="container mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div className="col-span-3">
         <h1 className="text-3xl font-bold mb-6">Blog</h1>
         
         <div className="flex items-center mb-4">
@@ -45,13 +45,16 @@ const BlogPage = () => {
           </button>
         </div>
 
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-3 gap-6 bg-white p-4 rounded-xl">
           {filteredPosts.map(post => (
-            <div key={post.id} className="border rounded-lg p-4">
-              <img src={post.featuredImage} alt={post.title} className="w-full h-48 object-cover rounded-t-lg" />
+            <div key={post.id} className="rounded-lg space-y-2">
+              <img src={post.featuredImage} alt={post.title} className="w-full h-48 object-cover rounded-lg" />
               <h2 className="text-xl font-semibold mt-2">{post.title}</h2>
-              <p className="text-gray-600">{post.excerpt}</p>
-              <p className="text-gray-400 text-sm">{new Date(post.publishedAt).toLocaleDateString()}</p>
+              <p className='text-gray-600'>{post.excerpt}</p>
+              <div className='flex flex-row justify-between items-center'>
+                <p className='text-gray-400'>{post.author.name}</p>
+                <p className="text-gray-400 text-sm">{new Date(post.publishedAt).toLocaleDateString()}</p>
+              </div>
               <div className="mt-4">
                 <a href={`/blog/${post.slug}`} className="text-blue-500">Read more</a>
               </div>

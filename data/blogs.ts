@@ -19,6 +19,7 @@ export const blogPosts: BlogPost[] = [
         website: "https://johndoe.dev"
       }
     },
+    mainCategory: "Tech",
     tags: ["Next.js", "React", "Web Development"],
     categories: ["Web Development", "JavaScript"],
     publishedAt: new Date("2024-09-18"),
@@ -66,6 +67,7 @@ export const blogPosts: BlogPost[] = [
         website: "https://janesmith.design"
       }
     },
+    mainCategory: "Tech",
     tags: ["TailwindCSS", "CSS", "Web Design"],
     categories: ["Web Design", "CSS"],
     publishedAt: new Date("2024-09-17"),
@@ -113,6 +115,7 @@ export const blogPosts: BlogPost[] = [
         website: "https://chrisevans.dev"
       }
     },
+    mainCategory: "Tech",
     tags: ["Framer Motion", "Animations", "React"],
     categories: ["React", "Animations"],
     publishedAt: new Date("2024-09-16"),
@@ -160,6 +163,7 @@ export const blogPosts: BlogPost[] = [
         website: "https://alicejohnson.dev"
       }
     },
+    mainCategory: "Tech",
     tags: ["TypeScript", "JavaScript", "Web Development"],
     categories: ["JavaScript", "Programming"],
     publishedAt: new Date("2024-09-15"),
@@ -207,6 +211,7 @@ export const blogPosts: BlogPost[] = [
         website: "https://emmawilson.dev"
       }
     },
+    mainCategory: "Tech",
     tags: ["CSS Grid", "CSS", "Web Design"],
     categories: ["CSS", "Web Design"],
     publishedAt: new Date("2024-09-14"),
@@ -254,6 +259,7 @@ export const blogPosts: BlogPost[] = [
         website: "https://lucasmartin.dev"
       }
     },
+    mainCategory: "Tech",
     tags: ["GraphQL", "APIs", "Backend"],
     categories: ["Backend", "APIs"],
     publishedAt: new Date("2024-09-13"),
@@ -301,6 +307,7 @@ export const blogPosts: BlogPost[] = [
         website: "https://miataylor.dev"
       }
     },
+    mainCategory: "Tech",
     tags: ["Flexbox", "CSS", "Responsive Design"],
     categories: ["CSS", "Responsive Design"],
     publishedAt: new Date("2024-09-12"),
@@ -348,6 +355,7 @@ export const blogPosts: BlogPost[] = [
         website: "https://ethanscott.dev"
       }
     },
+    mainCategory: "Tech",
     tags: ["PWA", "Next.js", "Web Development"],
     categories: ["Web Development", "Progressive Web Apps"],
     publishedAt: new Date("2024-09-11"),
@@ -395,6 +403,7 @@ export const blogPosts: BlogPost[] = [
         website: "https://sophiaclark.dev"
       }
     },
+    mainCategory: "Tech",
     tags: ["SSR", "React", "Performance"],
     categories: ["React", "Performance"],
     publishedAt: new Date("2024-09-10"),
@@ -442,6 +451,7 @@ export const blogPosts: BlogPost[] = [
         website: "https://charlotteadams.dev"
       }
     },
+    mainCategory: "Tech",
     tags: ["React", "Custom Hooks", "Development"],
     categories: ["React", "Development"],
     publishedAt: new Date("2024-09-09"),
@@ -489,6 +499,7 @@ export const blogPosts: BlogPost[] = [
         website: "https://davidwilson.dev"
       }
     },
+    mainCategory: "Tech",
     tags: ["Performance", "Web Optimization", "Development"],
     categories: ["Web Development", "Performance"],
     publishedAt: new Date("2024-09-08"),
@@ -536,6 +547,7 @@ export const blogPosts: BlogPost[] = [
         website: "https://ethandavis.dev"
       }
     },
+    mainCategory: "Tech",
     tags: ["Docker", "DevOps", "Development"],
     categories: ["DevOps", "Development"],
     publishedAt: new Date("2024-09-07"),
@@ -583,6 +595,7 @@ export const blogPosts: BlogPost[] = [
         website: "https://oliviamoore.dev"
       }
     },
+    mainCategory: "Tech",
     tags: ["SSG", "Web Development", "Static Sites"],
     categories: ["Web Development", "Static Sites"],
     publishedAt: new Date("2024-09-06"),
