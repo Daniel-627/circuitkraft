@@ -33,7 +33,7 @@ export const blogPosts: BlogPost[] = [
       metaDescription: "Learn how to get started with Next.js, a powerful framework for building React applications.",
       metaKeywords: ["Next.js", "React", "Web Development"],
       canonicalUrl: "https://yourblog.com/getting-started-with-nextjs",
-      ogImage: "/images/img(8).jpg",
+      ogImage: "/images/img1.jpg",
       ogTitle: "Getting Started with Next.js",
       ogDescription: "Discover the basics of Next.js and its features for building modern web applications."
     },
@@ -54,7 +54,7 @@ export const blogPosts: BlogPost[] = [
     slug: "tailwindcss-modern-web-design",
     content: `TailwindCSS is a utility-first CSS framework that allows you to build responsive and modern designs quickly. This post will walk you through the basics of using TailwindCSS in your Next.js projects.`,
     excerpt: "Learn how TailwindCSS can simplify your workflow and help you create beautiful, responsive designs.",
-    featuredImage: "/images/img(2).jpg",
+    featuredImage: "/images/img2.jpg",
     author: {
       name: "Jane Smith",
       bio: "UI/UX designer and TailwindCSS aficionado.",
@@ -80,7 +80,7 @@ export const blogPosts: BlogPost[] = [
       metaDescription: "Explore how TailwindCSS simplifies creating modern and responsive web designs.",
       metaKeywords: ["TailwindCSS", "CSS", "Responsive Design"],
       canonicalUrl: "https://yourblog.com/tailwindcss-modern-web-design",
-      ogImage: "/images/img(8).jpg",
+      ogImage: "/images/img1.jpg",
       ogTitle: "TailwindCSS for Modern Web Design",
       ogDescription: "Understand the benefits of using TailwindCSS for your web design projects."
     },
@@ -101,7 +101,7 @@ export const blogPosts: BlogPost[] = [
     slug: "understanding-framer-motion",
     content: `Framer Motion is a great library for adding animations to your React projects. In this post, we'll cover how to use it to create smooth animations in your web applications.`,
     excerpt: "A comprehensive guide to using Framer Motion for animations in your React projects.",
-    featuredImage: "/images/img(3).jpg",
+    featuredImage: "/images/img3.jpg",
     author: {
       name: "Chris Evans",
       bio: "Frontend developer and animation expert.",
@@ -127,7 +127,7 @@ export const blogPosts: BlogPost[] = [
       metaDescription: "Learn how to use Framer Motion for animations in your React applications.",
       metaKeywords: ["Framer Motion", "React", "Animations"],
       canonicalUrl: "https://yourblog.com/understanding-framer-motion",
-      ogImage: "/images/img(8).jpg",
+      ogImage: "/images/img1.jpg",
       ogTitle: "Understanding Framer Motion in React",
       ogDescription: "A detailed guide to adding animations to React projects with Framer Motion."
     },
@@ -148,7 +148,7 @@ export const blogPosts: BlogPost[] = [
     slug: "typescript-game-changer",
     content: `TypeScript is a strongly typed superset of JavaScript that adds static types to the language. This post will explore why TypeScript is becoming increasingly popular and how it can improve your development workflow.`,
     excerpt: "Discover why TypeScript is essential for modern JavaScript development.",
-    featuredImage: "/images/img(4).jpg",
+    featuredImage: "/images/img4.jpg",
     author: {
       name: "Alice Johnson",
       bio: "Software engineer and TypeScript advocate.",
@@ -174,7 +174,7 @@ export const blogPosts: BlogPost[] = [
       metaDescription: "Learn about the benefits of using TypeScript and how it can enhance your JavaScript development experience.",
       metaKeywords: ["TypeScript", "JavaScript", "Development"],
       canonicalUrl: "https://yourblog.com/typescript-game-changer",
-      ogImage: "/images/img(8).jpg",
+      ogImage: "/images/img1.jpg",
       ogTitle: "Why TypeScript is a Game-Changer",
       ogDescription: "Understand the advantages of adopting TypeScript in your development projects."
     },
@@ -195,7 +195,7 @@ export const blogPosts: BlogPost[] = [
     slug: "css-grid-layout",
     content: `CSS Grid Layout is a powerful layout system for creating complex web layouts with ease. This post will cover the basics of CSS Grid and provide examples of how to use it effectively.`,
     excerpt: "A guide to mastering CSS Grid Layout for modern web designs.",
-    featuredImage: "/images/img(5).jpg",
+    featuredImage: "/images/img5.jpg",
     author: {
       name: "Emma Wilson",
       bio: "Frontend developer and CSS expert.",
@@ -221,7 +221,7 @@ export const blogPosts: BlogPost[] = [
       metaDescription: "Master CSS Grid Layout with this comprehensive guide on creating complex web layouts.",
       metaKeywords: ["CSS Grid", "CSS Layout", "Web Design"],
       canonicalUrl: "https://yourblog.com/css-grid-layout",
-      ogImage: "/images/img(8).jpg",
+      ogImage: "/images/img1.jpg",
       ogTitle: "Exploring CSS Grid Layout",
       ogDescription: "Learn how to use CSS Grid Layout to build modern and responsive web designs."
     },
@@ -242,7 +242,7 @@ export const blogPosts: BlogPost[] = [
     slug: "beginners-guide-to-graphql",
     content: `GraphQL is a query language for APIs that allows clients to request exactly the data they need. This post will introduce you to GraphQL and how it differs from REST APIs.`,
     excerpt: "Learn the basics of GraphQL and how it can improve API interactions.",
-    featuredImage: "/images/img(6).jpg",
+    featuredImage: "/images/img6.jpg",
     author: {
       name: "Lucas Martin",
       bio: "Backend developer and GraphQL enthusiast.",
@@ -268,7 +268,7 @@ export const blogPosts: BlogPost[] = [
       metaDescription: "An introduction to GraphQL and its advantages over traditional REST APIs.",
       metaKeywords: ["GraphQL", "APIs", "Backend Development"],
       canonicalUrl: "https://yourblog.com/beginners-guide-to-graphql",
-      ogImage: "/images/img(8).jpg",
+      ogImage: "/images/img8.jpg",
       ogTitle: "A Beginner's Guide to GraphQL",
       ogDescription: "Discover the benefits of GraphQL and how it can enhance your API interactions."
     },
@@ -289,7 +289,7 @@ export const blogPosts: BlogPost[] = [
     slug: "responsive-design-flexbox",
     content: `Flexbox is a CSS layout module that provides a more efficient way to lay out, align, and distribute space among items in a container. This post will cover how to use Flexbox for responsive design.`,
     excerpt: "A guide to using Flexbox for creating responsive web layouts.",
-    featuredImage: "/images/img(7).jpg",
+    featuredImage: "/images/img7.jpg",
     author: {
       name: "Mia Taylor",
       bio: "Frontend developer and Flexbox specialist.",
@@ -315,7 +315,7 @@ export const blogPosts: BlogPost[] = [
       metaDescription: "Learn how to use Flexbox for creating flexible and responsive web layouts.",
       metaKeywords: ["Flexbox", "CSS", "Responsive Design"],
       canonicalUrl: "https://yourblog.com/responsive-design-flexbox",
-      ogImage: "/images/img(8).jpg",
+      ogImage: "/images/img8.jpg",
       ogTitle: "Mastering Responsive Design with Flexbox",
       ogDescription: "A comprehensive guide to utilizing Flexbox for responsive and modern web design."
     },
@@ -336,7 +336,7 @@ export const blogPosts: BlogPost[] = [
     slug: "progressive-web-apps-nextjs",
     content: `Progressive Web Apps (PWAs) offer a native app-like experience on the web. In this post, we'll explore how to build PWAs using Next.js and the benefits they offer.`,
     excerpt: "How to build Progressive Web Apps using Next.js and why they are beneficial.",
-    featuredImage: "/images/img(8).jpg",
+    featuredImage: "/images/img8.jpg",
     author: {
       name: "Ethan Scott",
       bio: "Full-stack developer with a focus on PWAs.",
@@ -362,7 +362,7 @@ export const blogPosts: BlogPost[] = [
       metaDescription: "Discover how to build Progressive Web Apps using Next.js for a native app-like experience on the web.",
       metaKeywords: ["PWA", "Next.js", "Web Development"],
       canonicalUrl: "https://yourblog.com/progressive-web-apps-nextjs",
-      ogImage: "/images/img(8).jpg",
+      ogImage: "/images/img8.jpg",
       ogTitle: "Building Progressive Web Apps with Next.js",
       ogDescription: "A detailed guide to creating Progressive Web Apps with Next.js and their advantages."
     },
@@ -383,7 +383,7 @@ export const blogPosts: BlogPost[] = [
     slug: "server-side-rendering-react",
     content: `Server-Side Rendering (SSR) with React improves performance and SEO. This post will explain the basics of SSR and how to implement it in your React applications.`,
     excerpt: "Learn about Server-Side Rendering with React and its benefits for performance and SEO.",
-    featuredImage: "/images/img(8).jpg",
+    featuredImage: "/images/img8.jpg",
     author: {
       name: "Sophia Clark",
       bio: "React developer and SSR advocate.",
@@ -409,7 +409,7 @@ export const blogPosts: BlogPost[] = [
       metaDescription: "An introduction to Server-Side Rendering with React and its impact on performance and SEO.",
       metaKeywords: ["SSR", "React", "Performance"],
       canonicalUrl: "https://yourblog.com/server-side-rendering-react",
-      ogImage: "/images/img(8).jpg",
+      ogImage: "/images/img8.jpg",
       ogTitle: "Intro to Server-Side Rendering with React",
       ogDescription: "Explore Server-Side Rendering with React and how it can enhance performance and SEO."
     },
@@ -430,7 +430,7 @@ export const blogPosts: BlogPost[] = [
     slug: "custom-hooks-react",
     content: `Custom hooks in React allow you to extract and reuse logic across multiple components. This post will show you how to create and use custom hooks effectively.`,
     excerpt: "Learn how to build and use custom hooks in React to reuse logic across your components.",
-    featuredImage: "/images/img(10).jpg",
+    featuredImage: "/images/img10.jpg",
     author: {
       name: "Charlotte Adams",
       bio: "React developer specializing in custom hooks.",
@@ -456,7 +456,7 @@ export const blogPosts: BlogPost[] = [
       metaDescription: "A guide to creating and using custom hooks in React for reusable logic.",
       metaKeywords: ["React", "Custom Hooks", "Development"],
       canonicalUrl: "https://yourblog.com/custom-hooks-react",
-      ogImage: "/images/img(8).jpg",
+      ogImage: "/images/img8.jpg",
       ogTitle: "Building Custom Hooks in React",
       ogDescription: "Understand how to create and use custom hooks in React for better component logic management."
     },
@@ -477,7 +477,7 @@ export const blogPosts: BlogPost[] = [
     slug: "web-performance-optimization",
     content: `Web performance optimization is crucial for providing a fast and smooth user experience. This post will introduce you to various techniques and tools for optimizing your website's performance.`,
     excerpt: "Learn the basics of web performance optimization and how to enhance your website's speed and efficiency.",
-    featuredImage: "/images/img(11).jpg",
+    featuredImage: "/images/img11.jpg",
     author: {
       name: "David Wilson",
       bio: "Web performance specialist and optimization expert.",
@@ -503,7 +503,7 @@ export const blogPosts: BlogPost[] = [
       metaDescription: "Explore techniques and tools for optimizing your website's performance and enhancing user experience.",
       metaKeywords: ["Performance", "Web Optimization", "Development"],
       canonicalUrl: "https://yourblog.com/web-performance-optimization",
-      ogImage: "/images/img(8).jpg",
+      ogImage: "/images/img8.jpg",
       ogTitle: "An Introduction to Web Performance Optimization",
       ogDescription: "A beginner's guide to improving your website's speed and efficiency with performance optimization techniques."
     },
@@ -524,7 +524,7 @@ export const blogPosts: BlogPost[] = [
     slug: "docker-for-development",
     content: `Docker is a tool designed to make it easier to create, deploy, and run applications using containers. This post will cover the basics of Docker and how to use it in your development workflow.`,
     excerpt: "Learn the basics of Docker and how it can streamline your development process.",
-    featuredImage: "/images/img(12).jpg",
+    featuredImage: "/images/img12.jpg",
     author: {
       name: "Ethan Davis",
       bio: "DevOps engineer and Docker advocate.",
@@ -550,7 +550,7 @@ export const blogPosts: BlogPost[] = [
       metaDescription: "An introduction to Docker and its benefits for streamlining development workflows.",
       metaKeywords: ["Docker", "DevOps", "Development"],
       canonicalUrl: "https://yourblog.com/docker-for-development",
-      ogImage: "/images/img(8).jpg",
+      ogImage: "/images/img8.jpg",
       ogTitle: "Getting Started with Docker for Development",
       ogDescription: "Discover how Docker can simplify your development process and improve efficiency."
     },
@@ -571,7 +571,7 @@ export const blogPosts: BlogPost[] = [
     slug: "static-site-generator-benefits",
     content: `Static Site Generators (SSGs) offer a way to build websites that are fast, secure, and easy to deploy. This post will explore the benefits of using an SSG and how it can improve your web development process.`,
     excerpt: "Discover the advantages of Static Site Generators and how they can enhance your web projects.",
-    featuredImage: "/images/img(8).jpg",
+    featuredImage: "/images/img8.jpg",
     author: {
       name: "Olivia Moore",
       bio: "Web developer with a passion for static site generators.",
@@ -597,7 +597,7 @@ export const blogPosts: BlogPost[] = [
       metaDescription: "Explore the advantages of Static Site Generators for building fast and secure websites.",
       metaKeywords: ["SSG", "Static Sites", "Web Development"],
       canonicalUrl: "https://yourblog.com/static-site-generator-benefits",
-      ogImage: "/images/img(8).jpg",
+      ogImage: "/images/img8.jpg",
       ogTitle: "The Benefits of Using a Static Site Generator",
       ogDescription: "A comprehensive guide to the benefits of Static Site Generators and how they can enhance your web projects."
     },
