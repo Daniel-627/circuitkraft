@@ -7,7 +7,7 @@ export const blogPosts: BlogPost[] = [
     slug: "getting-started-with-nextjs",
     content: `Next.js is a powerful framework for building React applications. In this post, we'll dive into how to get started with it and explore its powerful features like server-side rendering (SSR) and static site generation (SSG).`,
     excerpt: "An introduction to Next.js and its powerful features.",
-    featuredImage: "/images/img(1).jpg",
+    featuredImage: "/images/img.jpg",
     author: {
       name: "John Doe",
       bio: "Web developer and Next.js enthusiast.",
