@@ -1,7 +1,10 @@
+
+
 // app/blog/[slug]/page.tsx
 import { blogPosts } from '../../../data/blogs';
 import { BlogPost } from '../../../types/blog';
 import { notFound } from 'next/navigation';
+import RelatedPostsWidget from '@/components/RelatedPostsWidget'; // Import the RelatedPostsWidget
 
 interface BlogPostPageProps {
   params: { slug: string };
@@ -31,6 +34,9 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           <div dangerouslySetInnerHTML={{ __html: post.content }} />
         </div>
       </article>
+
+      {/* Related Posts Widget */}
+      <RelatedPostsWidget currentPost={post} /> {/* Pass the current post to the widget */}
     </div>
   );
 }
