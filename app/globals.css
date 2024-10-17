@@ -32,3 +32,9 @@ html {
   font-size: 16px;
 }
 
+@font-face {
+  font-family: 'Zen Dots';
+  src: url('/fonts/zen_dots.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}

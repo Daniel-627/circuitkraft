@@ -32,7 +32,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistMono.variable} mx-auto container bg-gray-50 text-gray-800 antialiased`}
+        style={{ fontFamily: 'Zen Dots' }}
+        className={`mx-auto container bg-gray-50 text-gray-800 antialiased`}
       >
         <Navbar />
         <main>{children}</main>
