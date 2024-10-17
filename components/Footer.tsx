@@ -1,54 +1,83 @@
 // app/components/Footer.tsx
-import React from 'react';
+'use client'
+
+import React, { useEffect, useState } from 'react';
 import { blogPosts } from '@/data/blogs'; // Import your blog posts
 import { BlogPost } from '@/types/blog'; // Import your BlogPost type
+import logo1 from '@/public/logo1.png';
 
 const Footer = () => {
-  // Function to get a random category
-  const getRandomCategory = () => {
-    const categories = Array.from(new Set(blogPosts.flatMap(post => post.categories)));
-    return categories[Math.floor(Math.random() * categories.length)];
+  const [randomPosts, setRandomPosts] = useState<BlogPost[]>([]);
+
+  // Function to get two random blog posts from different categories
+  const getRandomPosts = () => {
+    const publishedPosts = blogPosts.filter(post => post.isPublished);
+    const shuffledPosts = publishedPosts.sort(() => 0.5 - Math.random());
+    const uniqueCategories: Set<string> = new Set();
+    
+    const postsFromRandomCategories = shuffledPosts.filter(post => {
+      // Ensures unique categories
+      if (!post.categories.some(category => uniqueCategories.has(category))) {
+        post.categories.forEach(category => uniqueCategories.add(category));
+        return true;
+      }
+      return false;
+    });
+
+    return postsFromRandomCategories.slice(0, 2);
   };
 
-  // Function to get the latest two blog posts
-  const getLatestPosts = (): BlogPost[] => {
-    return blogPosts
-      .filter(post => post.isPublished)
-      .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
-      .slice(0, 2);
-  };
-
-  const latestPosts = getLatestPosts();
+  useEffect(() => {
+    setRandomPosts(getRandomPosts());
+  }, []);
 
   return (
-    <footer className="bg-gray-800 text-white py-8">
+    <footer className="bg-gray-50 text-gray-800 py-8">
       <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* First Column */}
         <div className="space-y-4">
-          <img src="/path/to/logo.png" alt="Logo" className="h-12" /> {/* Update with your logo path */}
+          <img src="/logo1.png" alt="Logo" className="h-12" /> {/* Update with your logo path */}
           <p className="text-gray-400">Your description goes here. Briefly describe your blog or website.</p>
           <p>Email: <a href="mailto:your-email@example.com" className="text-blue-400">your-email@example.com</a></p>
           <p>Phone: <span className="text-gray-400">+123 456 7890</span></p>
         </div>
 
-        {/* Second Column - Random Category */}
+        {/* Second Column - Blog Posts from Random Categories */}
         <div>
-          <h3 className="font-bold text-lg mb-2">Random Category</h3>
-          <p className="text-gray-400">{getRandomCategory()}</p>
+          <h3 className="font-bold text-lg mb-2">Posts from Random Categories</h3>
+          <ul className="space-y-2">
+            {randomPosts.length > 0 ? (
+              randomPosts.map(post => (
+                <li key={post.id} className="space-y-1">
+                  {/* Display the first category title (or adjust if there are multiple) */}
+                  <a href={`/blog/${post.slug}`} className="text-blue-400 hover:underline">
+                    {post.title}
+                  </a>
+                </li>
+              ))
+            ) : (
+              <p className="text-gray-400">No posts available.</p>
+            )}
+          </ul>
         </div>
 
-        {/* Third Column - Latest Posts */}
+        {/* Third Column - Subscription Input */}
         <div>
-          <h3 className="font-bold text-lg mb-2">Latest Posts</h3>
-          <ul className="space-y-2">
-            {latestPosts.map(post => (
-              <li key={post.id}>
-                <a href={`/blog/${post.slug}`} className="text-blue-400 hover:underline">
-                  {post.title}
-                </a>
-              </li>
-            ))}
-          </ul>
+          <h3 className="font-bold text-lg mb-2">Subscribe to Our Newsletter</h3>
+          <form className="flex space-x-2">
+            <input 
+              type="email" 
+              placeholder="Enter your email" 
+              className="flex-1 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              required 
+            />
+            <button 
+              type="submit" 
+              className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded transition-colors duration-200"
+            >
+              Subscribe
+            </button>
+          </form>
         </div>
       </div>
     </footer>
