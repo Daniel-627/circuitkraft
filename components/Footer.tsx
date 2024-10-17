@@ -46,18 +46,21 @@ const Footer = () => {
         <div>
           <h3 className="font-bold text-lg mb-2">Posts from Random Categories</h3>
           <ul className="space-y-2">
-            {randomPosts.length > 0 ? (
-              randomPosts.map(post => (
-                <li key={post.id} className="space-y-1">
-                  {/* Display the first category title (or adjust if there are multiple) */}
-                  <a href={`/blog/${post.slug}`} className="text-blue-400 hover:underline">
-                    {post.title}
-                  </a>
-                </li>
-              ))
-            ) : (
-              <p className="text-gray-400">No posts available.</p>
-            )}
+            <li>
+              {randomPosts.length > 0 ? (
+                randomPosts.map(post => (
+                  <li key={post.id} className="space-y-1">
+                    {/* Display the first category title (or adjust if there are multiple) */}
+                    <a href={`/blog/${post.slug}`} className="text-blue-400 hover:underline">
+                      {post.title}
+                    </a>
+                  </li>
+                ))
+              ) : (
+                <p className="text-gray-400">No posts available.</p>
+              )}
+
+            </li>
           </ul>
         </div>
 
