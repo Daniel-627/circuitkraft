@@ -34,7 +34,7 @@ html {
 
 @font-face {
   font-family: 'Zen Dots';
-  src: url('/fonts/zen_dots.ttf') format('truetype');
+  src: url('/zen_dots.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }

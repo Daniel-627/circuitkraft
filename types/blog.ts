@@ -53,3 +53,29 @@ export interface Comment {
   likes: number;
   replies?: Comment[];
 }
+
+
+
+// types.ts
+export interface Category {
+  _id: string; // Add this to ensure the _id is typed correctly
+  title: string;
+  slug: string;
+}
+
+export interface Post {
+  _id: string;
+  title: string;
+  slug: string;
+  content: string;
+  category: Category;
+}
+
+export interface Author {
+  _id: string;
+  name: string;
+  slug: string;
+  bio: string;
+  image: string;
+}
+

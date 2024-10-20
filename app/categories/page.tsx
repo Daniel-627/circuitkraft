@@ -1,46 +1,23 @@
-// app/categories/[category]/page.tsx
-import { blogPosts } from '@/data/blogs';
-import { notFound } from 'next/navigation';
-import Link from 'next/link'
+// app/categories/page.tsx
+import { fetchCategories } from "@/lib/api";
+import Link from "next/link";
 
-interface CategoryPageProps {
-  params: { category: string };
-}
-
-// Find posts by category
-const findPostsByCategory = (category: string) => {
-  return blogPosts.filter(post => post.categories.includes(category));
-};
-
-// Component to display the category page
-export default function CategoryPage({ params }: CategoryPageProps) {
-  const posts = findPostsByCategory(params.category);
-
-  if (posts.length === 0) {
-    notFound(); // Handle no posts found for the category
-  }
+export default async function CategoriesPage() {
+  const categories = await fetchCategories();
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Posts in {params.category}</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {posts.map(post => (
-          <div key={post.id} className="rounded-lg space-y-2">
-            <img src={post.featuredImage} alt={post.title} className="w-full h-48 object-cover rounded-lg" />
-            <h2 className="text-xl font-semibold mt-2">{post.title}</h2>
-            <p className="text-gray-600">{post.excerpt}</p>
-            <div className="mt-4">
-              <Link href={`/blog/${post.slug}`} className="text-blue-500">Read more</Link>
+      <h1 className="text-2xl font-bold mb-4">Categories</h1>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {categories.map((category) => (
+          <Link key={category._id} href={`/category/${category.slug}`}>
+            {/* No need for the <a> tag */}
+            <div className="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition">
+              {category.title}
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
   );
-}
-
-// Generates static paths for all categories (optional)
-export async function generateStaticParams() {
-  const categories = Array.from(new Set(blogPosts.flatMap(post => post.categories)));
-  return categories.map(category => ({ category }));
 }
