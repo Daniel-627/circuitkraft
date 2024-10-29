@@ -16,11 +16,11 @@ export default async function BlogPage() {
         <ul className="space-y-6">
           {posts.map((post) => (
             <li key={post._id}>
-              <Link href={`/blog/${post.slug}`}>
+              <Link href={`/trial/${post.slug}`}>
                 <div className="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition cursor-pointer">
                   <h2 className="text-xl font-semibold">{post.title}</h2>
                   <p className="text-gray-700 mt-2">
-                    {post.title || "No description available"}
+                    {post.description || "No description available"}
                   </p>
                 </div>
               </Link>
