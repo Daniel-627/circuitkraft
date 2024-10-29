@@ -22,14 +22,9 @@ const Navbar = () => {
               placeholder="blur"
               className=""
             />
-            <Image
-              src={logo2}
-              alt="Logo 2"
-              height={30}
-              quality={100}
-              placeholder="blur"
-              className=""
-            />
+            <div>
+              <h1 className="text-green-500 text-5xl">CircuitKraft</h1>
+            </div>
           </Link>
         </div>
         <ul className="flex space-x-4 flex-row">
