@@ -1,6 +1,7 @@
 // app/categories/[category]/page.tsx
-import { fetchPostsByCategory, fetchCategories } from "@/lib/api";
+import { fetchPostsByCategorySlug } from "@/lib/api";
 import { Post } from "@/types/blog";
+import Link from "next/link";
 
 interface CategoryPageProps {
   params: {
@@ -11,28 +12,37 @@ interface CategoryPageProps {
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { category } = params;
 
-  // Fetch posts for the given category slug
-  const posts: Post[] = await fetchPostsByCategory(category);
+  // Fetch posts based on the category slug
+  const posts: Post[] = await fetchPostsByCategorySlug(category);
 
+  // Handle case where no posts are found
   if (!posts || posts.length === 0) {
     return (
       <div className="container mx-auto p-4">
-        <h1 className="text-2xl font-bold mb-4">No posts found for category: "{category}"</h1>
-        <p>It seems there are no posts in this category yet.</p>
+        <h1 className="text-3xl font-bold mb-6">No Posts Found</h1>
+        <p>There are no posts under this category at the moment.</p>
       </div>
     );
   }
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Posts in "{category}"</h1>
+      <h1 className="text-3xl font-bold mb-6">{category.charAt(0).toUpperCase() + category.slice(1)} Posts</h1>
       <ul className="space-y-6">
         {posts.map((post) => (
           <li key={post._id}>
-            <a href={`/blog/${post.slug}`} className="text-xl font-semibold hover:underline">
-              {post.title}
-            </a>
-            <p className="text-gray-600">{post.title}</p>
+            {/* Use post.slug.current to correctly access the string value of the slug */}
+            <Link href={`/trial/${post.slug.current}`}>
+              <div className="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition cursor-pointer">
+                <h2 className="text-xl font-semibold">{post.title}</h2>
+                <p className="text-gray-700 mt-2">
+                  {post.description || "No description available"}
+                </p>
+                <p className="text-sm text-gray-500 mt-1">
+                  Published on: {new Date(post.publishedAt).toLocaleDateString()}
+                </p>
+              </div>
+            </Link>
           </li>
         ))}
       </ul>

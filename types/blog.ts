@@ -63,13 +63,19 @@ export interface Category {
   slug: string;
 }
 
+// types/blog.ts
+
 export interface Post {
   _id: string;
   title: string;
   slug: string;
-  content: string;
+  description?: string;  // Optional, in case not all posts have a description
+  publishedAt: string;   // New field for the published date
+  mainImage?: string;    // URL of the main image
+  body: any;             // Sanity's rich text structure can be of type `any`
   category: Category;
 }
+
 
 export interface Author {
   _id: string;
