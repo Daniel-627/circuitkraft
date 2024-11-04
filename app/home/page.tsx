@@ -1,15 +1,9 @@
-import Carousel from '@/components/Carousel';
+import React from 'react'
 
-export default function Home() {
-  const cards = [
-    'Card 1', 'Card 2', 'Card 3', 'Card 4',
-    'Card 5', 'Card 6', 'Card 7', 'Card 8',
-    'Card 9', 'Card 10'
-  ];
+type Props = {}
 
+export default function page({}: Props) {
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <Carousel items={cards} />
-    </div>
-  );
+    <div>page</div>
+  )
 }
