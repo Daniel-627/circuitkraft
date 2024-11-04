@@ -72,3 +72,65 @@ export async function fetchPostsByCategorySlug(categorySlug: string): Promise<Po
 }
 
 
+export async function fetchAllAuthors() {
+  // Query all authors with their _id, name, slug, and bio
+  const query = `
+    *[_type == "author"]{
+      _id,
+      name,
+      "slug": slug.current,
+      bio
+    }
+  `;
+  
+  const authors = await client.fetch(query);
+  return authors;
+}
+
+export async function fetchPostsByAuthorSlug(authorSlug: string) {
+  // Replace this with your actual query to Sanity
+  const query = `*[_type == "post" && author->slug.current == $slug]{
+    _id,
+    title,
+    description,
+    publishedAt,
+    slug {
+      current
+    }
+  }`;
+
+  const params = { slug: authorSlug };
+  const posts = await client.fetch(query, params);
+  return posts;
+}
+
+
+export async function fetchPostsBySearchQuery(query: string): Promise<Post[]> {
+  const results = await client.fetch(
+    `*[_type == "post" && (title match $query || 
+      $query in categories[]->title || 
+      $query in author->name || 
+      $query in tags[])] {
+        _id,
+        title,
+        slug {
+          current
+        },
+        description,
+        mainImage,
+        publishedAt,
+        author->{
+          name,
+          slug
+        },
+        categories[]->{
+          title,
+          slug
+        },
+        tags
+      }`,
+    { query: `${query}*` }
+  );
+
+  return results;
+}
