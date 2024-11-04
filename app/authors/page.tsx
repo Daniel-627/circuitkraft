@@ -1,26 +1,28 @@
-import { fetchAuthors } from "@/lib/api";
+// app/authors/page.tsx
+import { fetchAllAuthors } from "@/lib/api";
 import Link from "next/link";
+import { Author } from "@/types/blog";
 
 export default async function AuthorsPage() {
-  const authors = await fetchAuthors();
+  // Fetch all authors from Sanity
+  const authors: Author[] = await fetchAllAuthors();
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Authors</h1>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {authors.map((author) => (
-          <Link key={author._id} href={`/author/${author.slug}`}>
-            <a className="flex flex-col items-center bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition">
-              <img
-                src={author.image}
-                alt={author.name}
-                className="w-20 h-20 rounded-full mb-2"
-              />
-              <h2 className="text-lg font-semibold">{author.name}</h2>
-            </a>
-          </Link>
-        ))}
-      </div>
+      <h1 className="text-3xl font-bold mb-6">Authors</h1>
+      {authors.length === 0 ? (
+        <p>No authors available.</p>
+      ) : (
+        <ul className="space-y-4">
+          {authors.map((author) => (
+            <li key={author._id} className="border-b pb-2">
+              <Link href={`/authors/${author.slug}`} className="text-blue-500 hover:underline">
+                {author.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
