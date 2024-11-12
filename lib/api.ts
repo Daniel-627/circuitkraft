@@ -7,7 +7,7 @@ import { Category, Post, Author } from '@/types/blog'
 // Fetch all posts
 export const fetchAllPosts = async (): Promise<Post[]> => {
   const query = 
-  `*[_type == "post"]{
+  `*[_type == "post"] | order(publishedAt desc) {
     _id,
     title,
     description,
@@ -169,5 +169,132 @@ export async function fetchPopularPosts(startIndex = 0, limit = 2): Promise<Post
   `;
   const posts = await client.fetch(query);
   console.log("Fetched popular posts:", posts); // Log the posts to debug
+  return posts;
+}
+
+export async function fetchNewsPosts(startIndex = 0, limit = 2): Promise<Post[]> {
+  const query = `
+    *[_type == "post" && "News" in categories[]->title] | order(publishedAt desc) [${startIndex}...${startIndex + limit}] {
+      _id,
+      title,
+      slug,
+      mainImage{asset->{url}},
+      description,
+      publishedAt
+    }
+  `;
+  const posts = await client.fetch(query);
+  console.log("Fetched news posts:", posts); // Log the posts to debug
+  return posts;
+}
+
+export async function fetchMostRecentNewsPost(): Promise<Post | null> {
+  const posts = await client.fetch(
+    `*[_type == "post" && "News" in categories[]->title] | order(publishedAt desc)[0] {
+      _id,
+      title,
+      slug,
+      description,
+      mainImage{
+        asset->{
+          url
+        }
+      },
+      publishedAt,
+      categories[]->{
+        title
+      }
+    }`
+  );
+  return posts ? posts : null;
+}
+
+export async function fetchMostRecentFeaturedPost(): Promise<Post | null> {
+  const posts = await client.fetch(
+    `*[_type == "post" && "Featured" in categories[]->title] | order(publishedAt desc)[0] {
+      _id,
+      title,
+      slug,
+      description,
+      mainImage{
+        asset->{
+          url
+        }
+      },
+      publishedAt,
+      categories[]->{
+        title
+      }
+    }`
+  );
+  return posts ? posts : null;
+}
+
+export async function fetchFeaturedPosts(startIndex = 0, limit = 10): Promise<Post[]> {
+  const query = `
+    *[_type == "post" && "Featured" in categories[]->title] | order(publishedAt desc) [${startIndex}...${startIndex + limit}] {
+      _id,
+      title,
+      slug,
+      mainImage{asset->{url}},
+      description,
+      publishedAt
+    }
+  `;
+  const posts = await client.fetch(query);
+  console.log("Fetched Featured posts:", posts); // Log the posts to debug
+  return posts;
+}
+
+export async function fetchMostRecentEditorPost(): Promise<Post | null> {
+  const posts = await client.fetch(
+    `*[_type == "post" && "Editor" in categories[]->title] | order(publishedAt desc)[0] {
+      _id,
+      title,
+      slug,
+      description,
+      mainImage{
+        asset->{
+          url
+        }
+      },
+      publishedAt,
+      categories[]->{
+        title
+      }
+    }`
+  );
+  return posts ? posts : null;
+}
+
+export async function fetchEditorPosts(startIndex = 0, limit = 10): Promise<Post[]> {
+  const query = `
+    *[_type == "post" && "Editor" in categories[]->title] | order(publishedAt desc) [${startIndex}...${startIndex + limit}] {
+      _id,
+      title,
+      slug,
+      mainImage{asset->{url}},
+      description,
+      publishedAt
+    }
+  `;
+  const posts = await client.fetch(query);
+  console.log("Fetched Editor posts:", posts); // Log the posts to debug
+  return posts;
+}
+
+export async function fetchLatestPosts(startIndex = 0, limit = 20): Promise<Post[]> {
+  const query = `
+    *[_type == "post"] | order(publishedAt desc) [${startIndex}...${startIndex + limit}] {
+      _id,
+      title,
+      slug,
+      mainImage{asset->{url}},
+      description,
+      publishedAt
+    }
+  `;
+  const posts = await client.fetch(query);
+  console.log("Fetched Latest posts:", posts); // Log the posts to debug
   return posts;
 }
