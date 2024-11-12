@@ -134,3 +134,40 @@ export async function fetchPostsBySearchQuery(query: string): Promise<Post[]> {
 
   return results;
 }
+
+export async function fetchMostRecentPopularPost(): Promise<Post | null> {
+  const posts = await client.fetch(
+    `*[_type == "post" && "Popular" in categories[]->title] | order(publishedAt desc)[0] {
+      _id,
+      title,
+      slug,
+      description,
+      mainImage{
+        asset->{
+          url
+        }
+      },
+      publishedAt,
+      categories[]->{
+        title
+      }
+    }`
+  );
+  return posts ? posts : null;
+}
+
+export async function fetchPopularPosts(startIndex = 0, limit = 2): Promise<Post[]> {
+  const query = `
+    *[_type == "post" && "Popular" in categories[]->title] | order(publishedAt desc) [${startIndex}...${startIndex + limit}] {
+      _id,
+      title,
+      slug,
+      mainImage{asset->{url}},
+      description,
+      publishedAt
+    }
+  `;
+  const posts = await client.fetch(query);
+  console.log("Fetched popular posts:", posts); // Log the posts to debug
+  return posts;
+}
