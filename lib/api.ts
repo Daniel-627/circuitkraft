@@ -10,6 +10,8 @@ export const fetchAllPosts = async (): Promise<Post[]> => {
   `*[_type == "post"] | order(publishedAt desc) {
     _id,
     title,
+    "author": author->name,
+    "latestCategory": categories[-1]->title,
     description,
     "slug": slug.current,
     content
@@ -26,6 +28,8 @@ export const fetchPostBySlug = async (slug: string): Promise<Post | null> => {
   const query = `*[_type == "post" && slug.current == $slug][0]{
     _id,
     title,
+    "author": author->name,
+    "latestCategory": categories[-1]->title,
     publishedAt,
     "slug": slug.current,
     "mainImage": mainImage.asset->url,  // Fetching the image URL
@@ -45,6 +49,8 @@ export const fetchAllCategories = async (): Promise<Category[]> => {
   `*[_type == "category"]{
     _id,
     title,
+    "author": author->name,
+    "latestCategory": categories[-1]->title,
     "slug": slug.current
   }`;
 
@@ -59,6 +65,8 @@ export async function fetchPostsByCategorySlug(categorySlug: string): Promise<Po
     _id,
     title,
     slug,
+    "author": author->name,
+    "latestCategory": categories[-1]->title,
     description,
     publishedAt
   }`;
@@ -78,6 +86,8 @@ export async function fetchAllAuthors() {
     *[_type == "author"]{
       _id,
       name,
+      "author": author->name,
+      "latestCategory": categories[-1]->title,
       "slug": slug.current,
       bio
     }
@@ -93,6 +103,8 @@ export async function fetchPostsByAuthorSlug(authorSlug: string) {
     _id,
     title,
     description,
+    "author": author->name,
+    "latestCategory": categories[-1]->title,
     publishedAt,
     slug {
       current
@@ -141,6 +153,8 @@ export async function fetchMostRecentPopularPost(): Promise<Post | null> {
       _id,
       title,
       slug,
+      "author": author->name,
+      "latestCategory": categories[-1]->title,
       description,
       mainImage{
         asset->{
@@ -164,7 +178,9 @@ export async function fetchPopularPosts(startIndex = 0, limit = 2): Promise<Post
       slug,
       mainImage{asset->{url}},
       description,
-      publishedAt
+      publishedAt,
+      "author": author->name,
+      "latestCategory": categories[-1]->title,
     }
   `;
   const posts = await client.fetch(query);
@@ -179,6 +195,8 @@ export async function fetchNewsPosts(startIndex = 0, limit = 2): Promise<Post[]>
       title,
       slug,
       mainImage{asset->{url}},
+      "author": author->name,
+      "latestCategory": categories[-1]->title,
       description,
       publishedAt
     }
@@ -194,6 +212,8 @@ export async function fetchMostRecentNewsPost(): Promise<Post | null> {
       _id,
       title,
       slug,
+      "author": author->name,
+      "latestCategory": categories[-1]->title,
       description,
       mainImage{
         asset->{
@@ -216,6 +236,8 @@ export async function fetchMostRecentFeaturedPost(): Promise<Post | null> {
       title,
       slug,
       description,
+      "author": author->name,
+      "latestCategory": categories[-1]->title,
       mainImage{
         asset->{
           url
@@ -238,6 +260,8 @@ export async function fetchFeaturedPosts(startIndex = 0, limit = 10): Promise<Po
       slug,
       mainImage{asset->{url}},
       description,
+      "author": author->name,
+      "latestCategory": categories[-1]->title,
       publishedAt
     }
   `;
@@ -253,6 +277,8 @@ export async function fetchMostRecentEditorPost(): Promise<Post | null> {
       title,
       slug,
       description,
+      "author": author->name,
+      "latestCategory": categories[-1]->title,
       mainImage{
         asset->{
           url
@@ -275,6 +301,8 @@ export async function fetchEditorPosts(startIndex = 0, limit = 10): Promise<Post
       slug,
       mainImage{asset->{url}},
       description,
+      "author": author->name,
+      "latestCategory": categories[-1]->title,
       publishedAt
     }
   `;
@@ -291,10 +319,30 @@ export async function fetchLatestPosts(startIndex = 0, limit = 20): Promise<Post
       slug,
       mainImage{asset->{url}},
       description,
+      "author": author->name,
+      "latestCategory": categories[-1]->title,
       publishedAt
     }
   `;
   const posts = await client.fetch(query);
   console.log("Fetched Latest posts:", posts); // Log the posts to debug
   return posts;
+}
+
+export async function fetchRandomBlogPost() {
+  const query = `*[_type == "post"] | order(_createdAt desc) [0...10] {_id, title, slug, description, mainImage, publishedAt, "author": author->name, "latestCategory": categories[-1]->title,}`;
+  
+  try {
+    const posts = await client.fetch(query);
+    console.log("Fetched posts:", posts);  // Log to check if posts are being fetched
+    if (posts.length === 0) throw new Error("No posts found");
+
+    // Randomly select a post
+    const randomPost = posts[Math.floor(Math.random() * posts.length)];
+    console.log("Randomly selected post:", randomPost); // Log to check the selected post
+    return randomPost;
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+    throw error;
+  }
 }
