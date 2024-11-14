@@ -19,7 +19,7 @@ export default function NewsBlogCards() {
   // Handle the case where no posts are found
   if (!posts || posts.length === 0) {
     return (
-      <div className="p-4 bg-gray-100 rounded-lg shadow-md">
+      <div className="p-4 ">
         <p>No additional news posts available.</p>
       </div>
     );
@@ -29,21 +29,18 @@ export default function NewsBlogCards() {
     <div className="grid gap-6 md:grid-cols-2">
       {posts.map((post) => (
         <Link href={`/trial/${encodeURIComponent(post.slug.current)}`} key={post._id} passHref>
-          <div className="p-4 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow cursor-pointer">
+          <div className="p-4 bg-white  cursor-pointer">
             {post.mainImage && (
               <img
                 src={post.mainImage.asset.url}
                 alt={post.title}
-                className="w-full h-48 object-cover rounded-t-lg"
+                className="w-full h-48 object-cover rounded-lg"
               />
             )}
             <div className="mt-4">
               <h2 className="text-xl font-semibold">{post.title}</h2>
-              <p className="text-gray-600 mt-2">
-                {post.description || "No description available"}
-              </p>
-              <p className="text-sm text-gray-500 mt-4">
-                Published on: {new Date(post.publishedAt).toLocaleDateString()}
+              <p className="text-xs text-gray-500 mt-4">
+                {new Date(post.publishedAt).toLocaleDateString()}
               </p>
             </div>
           </div>

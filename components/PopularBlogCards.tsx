@@ -19,32 +19,28 @@ export default function PopularBlogCards() {
   // Handle the case where no posts are found
   if (!posts || posts.length === 0) {
     return (
-      <div className="p-4 bg-gray-100 rounded-lg shadow-md">
+      <div className="p-4 ">
         <p>No additional popular posts available.</p>
       </div>
     );
   }
 
   return (
-    <div className="grid gap-6 md:grid-cols-2">
+    <div className="flex md:flex-col">
       {posts.map((post) => (
         <Link href={`/trial/${encodeURIComponent(post.slug.current)}`} key={post._id} passHref>
-          <div className="p-4 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow cursor-pointer">
-            {post.mainImage && (
-              <img
-                src={post.mainImage.asset.url}
-                alt={post.title}
-                className="w-full h-48 object-cover rounded-t-lg"
-              />
-            )}
-            <div className="mt-4">
-              <h2 className="text-xl font-semibold">{post.title}</h2>
-              <p className="text-gray-600 mt-2">
-                {post.description || "No description available"}
-              </p>
-              <p className="text-sm text-gray-500 mt-4">
-                Published on: {new Date(post.publishedAt).toLocaleDateString()}
-              </p>
+          <div className="p-2  cursor-pointer">
+            <div className="mt-1">
+              <p className="text-xs text-gray-500 mt-2">{post.latestCategory}</p>
+              <h2 className="text-base font-medium">{post.title}</h2>
+              <div className="flex flex-row">
+                <p className="text-xs text-gray-600 mt-2">
+                  {post.author || "Author"}
+                </p>
+                <p className="text-xs text-gray-500 mt-2">
+                  .{new Date(post.publishedAt).toLocaleDateString()}
+                </p>
+              </div>
             </div>
           </div>
         </Link>

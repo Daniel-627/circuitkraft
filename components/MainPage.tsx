@@ -16,12 +16,14 @@ export default function MainPage({}: Props) {
   return (
     <div>
         <div>
-            <div>
-                <PopularBlogCard />
-            </div>
-            <div>
-                <PopularBlogCard2 />
-                <PopularBlogCards />
+            <div className='grid grid-cols-5'>
+                <div className='col-span-3'>
+                    <PopularBlogCard />
+                </div>
+                <div className='col-span-2'>
+                    <PopularBlogCard2 />
+                    <PopularBlogCards />
+                </div>
             </div>
         </div>
         <div>

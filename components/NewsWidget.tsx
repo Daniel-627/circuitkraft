@@ -1,7 +1,7 @@
 'use client'
 // components/FeaturedBlogList.tsx
 import { useEffect, useState } from "react";
-import { fetchFeaturedPosts } from "@/lib/api";
+import { fetchNewsPosts } from "@/lib/api";
 import { Post } from "@/types/blog";
 import Link from "next/link";
 
@@ -10,8 +10,8 @@ export default function FeaturedBlogList() {
 
   useEffect(() => {
     async function fetchPosts() {
-      const featuredPosts = await fetchFeaturedPosts(2, 5); // Start from 2nd item and get 2 posts
-      setPosts(featuredPosts);
+      const newsPosts = await fetchNewsPosts(0, 4); // Start from 2nd item and get 2 posts
+      setPosts(newsPosts);
     }
     fetchPosts();
   }, []);
@@ -20,7 +20,7 @@ export default function FeaturedBlogList() {
   if (!posts || posts.length === 0) {
     return (
       <div className="p-4 bg-gray-100 rounded-lg shadow-md">
-        <p>No additional featured posts available.</p>
+        <p>No additional posts available.</p>
       </div>
     );
   }
