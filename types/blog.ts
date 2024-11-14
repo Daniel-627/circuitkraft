@@ -74,6 +74,8 @@ export interface Post {
   mainImage?: string;    // URL of the main image
   body: any;             // Sanity's rich text structure can be of type `any`
   category: Category;
+  author: string;
+  latestCategory: string;
 }
 
 
