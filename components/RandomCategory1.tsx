@@ -40,14 +40,18 @@ export default function RandomCategory1() {
             style={{ backgroundImage: `url(${post.mainImage.asset.url})` }}
           />
         )}
-        <div className="mt-4">
-          <h2 className="text-lg font-semibold">{post.title}</h2>
-          <p className="text-gray-600 mt-2">{post.description || "No description available."}</p>
-          <p className="text-sm text-gray-500 mt-4">
-            {post.author && `By ${post.author.name}`} -{" "}
-            {new Date(post.publishedAt).toLocaleDateString()}
-          </p>
-        </div>
+        <div className="mt-1">
+              <p className="text-xs text-gray-500 mt-2">{post.latestCategory}</p>
+              <h2 className="text-base font-medium">{post.title}</h2>
+              <div className="flex flex-row">
+                <p className="text-xs text-gray-600 mt-2">
+                  {post.author || "Author"}
+                </p>
+                <p className="text-xs text-gray-500 mt-2">
+                  .{new Date(post.publishedAt).toLocaleDateString()}
+                </p>
+              </div>
+            </div>
       </div>
     </Link>
   );

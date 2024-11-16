@@ -37,11 +37,17 @@ export default function PopularBlogCard2() {
                 className="w-full h-36 object-cover rounded-lg"
               />
             )}
-            <div className="mt-4">
-              <h2 className="text-base font-semibold">{post.title}</h2>
-              <p className="text-xs text-gray-500 mt-4">
-                {new Date(post.publishedAt).toLocaleDateString()}
-              </p>
+            <div className="mt-1">
+              <p className="text-xs text-gray-500 mt-2">{post.latestCategory}</p>
+              <h2 className="text-base font-medium">{post.title}</h2>
+              <div className="flex flex-row">
+                <p className="text-xs text-gray-600 mt-2">
+                  {post.author || "Author"}
+                </p>
+                <p className="text-xs text-gray-500 mt-2">
+                  .{new Date(post.publishedAt).toLocaleDateString()}
+                </p>
+              </div>
             </div>
           </div>
         </Link>

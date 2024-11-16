@@ -19,29 +19,34 @@ export default function NewsBlogCards() {
   // Handle the case where no posts are found
   if (!posts || posts.length === 0) {
     return (
-      <div className="p-4 ">
+      <div className="p-4">
         <p>No additional news posts available.</p>
       </div>
     );
   }
 
   return (
-    <div className="grid gap-6 md:grid-cols-2">
+    <div className="gap-4 grid grid-cols-1 sm:grid-cols-2">
       {posts.map((post) => (
-        <Link href={`/trial/${encodeURIComponent(post.slug.current)}`} key={post._id} passHref>
-          <div className="p-4 bg-white  cursor-pointer">
-            {post.mainImage && (
-              <img
-                src={post.mainImage.asset.url}
-                alt={post.title}
-                className="w-full h-48 object-cover rounded-lg"
-              />
-            )}
-            <div className="mt-4">
-              <h2 className="text-xl font-semibold">{post.title}</h2>
-              <p className="text-xs text-gray-500 mt-4">
-                {new Date(post.publishedAt).toLocaleDateString()}
-              </p>
+        <Link href={`/blog/${post.slug.current}`} passHref key={post._id}>
+          <div
+            className="relative h-72 bg-cover bg-center rounded-lg shadow-lg cursor-pointer"
+            style={{ backgroundImage: `url(${post.mainImage.asset.url})` }}
+          >
+            {/* Dark Overlay */}
+            <div className="absolute inset-0 bg-black bg-opacity-50 rounded-lg"></div>
+
+            {/* Content */}
+            <div className="absolute inset-0 flex flex-col justify-end p-4 z-10 text-white">
+              <p className="text-sm text-gray-300">{post.latestCategory}</p>
+              <h2 className="text-lg font-semibold mt-2 hover:underline">
+                {post.title}
+              </h2>
+              <div className="flex flex-row items-center space-x-2 mt-4 text-gray-300 text-sm">
+                <p>{post.author || "Author"}</p>
+                <span className="text-gray-400">•</span>
+                <p>{new Date(post.publishedAt).toLocaleDateString()}</p>
+              </div>
             </div>
           </div>
         </Link>

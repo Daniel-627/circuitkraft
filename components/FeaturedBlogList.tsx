@@ -31,10 +31,8 @@ export default function FeaturedBlogList() {
         <Link href={`/trial/${encodeURIComponent(post.slug.current)}`} key={post._id} passHref>
           <div className="p-4 cursor-pointer">
             <div className="mt-1">
-              <h2 className="text-xl font-semibold">{post.title}</h2>
-              <p className="text-xs text-gray-500 mt-4">
-                {new Date(post.publishedAt).toLocaleDateString()}
-              </p>
+              <p className="text-xs text-blue-500 mt-2">{post.latestCategory}</p>
+              <h2 className="text-base font-semibold">{post.title}</h2>
             </div>
           </div>
         </Link>

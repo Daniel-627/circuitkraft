@@ -19,28 +19,35 @@ export default function FeaturedBlogCard() {
   // Handle the case where no post is found
   if (!post) {
     return (
-      <div className="p-4 ">
+      <div className="p-4">
         <p>No featured posts available.</p>
       </div>
     );
   }
 
   return (
-    <Link href={`/trial/${encodeURIComponent(post.slug.current)}`} passHref>
+    <Link href={`/blog/${post.slug.current}`} passHref>
       <div
-        className="p-4 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow cursor-pointer bg-cover bg-center h-80 flex flex-col justify-end text-white"
+        className="relative h-96 rounded-lg shadow-lg hover:shadow-xl transition-shadow cursor-pointer bg-cover bg-center text-white"
         style={{
-          backgroundImage: post.mainImage ? `url(${post.mainImage.asset.url})` : undefined,
+          backgroundImage: `url(${post.mainImage.asset.url})`,
         }}
       >
-        <div className="bg-black bg-opacity-50 pt-4 rounded-lg">
-          <h2 className="text-xl font-semibold">{post.title}</h2>
-          <p className="text-xs mt-4">
-            {new Date(post.publishedAt).toLocaleDateString()}
-          </p>
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black bg-opacity-50 rounded-lg"></div>
+
+        {/* Content */}
+        <div className="absolute bottom-0 w-full p-6 z-10 bg-gradient-to-t from-black via-transparent to-transparent rounded-b-lg">
+          <p className="text-sm text-gray-300">{post.latestCategory}</p>
+          <h2 className="text-2xl font-semibold mt-2">{post.title}</h2>
+          <div className="flex flex-row space-x-2 mt-4">
+            <p className="text-sm text-gray-300">{post.author || "Author"}</p>
+            <p className="text-sm text-gray-400">
+              .{new Date(post.publishedAt).toLocaleDateString()}
+            </p>
+          </div>
         </div>
       </div>
     </Link>
   );
 }
-

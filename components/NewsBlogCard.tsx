@@ -9,7 +9,7 @@ export default function NewsBlogCard() {
   const [post, setPost] = useState<Post | null>(null);
 
   useEffect(() => {
-    // Fetch the most recent post in the "Popular" category
+    // Fetch the most recent post in the "News" category
     async function fetchPost() {
       const NewsPost = await fetchMostRecentNewsPost();
       setPost(NewsPost);
@@ -20,27 +20,34 @@ export default function NewsBlogCard() {
   // Handle the case where no post is found
   if (!post) {
     return (
-      <div className="p-4 ">
+      <div className="p-4">
         <p>No News posts available.</p>
       </div>
     );
   }
 
   return (
-    <Link href={`/trial/${encodeURIComponent(post.slug.current)}`} passHref>
-      <div className="p-4  cursor-pointer">
-        {post.mainImage && (
-          <img
-            src={post.mainImage.asset.url}
-            alt={post.title}
-            className="w-full h-48 object-cover rounded-lg"
-          />
-        )}
-        <div className="mt-4">
-          <h2 className="text-xl font-semibold">{post.title}</h2>
-          <p className="text-xs text-gray-500 mt-4">
-            {new Date(post.publishedAt).toLocaleDateString()}
-          </p>
+    <Link href={`/blog/${post.slug.current}`} passHref>
+      <div
+        className="relative h-96 bg-cover bg-center rounded-lg shadow-lg cursor-pointer"
+        style={{
+          backgroundImage: `url(${post.mainImage.asset.url})`,
+        }}
+      >
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black bg-opacity-50 rounded-lg"></div>
+
+        {/* Content */}
+        <div className="absolute inset-0 flex flex-col justify-end p-6 z-10 text-white">
+          <p className="text-sm text-gray-300">{post.latestCategory}</p>
+          <h2 className="text-2xl font-bold mt-2 hover:underline">
+            {post.title}
+          </h2>
+          <div className="flex flex-row items-center space-x-2 mt-4 text-gray-300 text-sm">
+            <p>{post.author || "Author"}</p>
+            <span className="text-gray-400">•</span>
+            <p>{new Date(post.publishedAt).toLocaleDateString()}</p>
+          </div>
         </div>
       </div>
     </Link>

@@ -30,23 +30,25 @@ export default function MainPage({}: Props) {
             <NewsBlogCards />
             <NewsBlogCard />
         </div>
+        <div className=''>
+            <div className='grid grid-cols-12'>
+                <div className='col-span-7'>
+                    <FeaturedBlogCard />
+                </div>
+                <div className='col-span-5'>
+                    <FeaturedBlogList />
+                </div>
+            </div>
+        </div>
+        <div>
+            <EditorsPick1 />
+        </div>
         <div>
             <div>
-                <FeaturedBlogCard />
+                <LatestArticles1 />
             </div>
             <div>
-                <FeaturedBlogList />
-            </div>
-            <div>
-                <EditorsPick1 />
-            </div>
-            <div>
-                <div>
-                    <LatestArticles1 />
-                </div>
-                <div>
-                    <LatestArticles2 />
-                </div>
+                <LatestArticles2 />
             </div>
         </div>
     </div>
