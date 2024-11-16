@@ -61,7 +61,8 @@ export const fetchAllCategories = async (): Promise<Category[]> => {
 // Fetch all posts in a specific category using the category slug
 // lib/api.ts
 export async function fetchPostsByCategorySlug(categorySlug: string): Promise<Post[]> {
-  const query =`*[_type == "post" && references(*[_type == "category" && slug.current == $categorySlug]._id)]{
+  const query =
+  `*[_type == "post" && references(*[_type == "category" && slug.current == $categorySlug]._id)]{
     _id,
     title,
     slug,
@@ -343,6 +344,72 @@ export async function fetchRandomBlogPost() {
     return randomPost;
   } catch (error) {
     console.error("Error fetching posts:", error);
+    throw error;
+  }
+}
+
+export async function fetchRandomCategoryPosts() {
+  try {
+    // Fetch all categories first
+    const categoriesQuery = `*[_type == "category"]{_id, title}`;
+    const categories = await client.fetch(categoriesQuery);
+
+    if (!categories.length) throw new Error("No categories found");
+
+    // Select a random category
+    const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+    console.log("Selected category:", randomCategory);
+
+    // Fetch up to 3 posts from the selected category
+    const postsQuery = 
+    `*[_type == "post" && references("${randomCategory._id}")] | order(_createdAt desc) [0...3] {
+      _id,
+      title,
+      slug,
+      description,
+      mainImage,
+      publishedAt,
+      "author": author->name,
+    }`;
+    const posts = await client.fetch(postsQuery);
+    console.log("Fetched posts for category:", posts);
+
+    return { category: randomCategory, posts };
+  } catch (error) {
+    console.error("Error fetching category posts:", error);
+    throw error;
+  }
+}
+
+export async function fetchLatestCategories() {
+  try {
+    const query = 
+    `*[_type == "category"] | order(_createdAt desc) [0...4] {
+      _id,
+      title,
+      slug
+    }`;
+    const categories = await client.fetch(query);
+    return categories;
+  } catch (error) {
+    console.error("Error fetching latest categories:", error);
+    throw error;
+  }
+}
+
+export async function fetchRandomAuthor() {
+  try {
+    const query = 
+    `*[_type == "author"] | sample(1)[0] {
+      _id,
+      name,
+      slug,
+      image
+    }`;
+    const author = await client.fetch(query);
+    return author;
+  } catch (error) {
+    console.error("Error fetching random author:", error);
     throw error;
   }
 }
