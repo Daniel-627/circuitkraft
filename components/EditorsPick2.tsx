@@ -29,17 +29,17 @@ export default function EditorsPick2() {
     <div className="grid gap-6 md:grid-cols-2">
       {posts.map((post) => (
         <Link href={`/trial/${encodeURIComponent(post.slug.current)}`} key={post._id} passHref>
-          <div className="p-4 cursor-pointer flex flex-row">
+          <div className="p-4 cursor-pointer flex flex-row items-center space-x-2">
             {post.mainImage && (
               <img
                 src={post.mainImage.asset.url}
                 alt={post.title}
-                className="w-12 h-12 object-cover rounded-t-lg"
+                className="w-16 h-16 object-cover rounded-lg"
               />
             )}
             <div className="mt-1 flex flex-col">
-              <h2 className="text-base font-semibold">{post.title}</h2>
-              <p className="text-xs text-gray-500 mt-4">
+              <h2 className="text-base font-medium">{post.title}</h2>
+              <p className="text-xs text-gray-500 mt-1">
                 {new Date(post.publishedAt).toLocaleDateString()}
               </p>
             </div>

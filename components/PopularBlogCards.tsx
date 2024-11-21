@@ -29,16 +29,16 @@ export default function PopularBlogCards() {
     <div className="flex md:flex-col">
       {posts.map((post) => (
         <Link href={`/trial/${encodeURIComponent(post.slug.current)}`} key={post._id} passHref>
-          <div className="p-2  cursor-pointer">
+          <div className="p-2  cursor-pointer border-t-2">
             <div className="mt-1">
-              <p className="text-xs text-gray-500 mt-2">{post.latestCategory}</p>
+              <p className="text-xs text-blue-500 mt-2">{post.latestCategory}</p>
               <h2 className="text-base font-medium">{post.title}</h2>
-              <div className="flex flex-row">
+              <div className="flex flex-row justify-between">
                 <p className="text-xs text-gray-600 mt-2">
                   {post.author || "Author"}
                 </p>
                 <p className="text-xs text-gray-500 mt-2">
-                  .{new Date(post.publishedAt).toLocaleDateString()}
+                  {new Date(post.publishedAt).toLocaleDateString()}
                 </p>
               </div>
             </div>

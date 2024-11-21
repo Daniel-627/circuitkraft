@@ -3,16 +3,16 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { fetchRandomCategoryPosts } from "@/lib/api";
+import { fetchRandomCategoryPosts2 } from "@/lib/api";
 import { Post } from "@/types/blog";
 
-export default function RandomCategory2() {
+export default function RandomCategory3() {
   const [category, setCategory] = useState<{ title: string } | null>(null);
   const [posts, setPosts] = useState<Post[]>([]);
 
   const fetchAndSetCategoryPosts = async () => {
     try {
-      const { category, posts } = await fetchRandomCategoryPosts();
+      const { category, posts } = await fetchRandomCategoryPosts2();
       setCategory(category);
       setPosts(posts);
       console.log("Random category and posts:", category, posts);
@@ -47,7 +47,7 @@ export default function RandomCategory2() {
               <img
                 src={post.mainImage.asset.url}
                 alt={post.title}
-                className=" h-16 w-16 object-cover rounded-lg"
+                className=" h-16 w-16 object-cover rounded-full"
               />
             )}
             <div className="">

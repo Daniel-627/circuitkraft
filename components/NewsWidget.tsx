@@ -5,12 +5,12 @@ import { fetchNewsPosts } from "@/lib/api";
 import { Post } from "@/types/blog";
 import Link from "next/link";
 
-export default function FeaturedBlogList() {
+export default function NewsWidget() {
   const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
     async function fetchPosts() {
-      const newsPosts = await fetchNewsPosts(0, 4); // Start from 2nd item and get 2 posts
+      const newsPosts = await fetchNewsPosts(0, 4); // Fetch 4 posts starting from the first item
       setPosts(newsPosts);
     }
     fetchPosts();
@@ -27,14 +27,24 @@ export default function FeaturedBlogList() {
 
   return (
     <div className="flex flex-col">
-      {posts.map((post) => (
+      {posts.map((post, index) => (
         <Link href={`/trial/${encodeURIComponent(post.slug.current)}`} key={post._id} passHref>
-          <div className="p-4 cursor-pointer">
+          <div className="p-4 cursor-pointer border-b-2">
             <div className="mt-1">
-              <h2 className="text-xl font-semibold">{post.title}</h2>
-              <p className="text-xs text-gray-500 mt-4">
-                {new Date(post.publishedAt).toLocaleDateString()}
-              </p>
+              <div className='flex flex-row'>
+                <h1 className="text-2xl font-medium">0{index + 1}.</h1>
+                <h2 className="text-base font-medium">
+                   {post.title} {/* Display the number before the title */}
+                </h2>
+              </div>
+              <div className="flex flex-row justify-between">
+                <p className="text-xs text-gray-600 mt-2">
+                  {post.author || "Author"}
+                </p>
+                <p className="text-xs text-gray-500 mt-2">
+                  .{new Date(post.publishedAt).toLocaleDateString()}
+                </p>
+              </div>
             </div>
           </div>
         </Link>

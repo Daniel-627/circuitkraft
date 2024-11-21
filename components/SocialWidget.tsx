@@ -1,5 +1,6 @@
 // components/SocialWidget.tsx
 import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
+import { TbX } from "react-icons/tb"; // X (formerly Twitter) icon
 
 export default function SocialWidget() {
   const socialLinks = [
@@ -7,51 +8,52 @@ export default function SocialWidget() {
       id: "facebook",
       icon: <FaFacebookF />,
       url: "https://facebook.com",
-      label: "Facebook",
-      followers: "12K", // Example follower count
+      bgColor: "bg-blue-600", // Facebook brand color
+      followers: "12.4K",
     },
     {
-      id: "twitter",
-      icon: <FaTwitter />,
-      url: "https://twitter.com",
-      label: "Twitter",
-      followers: "8K", // Example follower count
+      id: "x",
+      icon: <TbX />,
+      url: "https://x.com", // Updated URL for X
+      bgColor: "bg-black", // Black for X brand color
+      followers: "8.3K",
     },
     {
       id: "instagram",
       icon: <FaInstagram />,
       url: "https://instagram.com",
-      label: "Instagram",
-      followers: "15K", // Example follower count
+      bgColor: "bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400", // Instagram gradient color
+      followers: "15.7K",
     },
     {
       id: "youtube",
       icon: <FaYoutube />,
       url: "https://youtube.com",
-      label: "YouTube",
-      subscribers: "20K", // Example subscriber count
+      bgColor: "bg-red-600", // YouTube brand color
+      subscribers: "20.4K",
     },
   ];
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow-lg max-w-sm">
+    <div className="p-2 rounded-lg max-w-sm m-2 border-b-2 ">
       <h2 className="text-xl font-semibold text-center mb-4">Follow Us</h2>
-      <div className="space-y-4">
+      <div className="flex justify-around">
         {socialLinks.map((link) => (
           <a
             key={link.id}
             href={link.url}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={link.label}
-            className="flex items-center justify-between text-gray-700 hover:text-blue-500 transition-colors"
+            aria-label={link.id}
+            className="flex flex-col items-center text-white"
           >
-            <div className="flex items-center gap-4">
-              <span className="text-2xl">{link.icon}</span>
-              <span className="text-lg font-medium">{link.label}</span>
+            <div
+              className={`w-12 h-12 flex items-center justify-center rounded-full ${link.bgColor}`}
+            >
+              <span className="text-lg">{link.icon}</span>
             </div>
-            <span className="text-sm text-gray-500">
-              {link.followers ? `${link.followers} Followers` : `${link.subscribers} Subscribers`}
+            <span className="text-sm font-semibold mt-1 text-gray-800">
+              {link.followers || link.subscribers}
             </span>
           </a>
         ))}

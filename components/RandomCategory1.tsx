@@ -1,4 +1,3 @@
-// components/RandomBlogPostWidget.tsx
 "use client";
 
 import { useState, useEffect } from "react";
@@ -32,27 +31,27 @@ export default function RandomCategory1() {
   if (!post) return <div>Loading...</div>;
 
   return (
-    <Link href={`/blog/${post.slug.current}`} passHref>
-      <div className="p-4 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow cursor-pointer">
-        {post.mainImage && (
+    <Link href={`/blog/${post.slug.current}`} passHref key={post._id}>
           <div
-            className="h-40 bg-cover bg-center rounded-t-lg"
+            className="relative h-72 bg-cover bg-center rounded-lg shadow-lg cursor-pointer"
             style={{ backgroundImage: `url(${post.mainImage.asset.url})` }}
-          />
-        )}
-        <div className="mt-1">
-              <p className="text-xs text-gray-500 mt-2">{post.latestCategory}</p>
-              <h2 className="text-base font-medium">{post.title}</h2>
-              <div className="flex flex-row">
-                <p className="text-xs text-gray-600 mt-2">
-                  {post.author || "Author"}
-                </p>
-                <p className="text-xs text-gray-500 mt-2">
-                  .{new Date(post.publishedAt).toLocaleDateString()}
-                </p>
+          >
+            {/* Dark Overlay */}
+            <div className="absolute inset-0 bg-black bg-opacity-50 rounded-lg"></div>
+
+            {/* Content */}
+            <div className="absolute inset-0 flex flex-col justify-end p-4 z-10 text-white">
+              <p className="text-sm text-blue-500">{post.latestCategory}</p>
+              <h2 className="text-lg font-medium mt-2 hover:underline">
+                {post.title}
+              </h2>
+              <div className="flex flex-row items-center space-x-2 mt-4 text-gray-300 text-sm">
+                <p>{post.author || "Author"}</p>
+                <span className="text-gray-400">•</span>
+                <p>{new Date(post.publishedAt).toLocaleDateString()}</p>
               </div>
             </div>
-      </div>
-    </Link>
+          </div>
+        </Link>
   );
 }

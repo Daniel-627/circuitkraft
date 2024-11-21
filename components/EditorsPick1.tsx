@@ -39,19 +39,19 @@ export default function EditorsPick1() {
 
       {/* Content */}
       <div className="absolute inset-0 flex flex-col justify-end p-6 z-10 text-white">
-        <p className="text-sm text-gray-300">{post.latestCategory}</p>
+        <p className="text-sm text-blue-500">{post.latestCategory}</p>
         <Link href={`/trial/${encodeURIComponent(post.slug.current)}`} passHref>
-          <h2 className="text-2xl font-bold mt-2 hover:underline">
+          <h2 className="text-2xl font-medium mt-2 hover:underline">
             {post.title}
           </h2>
         </Link>
-        <div className="flex flex-row items-center space-x-2 mt-4 text-gray-300 text-sm">
+        <div className="flex flex-row items-center space-x-2 mt-4 text-gray-300 text-sm pb-6">
           <p>{post.author || "Author"}</p>
           <span className="text-gray-400">•</span>
           <p>{new Date(post.publishedAt).toLocaleDateString()}</p>
         </div>
         {/* Nested EditorsPick2 */}
-        <div className=" bottom-0 left-0 w-full">
+        <div className=" bottom-0 left-0 w-full border-t-2 border-gray-500">
           <EditorsPick2 />
         </div>
       </div>

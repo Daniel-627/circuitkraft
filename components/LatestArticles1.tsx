@@ -26,7 +26,7 @@ export default function LatestArticles1() {
   }
 
   return (
-    <div className="grid gap-1 md:grid-cols-3">
+    <div className="grid gap-1 md:grid-cols-3 border-x-2">
       {posts.map((post) => (
         <Link href={`/trial/${encodeURIComponent(post.slug.current)}`} key={post._id} passHref>
           <div className="p-4  cursor-pointer">
@@ -38,10 +38,8 @@ export default function LatestArticles1() {
               />
             )}
             <div className="mt-4">
+              <p className="text-sm text-blue-500">{post.latestCategory}</p>
               <h2 className="text-base font-medium">{post.title}</h2>
-              <p className="text-gray-500 mt-2">
-                {post.description || "No description available"}
-              </p>
               <p className="text-xs text-gray-400 mt-4">
                 {new Date(post.publishedAt).toLocaleDateString()}
               </p>

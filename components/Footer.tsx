@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { blogPosts } from '@/data/blogs'; // Import your blog posts
 import { BlogPost } from '@/types/blog'; // Import your BlogPost type
 import logo1 from '@/public/logo1.png';
+import  RandomCategory3  from '@/components/RandomCategory3'
 
 const Footer = () => {
   const [randomPosts, setRandomPosts] = useState<BlogPost[]>([]);
@@ -44,24 +45,7 @@ const Footer = () => {
 
         {/* Second Column - Blog Posts from Random Categories */}
         <div>
-          <h3 className="font-bold text-lg mb-2">Posts from Random Categories</h3>
-          <ul className="space-y-2">
-            <li>
-              {randomPosts.length > 0 ? (
-                randomPosts.map(post => (
-                  <li key={post.id} className="space-y-1">
-                    {/* Display the first category title (or adjust if there are multiple) */}
-                    <a href={`/blog/${post.slug}`} className="text-blue-400 hover:underline">
-                      {post.title}
-                    </a>
-                  </li>
-                ))
-              ) : (
-                <p className="text-gray-400">No posts available.</p>
-              )}
-
-            </li>
-          </ul>
+          <RandomCategory3 />
         </div>
 
         {/* Third Column - Subscription Input */}

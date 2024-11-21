@@ -1,50 +1,47 @@
-// components/CategoriesWidget.tsx
-"use client";
-
-import { useEffect, useState } from "react";
+import { fetchAllCategories } from "@/lib/api";
+import { Category } from "@/types/blog";
 import Link from "next/link";
 
-interface Category {
-  _id: string;
-  title: string;
-  slug?: {
-    current: string;
-  };
+function getRandomCategories(categories: Category[], count: number): Category[] {
+  const shuffled = categories.sort(() => 0.5 - Math.random()); // Shuffle array
+  return shuffled.slice(0, count); // Return `count` random categories
 }
 
-export default function CategoriesWidget() {
-  const [categories, setCategories] = useState<Category[]>([]);
+export default async function CategoriesPage() {
+  // Fetch categories from the API
+  const categories: Category[] = await fetchAllCategories();
 
-  useEffect(() => {
-    async function fetchCategories() {
-      try {
-        const response = await fetch("/api/categories"); // Replace with your actual API endpoint
-        const data = await response.json();
-        setCategories(data);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    }
-
-    fetchCategories();
-  }, []);
+  // Get three random categories
+  const randomCategories = getRandomCategories(categories, 3);
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow-md">
-      <h2 className="text-xl font-bold mb-4">Categories</h2>
-      <ul className="space-y-2">
-        {categories.map((category) => (
-          <li key={category._id}>
-            {category.slug?.current ? (
-              <Link href={`/categories/${category.slug.current}`}>
-                <a className="text-blue-600 hover:underline">{category.title}</a>
+    <div className="container mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-6">Categories</h1>
+      {randomCategories.length === 0 ? (
+        <p>No categories available.</p>
+      ) : (
+        <ul className="space-y-6">
+          {randomCategories.map((category) => (
+            <li key={category._id}>
+              <Link href={`/categories/${category.slug}`}>
+                <div
+                  className="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition cursor-pointer bg-cover bg-center"
+                  style={{
+                    backgroundImage: `url(${category.mainImage?.asset?.url || "/default-image.jpg"})`, // Fallback to a default image if mainImage is not available
+                  }}
+                >
+                  <h2 className="text-xl font-semibold bg-black/50 text-white p-2 rounded-md inline-block">
+                    {category.title}
+                  </h2>
+                </div>
               </Link>
-            ) : (
-              <span className="text-gray-500">{category.title}</span>
-            )}
-          </li>
-        ))}
-      </ul>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
+
+// ISR revalidation every 60 seconds
+export const revalidate = 60; // Revalidate this page every 60 seconds

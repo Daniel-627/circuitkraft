@@ -29,7 +29,7 @@ export default function NewsBlogCard() {
   return (
     <Link href={`/blog/${post.slug.current}`} passHref>
       <div
-        className="relative h-96 bg-cover bg-center rounded-lg shadow-lg cursor-pointer"
+        className="relative h-96 bg-cover bg-center rounded-lg shadow-lg cursor-pointer m-2 my-4"
         style={{
           backgroundImage: `url(${post.mainImage.asset.url})`,
         }}
@@ -39,8 +39,8 @@ export default function NewsBlogCard() {
 
         {/* Content */}
         <div className="absolute inset-0 flex flex-col justify-end p-6 z-10 text-white">
-          <p className="text-sm text-gray-300">{post.latestCategory}</p>
-          <h2 className="text-2xl font-bold mt-2 hover:underline">
+          <p className="text-sm text-blue-500">{post.latestCategory}</p>
+          <h2 className="text-2xl font-medium mt-2 hover:underline">
             {post.title}
           </h2>
           <div className="flex flex-row items-center space-x-2 mt-4 text-gray-300 text-sm">

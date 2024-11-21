@@ -26,7 +26,7 @@ export default function NewsBlogCards() {
   }
 
   return (
-    <div className="gap-4 grid grid-cols-1 sm:grid-cols-2">
+    <div className="gap-4 grid grid-cols-1 sm:grid-cols-2 m-2 my-4">
       {posts.map((post) => (
         <Link href={`/blog/${post.slug.current}`} passHref key={post._id}>
           <div
@@ -38,8 +38,8 @@ export default function NewsBlogCards() {
 
             {/* Content */}
             <div className="absolute inset-0 flex flex-col justify-end p-4 z-10 text-white">
-              <p className="text-sm text-gray-300">{post.latestCategory}</p>
-              <h2 className="text-lg font-semibold mt-2 hover:underline">
+              <p className="text-sm text-blue-500">{post.latestCategory}</p>
+              <h2 className="text-lg font-medium mt-2 hover:underline">
                 {post.title}
               </h2>
               <div className="flex flex-row items-center space-x-2 mt-4 text-gray-300 text-sm">

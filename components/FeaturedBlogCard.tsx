@@ -38,12 +38,13 @@ export default function FeaturedBlogCard() {
 
         {/* Content */}
         <div className="absolute bottom-0 w-full p-6 z-10 bg-gradient-to-t from-black via-transparent to-transparent rounded-b-lg">
-          <p className="text-sm text-gray-300">{post.latestCategory}</p>
-          <h2 className="text-2xl font-semibold mt-2">{post.title}</h2>
+          <p className="text-sm text-blue-500">{post.latestCategory}</p>
+          <h2 className="text-2xl font-medium mt-2">{post.title}</h2>
           <div className="flex flex-row space-x-2 mt-4">
             <p className="text-sm text-gray-300">{post.author || "Author"}</p>
+            <span className="text-gray-400">•</span>
             <p className="text-sm text-gray-400">
-              .{new Date(post.publishedAt).toLocaleDateString()}
+              {new Date(post.publishedAt).toLocaleDateString()}
             </p>
           </div>
         </div>

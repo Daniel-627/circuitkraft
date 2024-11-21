@@ -26,10 +26,10 @@ export default function LatestArticles2() {
   }
 
   return (
-    <div className="grid gap-2 md:grid-cols-3">
+    <div className="grid gap-2 md:grid-cols-3 border-b-2">
       {posts.map((post) => (
         <Link href={`/trial/${encodeURIComponent(post.slug.current)}`} key={post._id} passHref>
-          <div className="p-4  cursor-pointer flex flex-row">
+          <div className="p-2 m-2 cursor-pointer flex flex-row items-center space-x-2 border-t-2">
             {post.mainImage && (
               <img
                 src={post.mainImage.asset.url}
@@ -37,9 +37,9 @@ export default function LatestArticles2() {
                 className=" h-16 w-16 object-cover rounded-lg"
               />
             )}
-            <div className="mt-4">
-              <h2 className="text-sm font-semibold">{post.title}</h2>              
-              <p className="text-xs text-gray-500 mt-4">
+            <div className="">
+              <h2 className="text-sm font-medium">{post.title}</h2>              
+              <p className="text-xs text-gray-500 mt-1">
                 {new Date(post.publishedAt).toLocaleDateString()}
               </p>
             </div>
