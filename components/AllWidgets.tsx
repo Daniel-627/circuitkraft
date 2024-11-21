@@ -27,12 +27,6 @@ export default function AllWidgets({}: Props) {
       <div>
         <CategoriesWidget />
       </div>
-      <div>
-        <QuotesWidgets />
-      </div>
-      <div>
-        <AuthorWidget />
-      </div>
     </div>
 
   )
