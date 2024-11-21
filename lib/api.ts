@@ -10,6 +10,7 @@ export const fetchAllPosts = async (): Promise<Post[]> => {
   `*[_type == "post"] | order(publishedAt desc) {
     _id,
     title,
+    mainImage{asset->{url}},
     "author": author->name,
     "latestCategory": categories[-1]->title,
     description,
@@ -49,6 +50,7 @@ export const fetchAllCategories = async (): Promise<Category[]> => {
   `*[_type == "category"]{
     _id,
     title,
+    mainImage{asset->{url}},
     "author": author->name,
     "latestCategory": categories[-1]->title,
     "slug": slug.current
@@ -66,6 +68,7 @@ export async function fetchPostsByCategorySlug(categorySlug: string): Promise<Po
     _id,
     title,
     slug,
+    mainImage{asset->{url}},
     "author": author->name,
     "latestCategory": categories[-1]->title,
     description,
@@ -87,6 +90,7 @@ export async function fetchAllAuthors() {
     *[_type == "author"]{
       _id,
       name,
+      mainImage{asset->{url}},
       "author": author->name,
       "latestCategory": categories[-1]->title,
       "slug": slug.current,
@@ -104,6 +108,7 @@ export async function fetchPostsByAuthorSlug(authorSlug: string) {
     _id,
     title,
     description,
+    mainImage{asset->{url}},
     "author": author->name,
     "latestCategory": categories[-1]->title,
     publishedAt,
@@ -331,7 +336,7 @@ export async function fetchLatestPosts(startIndex = 0, limit = 20): Promise<Post
 }
 
 export async function fetchRandomBlogPost() {
-  const query = `*[_type == "post"] | order(_createdAt desc) [0...10] {_id, title, slug, description, mainImage, publishedAt, "author": author->name, "latestCategory": categories[-1]->title,}`;
+  const query = `*[_type == "post"] | order(_createdAt desc) [0...10] {_id, title, slug, description, mainImage{asset->{url}}, publishedAt, "author": author->name, "latestCategory": categories[-1]->title,}`;
   
   try {
     const posts = await client.fetch(query);
@@ -367,7 +372,40 @@ export async function fetchRandomCategoryPosts() {
       title,
       slug,
       description,
-      mainImage,
+      mainImage{asset->{url}},
+      publishedAt,
+      "author": author->name,
+    }`;
+    const posts = await client.fetch(postsQuery);
+    console.log("Fetched posts for category:", posts);
+
+    return { category: randomCategory, posts };
+  } catch (error) {
+    console.error("Error fetching category posts:", error);
+    throw error;
+  }
+}
+
+export async function fetchRandomCategoryPosts2() {
+  try {
+    // Fetch all categories first
+    const categoriesQuery = `*[_type == "category"]{_id, title}`;
+    const categories = await client.fetch(categoriesQuery);
+
+    if (!categories.length) throw new Error("No categories found");
+
+    // Select a random category
+    const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+    console.log("Selected category:", randomCategory);
+
+    // Fetch up to 3 posts from the selected category
+    const postsQuery = 
+    `*[_type == "post" && references("${randomCategory._id}")] | order(_createdAt desc) [0...2] {
+      _id,
+      title,
+      slug,
+      description,
+      mainImage{asset->{url}},
       publishedAt,
       "author": author->name,
     }`;
@@ -412,4 +450,13 @@ export async function fetchRandomAuthor() {
     console.error("Error fetching random author:", error);
     throw error;
   }
+}
+
+// lib/api.ts
+export async function fetchCategories(limit: number): Promise<string[]> {
+  const query = `*[_type == "category"] | order(_createdAt desc)[0...${limit}] {
+    title
+  }`;
+  const results = await client.fetch(query);
+  return results.map((category: { title: string }) => category.title);
 }
