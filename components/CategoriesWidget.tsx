@@ -1,58 +1,62 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { fetchRandomCategories } from "@/lib/api";
+import { fetchAllCategories } from "@/lib/api";
 import { Category } from "@/types/blog";
 import Link from "next/link";
 
-export default function RandomCategories() {
-  const [categories, setCategories] = useState<Category[]>([]);
+function getRandomCategories(categories: Category[], count: number): Category[] {
+  const shuffled = [...categories].sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, count);
+}
 
-  const fetchAndSetCategories = async () => {
-    try {
-      const randomCategories = await fetchRandomCategories(3); // Fetch 3 random categories
-      console.log("Fetched categories:", randomCategories); // Log fetched categories
-      setCategories(randomCategories);
-    } catch (error) {
-      console.error("Failed to fetch categories:", error);
-    }
-  };
+export default function ategoriesWidget() {
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchAndSetCategories();
+    const fetchCategories = async () => {
+      try {
+        const allCategories = await fetchAllCategories();
+        const randomCategories = getRandomCategories(allCategories, 3);
+        setCategories(randomCategories);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    const interval = setInterval(() => {
-      fetchAndSetCategories();
-    }, 180000); // Revalidate every 3 minutes
-
-    return () => clearInterval(interval);
+    fetchCategories();
   }, []);
 
-  if (categories.length === 0) return <div>Loading...</div>;
+  if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {categories.map((category) => {
-        console.log("Category mainImage URL:", category.mainImage?.asset?.url); // Log the image URL for debugging
-        return (
-          <Link href={`/categories/${category.slug.current}`} key={category._id}>
-            <div
-              className="relative h-72 bg-cover bg-center rounded-lg shadow-lg cursor-pointer"
-              style={{
-                backgroundImage: `url(${category.mainImage?.asset?.url || "/default-image.jpg"})`,
-              }}
-            >
-              {/* Dark Overlay */}
-              <div className="absolute inset-0 bg-black bg-opacity-50 rounded-lg"></div>
+    <div className="container mx-auto p-4">
+      <h2 className="text-2xl font-bold mb-4">Random Categories</h2>
+      <ul className="grid grid-cols-1 sm:grid-cols-1 gap-4">
+        {categories.map((category) => (
+          <li key={category._id}>
+            <Link href={`/categories/${category.slug}`}>
+              <div
+                className="relative h-20 bg-cover bg-center rounded-lg shadow-lg cursor-pointer transition-transform hover:scale-105"
+                style={{
+                  backgroundImage: `url(${category.image?.asset?.url || "/default-image.jpg"})`,
+                }}
+              >
+                {/* Dark overlay */}
+                <div className="absolute inset-0 bg-black bg-opacity-50 rounded-lg"></div>
 
-              {/* Content */}
-              <div className="absolute inset-0 flex items-end p-4 text-white z-10">
-                <h2 className="text-xl font-semibold">{category.title}</h2>
+                {/* Content */}
+                <div className="absolute inset-0 flex items-center justify-center text-white z-10">
+                  <h3 className="text-lg font-semibold">{category.title}</h3>
+                </div>
               </div>
-            </div>
-          </Link>
-        );
-      })}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

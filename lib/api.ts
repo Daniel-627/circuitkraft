@@ -57,7 +57,7 @@ export const fetchAllCategories = async (): Promise<Category[]> => {
   `*[_type == "category"]{
     _id,
     title,
-    "mainImage": mainImage{asset->{url}},
+    "mainImage": image{asset->{url}},
     image{asset->{url}},
     "author": author->name,
     "latestCategory": categories[-1]->title,
