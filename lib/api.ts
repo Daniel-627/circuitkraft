@@ -1,5 +1,5 @@
 import { client } from '@/sanity/lib/client';
-
+import { NextApiRequest, NextApiResponse } from "next";
 import { Category, Post, Author } from '@/types/blog'
 
 
@@ -13,13 +13,20 @@ export const fetchAllPosts = async (): Promise<Post[]> => {
     mainImage{asset->{url}},
     "author": author->name,
     "latestCategory": categories[-1]->title,
+    "latestCategories": categories[]->title,
     description,
     "slug": slug.current,
+    publishedAt,
     content
   }`;
 
   const posts = await client.fetch(query);
-  return posts;
+
+  // Add a 'latestCategories' field to each post by slicing the last three categories
+  return posts.map((post: Post) => ({
+    ...post,
+    latestCategories: post.latestCategories ? post.latestCategories.slice(-3) : [],
+  }));
 };
 
 // lib/api.ts
@@ -50,7 +57,8 @@ export const fetchAllCategories = async (): Promise<Category[]> => {
   `*[_type == "category"]{
     _id,
     title,
-    mainImage{asset->{url}},
+    "mainImage": mainImage{asset->{url}},
+    image{asset->{url}},
     "author": author->name,
     "latestCategory": categories[-1]->title,
     "slug": slug.current
@@ -459,4 +467,16 @@ export async function fetchCategories(limit: number): Promise<string[]> {
   }`;
   const results = await client.fetch(query);
   return results.map((category: { title: string }) => category.title);
+}
+
+
+export async function fetchRandomCategories(limit: number): Promise<Category[]> {
+  const query = `*[_type == "category"] | order(_createdAt desc)[0...${limit}] {
+    _id,
+    title,
+    slug,
+    "mainImage": mainImage.asset->url
+  }`;
+  const results = await client.fetch(query);
+  return results;
 }
