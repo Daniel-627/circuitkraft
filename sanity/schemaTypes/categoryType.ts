@@ -24,6 +24,13 @@ export const categoryType = defineType({
       options: {
         hotspot: true,
       },
+      fields: [
+        {
+          name: 'alt',
+          type: 'string',
+          title: 'Alternative text',
+        }
+      ]
     }),
     defineField({
       name: 'description',
@@ -32,7 +39,7 @@ export const categoryType = defineType({
   ],
    preview: {
     select: {
-      title: 'name',
+      title: 'title',
       media: 'image',
     },
   },
