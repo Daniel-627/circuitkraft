@@ -12,14 +12,14 @@ export default async function CategoriesPage() {
       {categories.length === 0 ? (
         <p>No categories available.</p>
       ) : (
-        <ul className="grid grid-cols-1 gap-6">
+        <ul className="grid grid-cols-3 gap-6">
           {categories.map((category) => (
             <li key={category._id}>
               <Link href={`/categories/${category.slug}`}>
                 <div
                   className="relative h-16 bg-cover bg-center rounded-lg shadow-lg cursor-pointer transition-transform hover:scale-105"
                   style={{
-                    backgroundImage: `url(${category.image || "/default-image.jpg"})`,
+                    backgroundImage: `url(${category.image?.asset?.url || "/default-image.jpg"})`,
                   }}
                 >
                   {/* Dark overlay */}
