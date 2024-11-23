@@ -1,47 +1,58 @@
-import { fetchAllCategories } from "@/lib/api";
+"use client";
+
+import { useEffect, useState } from "react";
+import { fetchRandomCategories } from "@/lib/api";
 import { Category } from "@/types/blog";
 import Link from "next/link";
 
-function getRandomCategories(categories: Category[], count: number): Category[] {
-  const shuffled = categories.sort(() => 0.5 - Math.random()); // Shuffle array
-  return shuffled.slice(0, count); // Return `count` random categories
-}
+export default function RandomCategories() {
+  const [categories, setCategories] = useState<Category[]>([]);
 
-export default async function CategoriesPage() {
-  // Fetch categories from the API
-  const categories: Category[] = await fetchAllCategories();
+  const fetchAndSetCategories = async () => {
+    try {
+      const randomCategories = await fetchRandomCategories(3); // Fetch 3 random categories
+      console.log("Fetched categories:", randomCategories); // Log fetched categories
+      setCategories(randomCategories);
+    } catch (error) {
+      console.error("Failed to fetch categories:", error);
+    }
+  };
 
-  // Get three random categories
-  const randomCategories = getRandomCategories(categories, 3);
+  useEffect(() => {
+    fetchAndSetCategories();
+
+    const interval = setInterval(() => {
+      fetchAndSetCategories();
+    }, 180000); // Revalidate every 3 minutes
+
+    return () => clearInterval(interval);
+  }, []);
+
+  if (categories.length === 0) return <div>Loading...</div>;
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Categories</h1>
-      {randomCategories.length === 0 ? (
-        <p>No categories available.</p>
-      ) : (
-        <ul className="space-y-6">
-          {randomCategories.map((category) => (
-            <li key={category._id}>
-              <Link href={`/categories/${category.slug}`}>
-                <div
-                  className="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition cursor-pointer bg-cover bg-center"
-                  style={{
-                    backgroundImage: `url(${category.mainImage?.asset?.url || "/default-image.jpg"})`, // Fallback to a default image if mainImage is not available
-                  }}
-                >
-                  <h2 className="text-xl font-semibold bg-black/50 text-white p-2 rounded-md inline-block">
-                    {category.title}
-                  </h2>
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {categories.map((category) => {
+        console.log("Category mainImage URL:", category.mainImage?.asset?.url); // Log the image URL for debugging
+        return (
+          <Link href={`/categories/${category.slug.current}`} key={category._id}>
+            <div
+              className="relative h-72 bg-cover bg-center rounded-lg shadow-lg cursor-pointer"
+              style={{
+                backgroundImage: `url(${category.mainImage?.asset?.url || "/default-image.jpg"})`,
+              }}
+            >
+              {/* Dark Overlay */}
+              <div className="absolute inset-0 bg-black bg-opacity-50 rounded-lg"></div>
+
+              {/* Content */}
+              <div className="absolute inset-0 flex items-end p-4 text-white z-10">
+                <h2 className="text-xl font-semibold">{category.title}</h2>
+              </div>
+            </div>
+          </Link>
+        );
+      })}
     </div>
   );
 }
-
-// ISR revalidation every 60 seconds
-export const revalidate = 60; // Revalidate this page every 60 seconds
