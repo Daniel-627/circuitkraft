@@ -61,6 +61,7 @@ export interface Category {
   _id: string; // Add this to ensure the _id is typed correctly
   title: string;
   slug: string;
+  image?: string;
 }
 
 // types/blog.ts
@@ -76,6 +77,7 @@ export interface Post {
   category: Category;
   author: string;
   latestCategory: string;
+   latestCategories?: string[];
 }
 
 
