@@ -6,6 +6,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from '@/components/Footer';
+import { ThemeProvider } from 'next-themes';
+import ThemeToggle from '@/components/ThemeToggle';
 
 {/*const ZenDots = localFont({
   src: "./fonts/ZenDots.tff",
@@ -33,11 +35,14 @@ export default function RootLayout({
     <html lang="en">
       <body
         style={{ fontFamily: 'Zen Dots' }}
-        className={`mx-auto container bg-gray-50 text-gray-800 antialiased`}
+        className={`mx-auto container bg-gray-50 dark:bg-[#192428] dark:text-white text-gray-800 antialiased`}
       >
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <ThemeProvider attribute="class">
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+          <ThemeToggle />
+        </ThemeProvider>
       </body>
     </html>
   );
