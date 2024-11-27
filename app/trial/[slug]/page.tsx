@@ -1,4 +1,5 @@
 // app/trial/[slug]/page.tsx
+import SocialMediaSideBar from "@/components/SocialMediaSideBar";
 import { fetchPostBySlug } from "@/lib/api";
 import { Post } from "@/types/blog";
 import { PortableText } from "@portabletext/react";
@@ -39,8 +40,13 @@ export default async function TrialPostPage({ params }: TrialPostPageProps) {
       )}
 
       {/* Body Content */}
-      <div className="mt-6 prose max-w-none">
-        <PortableText value={post.body} />
+      <div className="flex flex-row">
+        <div>
+          <SocialMediaSideBar />
+        </div>
+        <div className="mt-6 prose max-w-none">
+          <PortableText value={post.body} />
+        </div>
       </div>
     </div>
   );
