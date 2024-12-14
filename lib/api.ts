@@ -289,7 +289,7 @@ export async function fetchMostRecentEditorPost(): Promise<Post | null> {
     `*[_type == "post" && "Editor" in categories[]->title] | order(publishedAt desc)[0] {
       _id,
       title,
-      slug,
+      "slug": slug.current
       description,
       "author": author->name,
       "latestCategory": categories[-1]->title,
