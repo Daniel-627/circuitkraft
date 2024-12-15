@@ -28,7 +28,7 @@ export default function PopularBlogCards() {
   return (
     <div className="flex md:flex-col">
       {posts.map((post) => (
-        <Link href={`/trial/${encodeURIComponent(post.slug.current )}`} key={post._id} passHref>
+        <Link href={`/blog/${encodeURIComponent(post.slug.current )}`} key={post._id} passHref>
           <div className="p-2  cursor-pointer border-t-2">
             <div className="mt-1">
               <p className="text-xs text-blue-500 mt-2">{post.latestCategory}</p>

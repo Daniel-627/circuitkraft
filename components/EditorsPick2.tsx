@@ -29,7 +29,7 @@ export default function EditorsPick2() {
   return (
     <div className="grid gap-6 md:grid-cols-2">
       {posts.map((post) => (
-        <Link href={`/trial/${encodeURIComponent(post.slug.current)}`} key={post._id} passHref>
+        <Link href={`/blog/${encodeURIComponent(post.slug.current)}`} key={post._id} passHref>
           <div className="p-4 cursor-pointer flex flex-row items-center space-x-2">
             {post.mainImage && (
               <img

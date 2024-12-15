@@ -28,7 +28,7 @@ export default function PopularBlogCard() {
   }
 
   return (
-    <Link href={`/trial/${encodeURIComponent(post.slug.current)}`} passHref>
+    <Link href={`/blog/${encodeURIComponent(post.slug.current)}`} passHref>
       <div className="p-4 cursor-pointer">
         {post.mainImage && (
           <img

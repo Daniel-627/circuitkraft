@@ -28,7 +28,7 @@ export default function NewsWidget() {
   return (
     <div className="flex flex-col">
       {posts.map((post, index) => (
-        <Link href={`/trial/${encodeURIComponent(post.slug.current)}`} key={post._id} passHref>
+        <Link href={`/blog/${encodeURIComponent(post.slug.current)}`} key={post._id} passHref>
           <div className="p-4 cursor-pointer border-b-2">
             <div className="mt-1">
               <div className='flex flex-row'>

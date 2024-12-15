@@ -3,34 +3,11 @@
 
 import React, { useEffect, useState } from 'react';
 import { blogPosts } from '@/data/blogs'; // Import your blog posts
-import { BlogPost } from '@/types/blog'; // Import your BlogPost type
 import logo1 from '@/public/logo1.png';
 import  RandomCategory3  from '@/components/RandomCategory3'
 
 const Footer = () => {
-  const [randomPosts, setRandomPosts] = useState<BlogPost[]>([]);
-
-  // Function to get two random blog posts from different categories
-  const getRandomPosts = () => {
-    const publishedPosts = blogPosts.filter(post => post.isPublished);
-    const shuffledPosts = publishedPosts.sort(() => 0.5 - Math.random());
-    const uniqueCategories: Set<string> = new Set();
-    
-    const postsFromRandomCategories = shuffledPosts.filter(post => {
-      // Ensures unique categories
-      if (!post.categories.some(category => uniqueCategories.has(category))) {
-        post.categories.forEach(category => uniqueCategories.add(category));
-        return true;
-      }
-      return false;
-    });
-
-    return postsFromRandomCategories.slice(0, 2);
-  };
-
-  useEffect(() => {
-    setRandomPosts(getRandomPosts());
-  }, []);
+  
 
   return (
     <footer className="bg-gray-50 text-gray-800 py-8">

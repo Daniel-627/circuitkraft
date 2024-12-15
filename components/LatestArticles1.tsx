@@ -29,7 +29,7 @@ export default function LatestArticles1() {
   return (
     <div className="grid gap-1 md:grid-cols-3 border-x-2">
       {posts.map((post) => (
-        <Link href={`/trial/${encodeURIComponent(post.slug.current)}`} key={post._id} passHref>
+        <Link href={`/blog/${encodeURIComponent(post.slug.current)}`} key={post._id} passHref>
           <div className="p-4  cursor-pointer">
             {post.mainImage && (
               <img

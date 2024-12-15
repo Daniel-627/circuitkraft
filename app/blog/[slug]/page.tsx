@@ -1,49 +1,56 @@
+// app/trial/[slug]/page.tsx
+import SocialMediaSideBar from "@/components/SocialMediaSideBar";
+import { fetchPostBySlug } from "@/lib/api";
+import { Post } from "@/types/blog";
+import { PortableText } from "@portabletext/react";
+import { notFound } from "next/navigation";
 
-
-// app/blog/[slug]/page.tsx
-import { blogPosts } from '../../../data/blogs';
-import { BlogPost } from '../../../types/blog';
-import { notFound } from 'next/navigation';
-import RelatedPostsWidget from '@/components/RelatedPostsWidget'; // Import the RelatedPostsWidget
-
-interface BlogPostPageProps {
-  params: { slug: string };
+interface TrialPostPageProps {
+  params: {
+    slug: string;
+  };
 }
 
-// Find the post based on slug
-function findPostBySlug(slug: string): BlogPost | undefined {
-  return blogPosts.find(post => post.slug === slug);
-}
+export default async function TrialPostPage({ params }: TrialPostPageProps) {
+  const { slug } = params;
 
-// Component to display a blog post
-export default function BlogPostPage({ params }: BlogPostPageProps) {
-  const post = findPostBySlug(params.slug);
+  // Fetch the post using the slug
+  const post: Post | null = await fetchPostBySlug(slug);
 
+  // If no post is found, return 404
   if (!post) {
-    notFound();
+    return notFound();
   }
 
   return (
     <div className="container mx-auto p-4">
-      <article>
-        <img src={post.featuredImage} alt={post.title} className="w-full h-64 object-cover mb-4" />
-        <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
-        <p className="text-gray-600 mb-4">{new Date(post.publishedAt).toDateString()}</p>
-        <div className="prose">
-          {/* Use a markdown parser or any HTML rendering if `content` is in HTML format */}
-          <div dangerouslySetInnerHTML={{ __html: post.content }} />
-        </div>
-      </article>
+      {/* Title */}
+      <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+      
+      {/* Published Date */}
+      <p className="text-gray-600">Published on: {new Date(post.publishedAt).toDateString()}</p>
+      
+      {/* Main Image */}
+      {post.mainImage && (
+        <img
+          src={post.mainImage}
+          alt={post.title}
+          className="my-4 w-full max-w-3xl object-cover rounded-lg"
+        />
+      )}
 
-      {/* Related Posts Widget */}
-      <RelatedPostsWidget currentPost={post} /> {/* Pass the current post to the widget */}
+      {/* Body Content */}
+      <div className="flex flex-row">
+        <div>
+          <SocialMediaSideBar />
+        </div>
+        <div className="mt-6 prose max-w-none">
+          <PortableText value={post.body} />
+        </div>
+      </div>
     </div>
   );
 }
 
-// Generates static paths for all blog posts
-export async function generateStaticParams() {
-  return blogPosts.map(post => ({
-    slug: post.slug,
-  }));
-}
+// ISR: Revalidate page every 60 seconds
+export const revalidate = 60;

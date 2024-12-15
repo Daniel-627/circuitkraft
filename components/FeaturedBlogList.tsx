@@ -28,7 +28,7 @@ export default function FeaturedBlogList() {
   return (
     <div className="flex flex-col">
       {posts.map((post) => (
-        <Link href={`/trial/${encodeURIComponent(post.slug.current)}`} key={post._id} passHref>
+        <Link href={`/blog/${encodeURIComponent(post.slug.current)}`} key={post._id} passHref>
           <div className="p-3 cursor-pointer border-t-2 mx-4">
             <div className="mt-1">
               <p className="text-xs text-blue-500 mt-2">{post.latestCategory}</p>

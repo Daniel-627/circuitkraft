@@ -1,5 +1,6 @@
 // app/blog/page.tsx
 import { fetchAllPosts } from "@/lib/api";
+import { urlFor } from "@/sanity/lib/image";
 import { Post } from "@/types/blog";
 import Link from "next/link";
 
@@ -17,11 +18,11 @@ export default async function BlogPage() {
             <Link key={post._id} href={`/trial/${post.slug}`} className="group">
               <div className="rounded-lg shadow-md overflow-hidden bg-white hover:shadow-lg transition-shadow">
                 {/* Blog Image */}
-                {post.mainImage && post.mainImage.asset.url && (
+                {post.mainImage && urlFor(post.mainImage).url() && (
                   <div
                     className="h-40 bg-cover bg-center"
                     style={{
-                      backgroundImage: `url(${post.mainImage.asset.url})`,
+                      backgroundImage: `url(${urlFor(post.mainImage).url()})`,
                     }}
                   />
                 )}

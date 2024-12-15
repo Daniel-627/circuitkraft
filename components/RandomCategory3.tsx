@@ -42,7 +42,7 @@ export default function RandomCategory3() {
       <h3 className="text-xl font-medium mb-4">{category.title}</h3>
       <div className="gap-2 flex flex-col">
         {posts.map((post) => (
-          <Link href={`/trial/${encodeURIComponent(post.slug.current )}`} key={post._id} passHref>
+          <Link href={`/blog/${encodeURIComponent(post.slug.current )}`} key={post._id} passHref>
           <div className="p-2 m-2 cursor-pointer flex flex-row items-center space-x-2 border-t-2">
             {post.mainImage && (
               <img

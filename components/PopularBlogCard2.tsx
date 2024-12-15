@@ -29,7 +29,7 @@ export default function PopularBlogCard2() {
   return (
     <div className="mt-2">
       {posts.map((post) => (
-        <Link href={`/trial/${encodeURIComponent(post.slug.current)}`} key={post._id} passHref>
+        <Link href={`/blog/${encodeURIComponent(post.slug.current)}`} key={post._id} passHref>
           <div className="p-2  cursor-pointer">
             {post.mainImage && (
               <img

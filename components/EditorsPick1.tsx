@@ -41,7 +41,7 @@ export default function EditorsPick1() {
       {/* Content */}
       <div className="absolute inset-0 flex flex-col justify-end p-6 z-10 text-white">
         <p className="text-sm text-blue-500">{post.latestCategory}</p>
-        <Link href={`/trial/${encodeURIComponent(post.slug.current)}`} passHref>
+        <Link href={`/blog/${encodeURIComponent(post.slug.current)}`} passHref>
           <h2 className="text-2xl font-medium mt-2 hover:underline">
             {post.title}
           </h2>
