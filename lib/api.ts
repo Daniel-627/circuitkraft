@@ -10,7 +10,7 @@ export const fetchAllPosts = async (): Promise<Post[]> => {
   `*[_type == "post"] | order(publishedAt desc) {
     _id,
     title,
-    mainImage{asset->{url}},
+    mainImage,
     "author": author->name,
     "latestCategory": categories[-1]->title,
     "latestCategories": categories[]->title,
@@ -493,15 +493,9 @@ export async function fetchPostsBySearchQuery(query: string): Promise<Post[]> {
         description,
         mainImage,
         publishedAt,
-        author->{
-          name,
-          slug
-        },
-        categories[]->{
-          title,
-          slug
-        },
-        tags
+        "author": author->name,
+        "latestCategories": categories[]->title,
+        "tags":tags[]-> title,
       }`,
     { query: `${query}*` }
   );

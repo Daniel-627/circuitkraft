@@ -32,7 +32,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         {posts.map((post) => (
           <li key={post._id}>
             {/* Use post.slug.current to correctly access the string value of the slug */}
-            <Link href={`/trial/${post.slug.current}`}>
+            <Link href={`/blog/${post.slug.current}`}>
               <div className="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition cursor-pointer">
                 <h2 className="text-xl font-semibold">{post.title}</h2>
                 <p className="text-gray-700 mt-2">
