@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { fetchLatestPosts } from "@/lib/api";
 import { Post } from "@/types/blog";
 import Link from "next/link";
+import { urlFor } from "@/sanity/lib/image";
 
 export default function LatestArticles2() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -32,7 +33,7 @@ export default function LatestArticles2() {
           <div className="p-2 m-2 cursor-pointer flex flex-row items-center space-x-2 border-t-2">
             {post.mainImage && (
               <img
-                src={post.mainImage.asset.url}
+                src={urlFor(post.mainImage).url()}
                 alt={post.title}
                 className=" h-16 w-16 object-cover rounded-lg"
               />

@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { fetchRandomCategoryPosts } from "@/lib/api";
 import { Post } from "@/types/blog";
+import { urlFor } from "@/sanity/lib/image";
 
 export default function RandomCategory2() {
   const [category, setCategory] = useState<{ title: string } | null>(null);
@@ -41,11 +42,11 @@ export default function RandomCategory2() {
       <h3 className="text-xl font-medium mb-4">{category.title}</h3>
       <div className="gap-2 flex flex-col">
         {posts.map((post) => (
-          <Link href={`/trial/${encodeURIComponent(post.slug.current)}`} key={post._id} passHref>
+          <Link href={`/trial/${encodeURIComponent(post.slug.current )}`} key={post._id} passHref>
           <div className="p-2 m-2 cursor-pointer flex flex-row items-center space-x-2 border-t-2">
             {post.mainImage && (
               <img
-                src={post.mainImage.asset.url}
+                src={urlFor(post.mainImage).url()}
                 alt={post.title}
                 className=" h-16 w-16 object-cover rounded-lg"
               />

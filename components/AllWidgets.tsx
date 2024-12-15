@@ -4,8 +4,6 @@ import SocialWidget from './SocialWidget'
 import RandomCategory1 from './RandomCategory1'
 import RandomCategory2 from './RandomCategory2'
 import CategoriesWidget from './CategoriesWidget'
-import QuotesWidgets from './QuotesWidgets'
-import AuthorWidget from './AuthorWidget'
 
 type Props = {}
 

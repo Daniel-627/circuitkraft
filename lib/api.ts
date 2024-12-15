@@ -131,7 +131,7 @@ export async function fetchPostsByAuthorSlug(authorSlug: string) {
 }
 
 
-export async function fetchPostsBySearchQuery(query: string): Promise<Post[]> {
+{/*export async function fetchPostsBySearchQuery(query: string): Promise<Post[]> {
   const results = await client.fetch(
     `*[_type == "post" && (title match $query || 
       $query in categories[]->title || 
@@ -159,7 +159,7 @@ export async function fetchPostsBySearchQuery(query: string): Promise<Post[]> {
   );
 
   return results;
-}
+}*/}
 
 export async function fetchMostRecentPopularPost(): Promise<Post | null> {
   const posts = await client.fetch(
@@ -293,11 +293,7 @@ export async function fetchMostRecentEditorPost(): Promise<Post | null> {
       description,
       "author": author->name,
       "latestCategory": categories[-1]->title,
-      mainImage{
-        asset->{
-          url
-        }
-      },
+      mainImage,
       publishedAt,
       categories[]->{
         title
@@ -478,5 +474,37 @@ export async function fetchRandomCategories(limit: number): Promise<Category[]> 
     "mainImage": mainImage.asset->url
   }`;
   const results = await client.fetch(query);
+  return results;
+}
+
+
+
+export async function fetchPostsBySearchQuery(query: string): Promise<Post[]> {
+  const results: Post[] = await client.fetch(
+    `*[_type == "post" && (title match $query || 
+      $query in categories[]->title || 
+      $query in author->name || 
+      $query in tags[])] {
+        _id,
+        title,
+        slug {
+          current
+        },
+        description,
+        mainImage,
+        publishedAt,
+        author->{
+          name,
+          slug
+        },
+        categories[]->{
+          title,
+          slug
+        },
+        tags
+      }`,
+    { query: `${query}*` }
+  );
+
   return results;
 }

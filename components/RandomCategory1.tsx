@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { fetchRandomBlogPost } from "@/lib/api";
 import { Post } from "@/types/blog";
+import { urlFor } from "@/sanity/lib/image";
 
 export default function RandomCategory1() {
   const [post, setPost] = useState<Post | null>(null);
@@ -31,10 +32,10 @@ export default function RandomCategory1() {
   if (!post) return <div>Loading...</div>;
 
   return (
-    <Link href={`/blog/${post.slug.current}`} passHref key={post._id}>
+    <Link href={`/blog/${post.slug.current }`} passHref key={post._id}>
           <div
             className="relative h-72 bg-cover bg-center rounded-lg shadow-lg cursor-pointer"
-            style={{ backgroundImage: `url(${post.mainImage.asset.url})` }}
+            style={{ backgroundImage: `url(${urlFor(post.mainImage).url()})` }}
           >
             {/* Dark Overlay */}
             <div className="absolute inset-0 bg-black bg-opacity-50 rounded-lg"></div>

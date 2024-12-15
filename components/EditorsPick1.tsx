@@ -5,6 +5,7 @@ import { fetchMostRecentEditorPost } from "@/lib/api";
 import { Post } from "@/types/blog";
 import Link from "next/link";
 import EditorsPick2 from "./EditorsPick2";
+import { urlFor } from "@/sanity/lib/image";
 
 export default function EditorsPick1() {
   const [post, setPost] = useState<Post | null>(null);
@@ -31,7 +32,7 @@ export default function EditorsPick1() {
     <div
       className="relative h-96 bg-cover bg-center rounded-lg shadow-lg cursor-pointer"
       style={{
-        backgroundImage: `url(${post.mainImage.asset.url})`,
+        backgroundImage: `url(${urlFor(post.mainImage).url()})`,
       }}
     >
       {/* Dark Overlay */}

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { fetchPopularPosts } from "@/lib/api";
 import { Post } from "@/types/blog";
 import Link from "next/link";
+import { urlFor } from "@/sanity/lib/image";
 
 export default function PopularBlogCard2() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -32,7 +33,7 @@ export default function PopularBlogCard2() {
           <div className="p-2  cursor-pointer">
             {post.mainImage && (
               <img
-                src={post.mainImage.asset.url}
+                src={urlFor(post.mainImage).url()}
                 alt={post.title}
                 className="w-full h-36 object-cover rounded-lg"
               />

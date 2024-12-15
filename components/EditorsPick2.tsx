@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { fetchEditorPosts } from "@/lib/api";
 import { Post } from "@/types/blog";
 import Link from "next/link";
+import { urlFor } from "@/sanity/lib/image";
 
 export default function EditorsPick2() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -32,7 +33,7 @@ export default function EditorsPick2() {
           <div className="p-4 cursor-pointer flex flex-row items-center space-x-2">
             {post.mainImage && (
               <img
-                src={post.mainImage.asset.url}
+                src={urlFor(post.mainImage).url()}
                 alt={post.title}
                 className="w-16 h-16 object-cover rounded-lg"
               />

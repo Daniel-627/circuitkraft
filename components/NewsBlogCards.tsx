@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { fetchNewsPosts } from "@/lib/api";
 import { Post } from "@/types/blog";
 import Link from "next/link";
+import { urlFor } from "@/sanity/lib/image";
+
 
 export default function NewsBlogCards() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -31,7 +33,7 @@ export default function NewsBlogCards() {
         <Link href={`/blog/${post.slug.current}`} passHref key={post._id}>
           <div
             className="relative h-72 bg-cover bg-center rounded-lg shadow-lg cursor-pointer"
-            style={{ backgroundImage: `url(${post.mainImage.asset.url})` }}
+            style={{ backgroundImage: `url(${urlFor(post.mainImage).url()})` }}
           >
             {/* Dark Overlay */}
             <div className="absolute inset-0 bg-black bg-opacity-50 rounded-lg"></div>

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { fetchMostRecentNewsPost } from "@/lib/api";
 import { Post } from "@/types/blog";
 import Link from "next/link";
+import { urlFor } from "@/sanity/lib/image";
 
 export default function NewsBlogCard() {
   const [post, setPost] = useState<Post | null>(null);
@@ -31,7 +32,7 @@ export default function NewsBlogCard() {
       <div
         className="relative h-96 bg-cover bg-center rounded-lg shadow-lg cursor-pointer m-2 my-4"
         style={{
-          backgroundImage: `url(${post.mainImage.asset.url})`,
+          backgroundImage: `url(${urlFor(post.mainImage).url()})`,
         }}
       >
         {/* Dark Overlay */}

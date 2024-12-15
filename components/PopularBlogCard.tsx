@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { fetchMostRecentPopularPost } from "@/lib/api";
 import { Post } from "@/types/blog";
 import Link from "next/link";
+import { urlFor } from "@/sanity/lib/image";
 
 export default function PopularBlogCard() {
   const [post, setPost] = useState<Post | null>(null);
@@ -31,14 +32,14 @@ export default function PopularBlogCard() {
       <div className="p-4 cursor-pointer">
         {post.mainImage && (
           <img
-            src={post.mainImage.asset.url}
+            src={urlFor(post.mainImage).url()}
             alt={post.title}
             className="w-full h-96 object-cover rounded-lg" // Increased height to h-80
           />
         )}
         <div className="mt-4">
           <p className="text-xs text-blue-500 mt-2">{post.latestCategory}</p>
-          <h2 className="text-xl font-medium">{post.title}</h2>
+          <h2 className="text-xl font-medium">{post.title }</h2>
           <div className="flex flex-row justify-between">
                 <p className="text-xs text-gray-600 mt-2">
                   {post.author || "Author"}

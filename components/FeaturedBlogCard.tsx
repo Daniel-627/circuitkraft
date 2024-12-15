@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { fetchMostRecentFeaturedPost } from "@/lib/api";
 import { Post } from "@/types/blog";
 import Link from "next/link";
+import { urlFor } from "@/sanity/lib/image";
 
 export default function FeaturedBlogCard() {
   const [post, setPost] = useState<Post | null>(null);
@@ -30,7 +31,7 @@ export default function FeaturedBlogCard() {
       <div
         className="relative h-96 rounded-lg shadow-lg hover:shadow-xl transition-shadow cursor-pointer bg-cover bg-center text-white"
         style={{
-          backgroundImage: `url(${post.mainImage.asset.url})`,
+          backgroundImage: `url(${urlFor(post.mainImage).url() })`,
         }}
       >
         {/* Overlay */}

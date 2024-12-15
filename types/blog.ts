@@ -16,15 +16,23 @@ export interface Category {
 export interface Post {
   _id: string;
   title: string;
-  slug: string;
+  slug: {current : string};
   description?: string;  // Optional, in case not all posts have a description
   publishedAt: string;   // New field for the published date
-  mainImage?: string;    // URL of the main image
+  mainImage: string;    // URL of the main image
   body: any;             // Sanity's rich text structure can be of type `any`
   category: Category;
-  author: string;
   latestCategory: string;
   latestCategories?: string[];
+  categories: {
+    title: string;
+    slug: string;
+  }[];
+  author: {
+    name: string;
+    slug: string;
+  };
+  tags: string[];
 }
 
 
