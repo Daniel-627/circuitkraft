@@ -289,7 +289,7 @@ export async function fetchMostRecentEditorPost(): Promise<Post | null> {
     `*[_type == "post" && "Editor" in categories[]->title] | order(publishedAt desc)[0] {
       _id,
       title,
-      "slug": slug.current
+      slug,
       description,
       "author": author->name,
       "latestCategory": categories[-1]->title,
@@ -495,10 +495,11 @@ export async function fetchPostsBySearchQuery(query: string): Promise<Post[]> {
         publishedAt,
         "author": author->name,
         "latestCategories": categories[]->title,
-        "tags":tags[]-> title,
+        "tags": tags[]->title
       }`,
-    { query: `${query}*` }
+    { query } // Pass the query as a parameter
   );
 
   return results;
 }
+
