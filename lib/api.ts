@@ -479,27 +479,4 @@ export async function fetchRandomCategories(limit: number): Promise<Category[]> 
 
 
 
-export async function fetchPostsBySearchQuery(query: string): Promise<Post[]> {
-  const results: Post[] = await client.fetch(
-    `*[_type == "post" && (title match $query || 
-      $query in categories[]->title || 
-      $query in author->name || 
-      $query in tags[])] {
-        _id,
-        title,
-        slug {
-          current
-        },
-        description,
-        mainImage,
-        publishedAt,
-        "author": author->name,
-        "latestCategories": categories[]->title,
-        "tags": tags[]->title
-      }`,
-    { query } // Pass the query as a parameter
-  );
-
-  return results;
-}
 

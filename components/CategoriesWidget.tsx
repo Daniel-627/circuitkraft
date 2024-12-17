@@ -48,6 +48,7 @@ export default function ategoriesWidget() {
                 {/* Dark overlay */}
                 <div className="absolute inset-0 bg-black bg-opacity-50 rounded-lg"></div>
 
+
                 {/* Content */}
                 <div className="absolute inset-0 flex items-center justify-center text-white z-10">
                   <h3 className="text-lg font-semibold">{category.title}</h3>

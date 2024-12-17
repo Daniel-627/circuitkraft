@@ -2,7 +2,7 @@
 export interface Category {
   _id: string; // Add this to ensure the _id is typed correctly
   title: string;
-  slug: string;
+  slug: {current: string};
   image?: {
     asset: {
       url: string;
@@ -31,7 +31,7 @@ export interface Post {
 export interface Author {
   _id: string;
   name: string;
-  slug: string;
+  slug: {current: string};
   bio: string;
   image: string;
 }
