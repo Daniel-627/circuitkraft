@@ -11,19 +11,19 @@ export default function AllWidgets({}: Props) {
   return (
     <div>
       <div>
-        NewsWidget
+        <NewsWidget />
       </div>
       <div>
-        SocialWidget
+        <SocialWidget />
       </div>
       <div>
-        RandomCategory1
+        <RandomCategory1 />
       </div>
       <div>
-        RandomCategory2
+        <RandomCategory2 />
       </div>
       <div>
-        CategoriesWidget
+        <CategoriesWidget />
       </div>
     </div>
 
