@@ -2,7 +2,6 @@
 'use client'
 
 import React, { useEffect, useState } from 'react';
-import { blogPosts } from '@/data/blogs'; // Import your blog posts
 import logo1 from '@/public/logo1.png';
 import  RandomCategory3  from '@/components/RandomCategory3'
 
