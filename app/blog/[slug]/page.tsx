@@ -5,13 +5,13 @@ import { Post } from "@/types/blog";
 import { PortableText } from "@portabletext/react";
 import { notFound } from "next/navigation";
 
-interface TrialPostPageProps {
+interface pageProps {
   params: {
     slug: string;
   };
 }
 
-export default async function TrialPostPage({ params }: TrialPostPageProps) {
+export default async function page({ params }: pageProps) {
   const { slug } = params;
 
   // Fetch the post using the slug
