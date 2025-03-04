@@ -39,26 +39,26 @@ export default function RandomCategory2() {
 
   return (
     <div>
-      <h3 className="text-xl font-medium mb-4">{category.title}</h3>
+      <h3 className="text-xl font-medium mb-4 text-blue-500 dark:text-green-500">{category.title}</h3>
       <div className="gap-2 flex flex-col">
         {posts.map((post) => (
-          <Link href={`/blog/${encodeURIComponent(post.slug.current )}`} key={post._id} passHref>
-          <div className="p-2 m-2 cursor-pointer flex flex-row items-center space-x-2 border-t-2">
-            {post.mainImage && (
-              <img
-                src={urlFor(post.mainImage).url()}
-                alt={post.title}
-                className=" h-16 w-16 object-cover rounded-lg"
-              />
-            )}
-            <div className="">
-              <h2 className="text-sm font-medium">{post.title}</h2>              
-              <p className="text-xs text-gray-500 mt-1">
-                {new Date(post.publishedAt).toLocaleDateString()}
-              </p>
+          <Link href={`/blog/${encodeURIComponent(post.slug.current)}`} key={post._id} passHref>
+            <div className="p-2 m-2 cursor-pointer flex flex-row items-center space-x-2 border-t-2 border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-[#192428] hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg">
+              {post.mainImage && (
+                <img
+                  src={urlFor(post.mainImage).url()}
+                  alt={post.title}
+                  className="h-16 w-16 object-cover rounded-lg"
+                />
+              )}
+              <div>
+                <h2 className="text-sm font-medium text-black dark:text-white">{post.title}</h2>              
+                <p className="text-xs text-gray-500 dark:text-gray-300 mt-1">
+                  {new Date(post.publishedAt).toLocaleDateString()}
+                </p>
+              </div>
             </div>
-          </div>
-        </Link>
+          </Link>
         ))}
       </div>
     </div>
