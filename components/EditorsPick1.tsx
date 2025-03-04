@@ -54,14 +54,13 @@ export default function EditorsPick1() {
         </div>
 
         {/* EditorsPick2 Component */}
-        <div className="border-t border-gray-500 dark:border-gray-700 mt-6">
+        <div className="border-t border-gray-500 dark:border-gray-700 mt-6 hidden lg:block">
           <EditorsPick2 />
         </div>
       </div>
     </div>
   );
 }
-
 
 // ISR: Revalidate page every 60 seconds
 export const revalidate = 60;
