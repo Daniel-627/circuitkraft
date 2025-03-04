@@ -1,7 +1,8 @@
 // components/SocialMediaSideBar.tsx
 "use client";
 
-import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import { FaXTwitter} from "react-icons/fa6";
 import { IconType } from "react-icons";
 
 type SocialMediaLink = {
@@ -18,7 +19,7 @@ const socialMediaLinks: SocialMediaLink[] = [
   },
   {
     href: "https://www.twitter.com/",
-    Icon: FaTwitter,
+    Icon: FaXTwitter,
     label: "Twitter",
   },
   {
@@ -35,8 +36,8 @@ const socialMediaLinks: SocialMediaLink[] = [
 
 export default function SocialMediaSideBar() {
   return (
-    <div className=" bg-gray-800 text-white p-3 rounded-lg shadow-lg">
-      <div className="flex flex-col space-x-4">
+    <div className="bg-gray-800 text-white p-3 rounded-lg shadow-lg">
+      <div className="flex flex-col space-y-4 items-center">
         {socialMediaLinks.map(({ href, Icon, label }) => (
           <a
             key={label}
