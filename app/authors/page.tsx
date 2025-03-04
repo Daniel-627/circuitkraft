@@ -9,7 +9,6 @@ export default async function AuthorsPage() {
 
   return (
     <div className="container mx-auto p-4 text-black dark:text-white">
-      <h1 className="text-3xl font-bold mb-6 text-center">Authors</h1>
       {authors.length === 0 ? (
         <p className="text-center">No authors available.</p>
       ) : (

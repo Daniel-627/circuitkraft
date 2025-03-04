@@ -5,8 +5,9 @@ import logo1 from "@/public/logo1.png";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { fetchCategories } from "@/lib/api";
-import { FaShoppingCart,  } from "react-icons/fa";
+import { FaShoppingCart, FaSearch } from "react-icons/fa";
 import { FaXTwitter, FaBars, FaX } from "react-icons/fa6";
+
 const Navbar = () => {
   const [categories, setCategories] = useState<string[]>([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -65,8 +66,13 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {/* Icons & Date */}
+        {/* Icons & Search */}
         <div className="flex items-center space-x-6">
+          {/* Search Icon (Visible on all screens) */}
+          <button aria-label="Search" className="text-2xl text-black dark:text-white hover:text-blue-500">
+            <FaSearch />
+          </button>
+
           <Link
             href="https://x.com"
             target="_blank"
@@ -115,7 +121,28 @@ const Navbar = () => {
               </Link>
             </li>
           ))}
-          <span className="text-sm text-gray-500 dark:text-gray-400">
+          {/* Icons in Toggle Menu */}
+          <div className="flex items-center justify-between pt-4">
+            <Link
+              href="https://x.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-2xl text-black dark:text-white hover:text-blue-500"
+            >
+              <FaXTwitter />
+            </Link>
+
+            <Link
+              href="/cart"
+              className="relative text-2xl text-gray-700 dark:text-gray-300 hover:text-blue-500"
+            >
+              <FaShoppingCart />
+              <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                3
+              </span>
+            </Link>
+          </div>
+          <span className="text-sm text-gray-500 dark:text-gray-400 mt-2">
             {todayDate}
           </span>
         </ul>
