@@ -4,6 +4,7 @@ import { fetchPostBySlug } from "@/lib/api";
 import { Post } from "@/types/blog";
 import { PortableText } from "@portabletext/react";
 import { notFound } from "next/navigation";
+import { useTheme } from "next-themes";
 
 interface pageProps {
   params: {
@@ -25,10 +26,10 @@ export default async function page({ params }: pageProps) {
   return (
     <div className="container mx-auto p-4">
       {/* Title */}
-      <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+      <h1 className="text-4xl font-bold mb-4 text-black dark:text-white">{post.title}</h1>
       
       {/* Published Date */}
-      <p className="text-gray-600">Published on: {new Date(post.publishedAt).toDateString()}</p>
+      <p className="text-gray-600 dark:text-gray-400">Published on: {new Date(post.publishedAt).toDateString()}</p>
       
       {/* Main Image */}
       {post.mainImage && (
@@ -44,7 +45,7 @@ export default async function page({ params }: pageProps) {
         <div>
           <SocialMediaSideBar />
         </div>
-        <div className="mt-6 prose max-w-none">
+        <div className="mt-6 prose max-w-none text-black dark:text-white">
           <PortableText value={post.body} />
         </div>
       </div>

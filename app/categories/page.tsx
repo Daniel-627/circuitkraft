@@ -7,7 +7,7 @@ export default async function CategoriesPage() {
   const categories: Category[] = await fetchAllCategories();
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 dark:bg-gray-900 dark:text-white">
       <h1 className="text-3xl font-bold mb-6">Categories</h1>
       {categories.length === 0 ? (
         <p>No categories available.</p>
@@ -17,7 +17,7 @@ export default async function CategoriesPage() {
             <li key={category._id}>
               <Link href={`/categories/${category.slug}`}>
                 <div
-                  className="relative h-16 bg-cover bg-center rounded-lg shadow-lg cursor-pointer transition-transform hover:scale-105"
+                  className="relative h-16 bg-cover bg-center rounded-lg shadow-lg cursor-pointer transition-transform hover:scale-105 dark:shadow-md dark:bg-gray-800"
                   style={{
                     backgroundImage: `url(${category.image?.asset?.url || "/default-image.jpg"})`,
                   }}

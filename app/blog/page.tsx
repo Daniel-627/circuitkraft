@@ -1,4 +1,3 @@
-// app/blog/page.tsx
 import { fetchAllPosts } from "@/lib/api";
 import { urlFor } from "@/sanity/lib/image";
 import { Post } from "@/types/blog";
@@ -8,7 +7,7 @@ export default async function BlogPage() {
   const posts: Post[] = await fetchAllPosts();
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 bg-white dark:bg-[#192428] text-black dark:text-white">
       <h1 className="text-4xl font-bold mb-8 text-center">All Blog Posts</h1>
       {posts.length === 0 ? (
         <p className="text-center">No blog posts available.</p>
@@ -16,7 +15,7 @@ export default async function BlogPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {posts.map((post) => (
             <Link key={post._id} href={`/blog/${post.slug}`} className="group">
-              <div className="rounded-lg shadow-md overflow-hidden bg-white hover:shadow-lg transition-shadow">
+              <div className="rounded-lg shadow-md overflow-hidden bg-white dark:bg-gray-800 hover:shadow-lg transition-shadow">
                 {/* Blog Image */}
                 {post.mainImage && urlFor(post.mainImage).url() && (
                   <div
@@ -29,21 +28,21 @@ export default async function BlogPage() {
 
                 {/* Blog Content */}
                 <div className="p-4">
-                  <h2 className="text-xl font-semibold group-hover:text-blue-600 transition-colors">
+                  <h2 className="text-xl font-semibold group-hover:text-blue-600 dark:group-hover:text-green-500 transition-colors">
                     {post.title}
                   </h2>
-                  <p className="text-sm text-gray-500 mt-2">
+                  <p className="text-sm text-gray-500 dark:text-gray-300 mt-2">
                     {post.description || "No description available"}
                   </p>
 
                   {/* Metadata */}
-                  <div className="mt-4 text-gray-600 text-sm">
+                  <div className="mt-4 text-gray-600 dark:text-gray-400 text-sm">
                     {post.latestCategories && post.latestCategories.length > 0 ? (
                       <ul className="mb-2">
                         {post.latestCategories.map((category, index) => (
                           <li
                             key={index}
-                            className="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded mr-2"
+                            className="inline-block bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded mr-2"
                           >
                             {category}
                           </li>
