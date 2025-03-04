@@ -50,3 +50,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     </div>
   );
 }
+
+
+// ISR: Revalidate page every 60 seconds
+export const revalidate = 60;

@@ -46,3 +46,7 @@ export default function FeaturedBlogList() {
     </div>
   );
 }
+
+
+// ISR: Revalidate page every 60 seconds
+export const revalidate = 60;

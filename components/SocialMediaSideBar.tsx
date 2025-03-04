@@ -1,7 +1,7 @@
 // components/SocialMediaSideBar.tsx
 "use client";
 
-import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa";
 import { FaXTwitter} from "react-icons/fa6";
 import { IconType } from "react-icons";
 
@@ -13,23 +13,13 @@ type SocialMediaLink = {
 
 const socialMediaLinks: SocialMediaLink[] = [
   {
-    href: "https://www.facebook.com/",
-    Icon: FaFacebookF,
-    label: "Facebook",
-  },
-  {
     href: "https://www.twitter.com/",
     Icon: FaXTwitter,
     label: "Twitter",
   },
   {
-    href: "https://www.instagram.com/",
-    Icon: FaInstagram,
-    label: "Instagram",
-  },
-  {
-    href: "https://www.linkedin.com/",
-    Icon: FaLinkedinIn,
+    href: "https://www.youtube.com/",
+    Icon: FaYoutube,
     label: "LinkedIn",
   },
 ];

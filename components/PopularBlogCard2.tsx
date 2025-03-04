@@ -56,3 +56,7 @@ export default function PopularBlogCard2() {
     </div>
   );
 }
+
+
+// ISR: Revalidate page every 60 seconds
+export const revalidate = 60;

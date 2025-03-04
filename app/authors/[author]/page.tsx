@@ -45,3 +45,6 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
     </div>
   );
 }
+
+// ISR: Revalidate page every 60 seconds
+export const revalidate = 60;

@@ -53,3 +53,6 @@ export default function NewsWidget() {
   );
 }
 
+
+// ISR: Revalidate page every 60 seconds
+export const revalidate = 60;

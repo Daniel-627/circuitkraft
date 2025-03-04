@@ -38,7 +38,7 @@ export default function PopularBlogCard() {
           />
         )}
         <div className="mt-4">
-          <p className="text-xs text-blue-500 mt-2">{post.latestCategory}</p>
+          <p className="text-xs text-blue-500 dark:text-green-500 mt-2">{post.latestCategory}</p>
           <h2 className="text-xl font-medium text-gray-800 dark:text-gray-200">{post.title}</h2>
           <div className="flex flex-col md:flex-row justify-between">
             <p className="text-xs text-gray-600 dark:text-gray-400 mt-2">
@@ -54,3 +54,6 @@ export default function PopularBlogCard() {
   );
 }
 
+
+// ISR: Revalidate page every 60 seconds
+export const revalidate = 60;
