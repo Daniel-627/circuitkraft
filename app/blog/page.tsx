@@ -11,14 +11,14 @@ export default async function BlogPage() {
       {posts.length === 0 ? (
         <p className="text-center">No blog posts available.</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
           {posts.map((post) => (
-            <Link key={post._id} href={`/blog/${post.slug}`} className="group">
-              <div className="rounded-lg shadow-md overflow-hidden bg-white dark:bg-gray-800 hover:shadow-lg transition-shadow">
+            <Link key={post._id} href={`/blog/${post.slug}`} className="group block">
+              <div className="rounded-lg shadow-md overflow-hidden bg-white dark:bg-gray-800 hover:shadow-lg transition-shadow break-inside-avoid">
                 {/* Blog Image */}
                 {post.mainImage && urlFor(post.mainImage).url() && (
                   <div
-                    className="h-40 w-full bg-cover bg-center"
+                    className="w-full bg-cover bg-center aspect-[3/4]"
                     style={{
                       backgroundImage: `url(${urlFor(post.mainImage).url()})`,
                     }}
@@ -64,7 +64,6 @@ export default async function BlogPage() {
     </div>
   );
 }
-
 
 // ISR: Revalidate page every 60 seconds
 export const revalidate = 60;

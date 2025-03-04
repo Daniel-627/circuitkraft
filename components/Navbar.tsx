@@ -87,9 +87,6 @@ const Navbar = () => {
             className="relative text-2xl text-gray-700 dark:text-gray-300 hover:text-blue-500"
           >
             <FaShoppingCart />
-            <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
-              3
-            </span>
           </Link>
 
           <span className="text-sm text-gray-500 dark:text-gray-400 hidden md:block">
