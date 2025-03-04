@@ -30,9 +30,9 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       <h1 className="text-3xl font-bold mb-6 text-center">
         {category.charAt(0).toUpperCase() + category.slice(1)} Posts
       </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-6 space-y-6">
         {posts.map((post) => (
-          <div key={post._id} className="w-full">
+          <div key={post._id} className="break-inside-avoid mb-6">
             <Link href={`/blog/${post.slug.current}`}>
               <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition cursor-pointer">
                 <h2 className="text-xl font-semibold mb-2">{post.title}</h2>

@@ -68,26 +68,10 @@ const Navbar = () => {
 
         {/* Icons & Search */}
         <div className="flex items-center space-x-6">
-          {/* Search Icon (Visible on all screens) */}
+          {/* Search Icon (Always Visible) */}
           <button aria-label="Search" className="text-2xl text-gray-700 dark:text-gray-300 hover:text-blue-500">
             <FaSearch />
           </button>
-
-          <Link
-            href="https://x.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-2xl text-gray-700 dark:text-gray-300 hover:text-blue-500"
-          >
-            <FaXTwitter />
-          </Link>
-
-          <Link
-            href="/cart"
-            className="relative text-2xl text-gray-700 dark:text-gray-300 hover:text-blue-500"
-          >
-            <FaShoppingCart />
-          </Link>
 
           <span className="text-sm text-gray-500 dark:text-gray-400 hidden md:block">
             {todayDate}
@@ -118,7 +102,8 @@ const Navbar = () => {
               </Link>
             </li>
           ))}
-          {/* Icons in Toggle Menu */}
+
+          {/* Icons in Toggle Menu Only */}
           <div className="flex items-center justify-between pt-4">
             <Link
               href="https://x.com"
@@ -152,5 +137,3 @@ const Navbar = () => {
 export const revalidate = 60;
 
 export default Navbar;
-
-
