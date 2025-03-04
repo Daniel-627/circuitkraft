@@ -9,7 +9,7 @@ import { FaShoppingCart, FaSearch } from "react-icons/fa";
 import { FaXTwitter, FaBars, FaX } from "react-icons/fa6";
 
 const Navbar = () => {
-  const [categories, setCategories] = useState<string[]>([]);
+  const [categories, setCategories] = useState<{ title: string; slug: string }[]>([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -57,10 +57,10 @@ const Navbar = () => {
           {categories.map((category, index) => (
             <li key={index}>
               <Link
-                href={`/categories/${category}`}
+                href={`/categories/${category.slug}`}
                 className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-500"
               >
-                {category}
+                {category.title}
               </Link>
             </li>
           ))}
@@ -69,7 +69,7 @@ const Navbar = () => {
         {/* Icons & Search */}
         <div className="flex items-center space-x-6">
           {/* Search Icon (Visible on all screens) */}
-          <button aria-label="Search" className="text-2xl text-black dark:text-white hover:text-blue-500">
+          <button aria-label="Search" className="text-2xl text-gray-700 dark:text-gray-300 hover:text-blue-500">
             <FaSearch />
           </button>
 
@@ -77,7 +77,7 @@ const Navbar = () => {
             href="https://x.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-2xl text-black dark:text-white hover:text-blue-500"
+            className="text-2xl text-gray-700 dark:text-gray-300 hover:text-blue-500"
           >
             <FaXTwitter />
           </Link>
@@ -113,11 +113,11 @@ const Navbar = () => {
           {categories.map((category, index) => (
             <li key={index}>
               <Link
-                href={`/categories/${category}`}
+                href={`/categories/${category.slug}`}
                 className="block text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-500"
                 onClick={toggleMenu}
               >
-                {category}
+                {category.title}
               </Link>
             </li>
           ))}
@@ -151,4 +151,9 @@ const Navbar = () => {
   );
 };
 
+// ISR: Revalidate page every 60 seconds
+export const revalidate = 60;
+
 export default Navbar;
+
+

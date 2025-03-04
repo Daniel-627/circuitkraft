@@ -26,7 +26,7 @@ const socialMediaLinks: SocialMediaLink[] = [
 
 export default function SocialMediaSideBar() {
   return (
-    <div className="bg-gray-800 text-white p-3 rounded-lg shadow-lg">
+    <div className="p-3 rounded-lg">
       <div className="flex flex-col space-y-4 items-center">
         {socialMediaLinks.map(({ href, Icon, label }) => (
           <a
