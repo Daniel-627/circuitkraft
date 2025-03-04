@@ -30,7 +30,7 @@ export default function EditorsPick2() {
     <div className="grid gap-6 md:grid-cols-2">
       {posts.map((post) => (
         <Link href={`/blog/${encodeURIComponent(post.slug.current)}`} key={post._id} passHref>
-          <div className="p-4 cursor-pointer flex flex-row items-center space-x-2 transition-all duration-300 hover:bg-gray-200 dark:hover:bg-[#223033] rounded-lg">
+          <div className="p-4 cursor-pointer flex flex-row items-center space-x-2 transition-all duration-300 rounded-lg">
             {post.mainImage && (
               <img
                 src={urlFor(post.mainImage).url()}
@@ -39,10 +39,10 @@ export default function EditorsPick2() {
               />
             )}
             <div className="mt-1 flex flex-col">
-              <h2 className="text-base font-medium text-gray-800 dark:text-gray-200 hover:underline">
+              <h2 className="text-base font-medium text-gray-600 dark:text-gray-200 hover:underline">
                 {post.title}
               </h2>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+              <p className="text-xs text-gray-400 dark:text-gray-400 mt-1">
                 {new Date(post.publishedAt).toLocaleDateString()}
               </p>
             </div>
