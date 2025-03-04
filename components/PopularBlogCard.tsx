@@ -22,7 +22,7 @@ export default function PopularBlogCard() {
   if (!post) {
     return (
       <div className="p-4">
-        <p>No popular posts available.</p>
+        <p className="text-gray-800 dark:text-gray-300">No popular posts available.</p>
       </div>
     );
   }
@@ -34,22 +34,23 @@ export default function PopularBlogCard() {
           <img
             src={urlFor(post.mainImage).url()}
             alt={post.title}
-            className="w-full h-96 object-cover rounded-lg" // Increased height to h-80
+            className="w-full h-96 object-cover rounded-lg"
           />
         )}
         <div className="mt-4">
           <p className="text-xs text-blue-500 mt-2">{post.latestCategory}</p>
-          <h2 className="text-xl font-medium">{post.title }</h2>
-          <div className="flex flex-row justify-between">
-                <p className="text-xs text-gray-600 mt-2">
-                  {post.author || "Author"}
-                </p>
-                <p className="text-xs text-gray-500 mt-2">
-                  {new Date(post.publishedAt).toLocaleDateString()}
-                </p>
+          <h2 className="text-xl font-medium text-gray-800 dark:text-gray-200">{post.title}</h2>
+          <div className="flex flex-col md:flex-row justify-between">
+            <p className="text-xs text-gray-600 dark:text-gray-400 mt-2">
+              {post.author || "Author"}
+            </p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+              {new Date(post.publishedAt).toLocaleDateString()}
+            </p>
           </div>
         </div>
       </div>
     </Link>
   );
 }
+

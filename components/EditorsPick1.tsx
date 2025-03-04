@@ -1,4 +1,4 @@
-'use client'
+'use client';
 // components/EditorsPick1.tsx
 import { useEffect, useState } from "react";
 import { fetchMostRecentEditorPost } from "@/lib/api";
@@ -11,7 +11,6 @@ export default function EditorsPick1() {
   const [post, setPost] = useState<Post | null>(null);
 
   useEffect(() => {
-    // Fetch the most recent post in the "Popular" category
     async function fetchPost() {
       const editorPost = await fetchMostRecentEditorPost();
       setPost(editorPost);
@@ -19,18 +18,17 @@ export default function EditorsPick1() {
     fetchPost();
   }, []);
 
-  // Handle the case where no post is found
   if (!post) {
     return (
-      <div className="p-4">
-        <p>No posts available.</p>
+      <div className="p-4 bg-gray-100 dark:bg-[#192428] rounded-lg shadow-md text-center">
+        <p className="text-gray-700 dark:text-gray-300">No posts available.</p>
       </div>
     );
   }
 
   return (
     <div
-      className="relative h-96 bg-cover bg-center rounded-lg shadow-lg cursor-pointer"
+      className="relative h-96 sm:h-[400px] bg-cover bg-center rounded-lg shadow-lg cursor-pointer transition-all duration-300"
       style={{
         backgroundImage: `url(${urlFor(post.mainImage).url()})`,
       }}
@@ -39,20 +37,24 @@ export default function EditorsPick1() {
       <div className="absolute inset-0 bg-black bg-opacity-50 rounded-lg"></div>
 
       {/* Content */}
-      <div className="absolute inset-0 flex flex-col justify-end p-6 z-10 text-white">
-        <p className="text-sm text-blue-500">{post.latestCategory}</p>
+      <div className="absolute inset-0 flex flex-col justify-end p-6 text-white z-10">
+        <p className="text-sm text-blue-500 dark:text-green-500">
+          {post.latestCategory}
+        </p>
         <Link href={`/blog/${encodeURIComponent(post.slug.current)}`} passHref>
-          <h2 className="text-2xl font-medium mt-2 hover:underline">
+          <h2 className="text-2xl font-medium mt-2 hover:underline transition">
             {post.title}
           </h2>
         </Link>
-        <div className="flex flex-row items-center space-x-2 mt-4 text-gray-300 text-sm pb-6">
+
+        <div className="flex items-center space-x-2 mt-4 text-gray-300 dark:text-gray-400 text-sm">
           <p>{post.author || "Author"}</p>
           <span className="text-gray-400">•</span>
           <p>{new Date(post.publishedAt).toLocaleDateString()}</p>
         </div>
-        {/* Nested EditorsPick2 */}
-        <div className=" bottom-0 left-0 w-full border-t-2 border-gray-500">
+
+        {/* EditorsPick2 Component */}
+        <div className="border-t border-gray-500 dark:border-gray-700 mt-6">
           <EditorsPick2 />
         </div>
       </div>

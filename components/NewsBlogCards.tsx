@@ -5,10 +5,11 @@ import { fetchNewsPosts } from "@/lib/api";
 import { Post } from "@/types/blog";
 import Link from "next/link";
 import { urlFor } from "@/sanity/lib/image";
-
+import { useTheme } from "next-themes";
 
 export default function NewsBlogCards() {
   const [posts, setPosts] = useState<Post[]>([]);
+  const { theme } = useTheme();
 
   useEffect(() => {
     async function fetchPosts() {
@@ -22,7 +23,7 @@ export default function NewsBlogCards() {
   if (!posts || posts.length === 0) {
     return (
       <div className="p-4">
-        <p>No additional news posts available.</p>
+        <p className="text-center text-gray-500 dark:text-gray-400">No additional news posts available.</p>
       </div>
     );
   }
@@ -32,7 +33,7 @@ export default function NewsBlogCards() {
       {posts.map((post) => (
         <Link href={`/blog/${post.slug.current}`} passHref key={post._id}>
           <div
-            className="relative h-72 bg-cover bg-center rounded-lg shadow-lg cursor-pointer"
+            className="relative h-72 bg-cover bg-center rounded-lg shadow-lg cursor-pointer transition-transform transform hover:scale-105 duration-300"
             style={{ backgroundImage: `url(${urlFor(post.mainImage).url()})` }}
           >
             {/* Dark Overlay */}

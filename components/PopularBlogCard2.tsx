@@ -20,7 +20,7 @@ export default function PopularBlogCard2() {
   // Handle the case where no posts are found
   if (!posts || posts.length === 0) {
     return (
-      <div className="p-4">
+      <div className="p-4 text-gray-800 dark:text-gray-200">
         <p>No additional popular posts available.</p>
       </div>
     );
@@ -30,7 +30,7 @@ export default function PopularBlogCard2() {
     <div className="mt-2">
       {posts.map((post) => (
         <Link href={`/blog/${encodeURIComponent(post.slug.current)}`} key={post._id} passHref>
-          <div className="p-2  cursor-pointer">
+          <div className="p-2 cursor-pointer transition-transform duration-300 hover:scale-105">
             {post.mainImage && (
               <img
                 src={urlFor(post.mainImage).url()}
@@ -39,13 +39,13 @@ export default function PopularBlogCard2() {
               />
             )}
             <div className="mt-1">
-              <p className="text-xs text-blue-500 mt-2">{post.latestCategory}</p>
-              <h2 className="text-base font-medium">{post.title}</h2>
+              <p className="text-xs text-blue-500 dark:text-green-400 mt-2">{post.latestCategory}</p>
+              <h2 className="text-base font-medium text-gray-800 dark:text-gray-200">{post.title}</h2>
               <div className="flex flex-row justify-between">
-                <p className="text-xs text-gray-600 mt-2">
+                <p className="text-xs text-gray-600 dark:text-gray-400 mt-2">
                   {post.author || "Author"}
                 </p>
-                <p className="text-xs text-gray-500 mt-2">
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
                   {new Date(post.publishedAt).toLocaleDateString()}
                 </p>
               </div>

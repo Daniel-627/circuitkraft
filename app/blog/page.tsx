@@ -8,7 +8,6 @@ export default async function BlogPage() {
 
   return (
     <div className="container mx-auto p-4 bg-white dark:bg-[#192428] text-black dark:text-white">
-      <h1 className="text-4xl font-bold mb-8 text-center">All Blog Posts</h1>
       {posts.length === 0 ? (
         <p className="text-center">No blog posts available.</p>
       ) : (
