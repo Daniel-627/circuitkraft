@@ -5,6 +5,7 @@ import { Post } from "@/types/blog";
 import { PortableText } from "@portabletext/react";
 import { notFound } from "next/navigation";
 import { useTheme } from "next-themes";
+import AllWidgets from "@/components/AllWidgets";
 
 interface pageProps {
   params: {
@@ -25,28 +26,35 @@ export default async function page({ params }: pageProps) {
 
   return (
     <div className="container mx-auto p-4">
-      {/* Title */}
-      <h1 className="text-4xl font-bold mb-4 text-black dark:text-white">{post.title}</h1>
-      
-      {/* Published Date */}
-      <p className="text-gray-600 dark:text-gray-400">Published on: {new Date(post.publishedAt).toDateString()}</p>
-      
-      {/* Main Image */}
-      {post.mainImage && (
-        <img
-          src={post.mainImage}
-          alt={post.title}
-          className="my-4 w-full max-w-3xl object-cover rounded-lg"
-        />
-      )}
+      <div className='grid grid-cols-12'>
+        <div className='col-span-12 lg:col-span-9'>
+          {/* Title */}
+          <h1 className="text-4xl font-bold mb-4 text-black dark:text-white">{post.title}</h1>
+          
+          {/* Published Date */}
+          <p className="text-gray-600 dark:text-gray-400">Published on: {new Date(post.publishedAt).toDateString()}</p>
+          
+          {/* Main Image */}
+          {post.mainImage && (
+            <img
+              src={post.mainImage}
+              alt={post.title}
+              className="my-4 w-full h-[550px] object-cover rounded-lg"
+            />
+          )}
 
-      {/* Body Content */}
-      <div className="flex flex-row">
-        <div>
-          <SocialMediaSideBar />
+          {/* Body Content */}
+          <div className="flex flex-row">
+            <div className="hidden lg:block">
+              <SocialMediaSideBar />
+            </div>
+            <div className="mt-6 prose max-w-none text-black dark:text-white">
+              <PortableText value={post.body} />
+            </div>
+          </div>
         </div>
-        <div className="mt-6 prose max-w-none text-black dark:text-white">
-          <PortableText value={post.body} />
+        <div className='hidden lg:block lg:col-span-3'>
+          <AllWidgets />
         </div>
       </div>
     </div>

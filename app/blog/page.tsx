@@ -11,14 +11,14 @@ export default async function BlogPage() {
       {posts.length === 0 ? (
         <p className="text-center">No blog posts available.</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {posts.map((post) => (
             <Link key={post._id} href={`/blog/${post.slug}`} className="group">
               <div className="rounded-lg shadow-md overflow-hidden bg-white dark:bg-gray-800 hover:shadow-lg transition-shadow">
                 {/* Blog Image */}
                 {post.mainImage && urlFor(post.mainImage).url() && (
                   <div
-                    className="h-40 bg-cover bg-center"
+                    className="h-40 w-full bg-cover bg-center"
                     style={{
                       backgroundImage: `url(${urlFor(post.mainImage).url()})`,
                     }}
@@ -37,11 +37,11 @@ export default async function BlogPage() {
                   {/* Metadata */}
                   <div className="mt-4 text-gray-600 dark:text-gray-400 text-sm">
                     {post.latestCategories && post.latestCategories.length > 0 ? (
-                      <ul className="mb-2">
+                      <ul className="mb-2 flex flex-wrap gap-2">
                         {post.latestCategories.map((category, index) => (
                           <li
                             key={index}
-                            className="inline-block bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded mr-2"
+                            className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded"
                           >
                             {category}
                           </li>
@@ -50,7 +50,7 @@ export default async function BlogPage() {
                     ) : (
                       <p>Uncategorized</p>
                     )}
-                    <div className="flex flex-row justify-between">
+                    <div className="flex flex-col sm:flex-row justify-between">
                       <p>{post.author || "Unknown"}</p>
                       <p>{new Date(post.publishedAt).toLocaleDateString()}</p>
                     </div>

@@ -32,7 +32,7 @@ export default function NewsBlogCard() {
   return (
     <Link href={`/blog/${post.slug.current}`} passHref>
       <div
-        className="relative h-96 bg-cover bg-center rounded-lg shadow-lg cursor-pointer m-2 my-4 transition-transform transform hover:scale-105 duration-300"
+        className="relative h-96 bg-cover bg-center rounded-lg shadow-lg cursor-pointer m-2 my-4 transition-transform transform duration-300"
         style={{
           backgroundImage: `url(${urlFor(post.mainImage).url()})`,
         }}

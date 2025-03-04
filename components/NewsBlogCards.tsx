@@ -33,7 +33,7 @@ export default function NewsBlogCards() {
       {posts.map((post) => (
         <Link href={`/blog/${post.slug.current}`} passHref key={post._id}>
           <div
-            className="relative h-72 bg-cover bg-center rounded-lg shadow-lg cursor-pointer transition-transform transform hover:scale-105 duration-300"
+            className="relative h-72 bg-cover bg-center rounded-lg shadow-lg cursor-pointer transition-transform transform duration-300"
             style={{ backgroundImage: `url(${urlFor(post.mainImage).url()})` }}
           >
             {/* Dark Overlay */}
