@@ -1,26 +1,25 @@
 'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { fetchAllPosts } from "@/lib/api";
 import { urlFor } from "@/sanity/lib/image";
 import { Post } from "@/types/blog";
 import Link from "next/link";
+import { FaSearch } from "react-icons/fa";
 
 export default function SearchPage() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [query, setQuery] = useState("");
   const [searchPerformed, setSearchPerformed] = useState(false);
   const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const getPosts = async () => {
-      const allPosts = await fetchAllPosts();
-      setPosts(allPosts);
-    };
-    getPosts();
+    fetchAllPosts().then(setPosts);
   }, []);
 
   const handleSearch = () => {
+    if (!query.trim()) return;
     const q = query.toLowerCase();
     const results = posts.filter((post) =>
       post.title.toLowerCase().includes(q) ||
@@ -29,6 +28,7 @@ export default function SearchPage() {
     );
     setFilteredPosts(results);
     setSearchPerformed(true);
+    inputRef.current?.blur(); // Dismiss mobile keyboard
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -44,20 +44,22 @@ export default function SearchPage() {
           searchPerformed ? "mb-8" : "justify-center min-h-screen"
         } transition-all duration-300`}
       >
-        <div className="w-full max-w-xl flex gap-2">
+        <div className="w-full max-w-xl flex border rounded-md overflow-hidden">
           <input
+            ref={inputRef}
             type="text"
-            placeholder="Search by title, category or description..."
-            className="flex-1 p-3 border rounded-md text-black"
+            placeholder="Search..."
+            className="flex-1 px-4 py-3 text-sm sm:text-base text-black dark:text-white bg-white dark:bg-[#1e2b30] outline-none"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
           />
           <button
             onClick={handleSearch}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 flex items-center justify-center"
+            aria-label="Search"
           >
-            Search
+            <FaSearch className="w-4 h-4" />
           </button>
         </div>
       </div>
