@@ -1,5 +1,5 @@
-'use client'
-// components/PopularBlogCard.tsx
+'use client';
+
 import { useEffect, useState } from "react";
 import { fetchMostRecentPopularPost } from "@/lib/api";
 import { Post } from "@/types/blog";
@@ -10,7 +10,6 @@ export default function PopularBlogCard() {
   const [post, setPost] = useState<Post | null>(null);
 
   useEffect(() => {
-    // Fetch the most recent post in the "Popular" category
     async function fetchPost() {
       const popularPost = await fetchMostRecentPopularPost();
       setPost(popularPost);
@@ -18,7 +17,6 @@ export default function PopularBlogCard() {
     fetchPost();
   }, []);
 
-  // Handle the case where no post is found
   if (!post) {
     return (
       <div className="p-4">
@@ -38,12 +36,33 @@ export default function PopularBlogCard() {
           />
         )}
         <div className="mt-4">
-          <p className="text-xs text-blue-500 dark:text-green-500 mt-2">{post.latestCategory}</p>
-          <h2 className="text-xl font-medium text-gray-800 dark:text-gray-200">{post.title}</h2>
+          {post.latestCategory && post.recentCategory?.slug?.current && (
+            <Link
+              href={`/categories/${post.recentCategory.slug.current}`}
+              className="text-xs text-blue-500 dark:text-green-500 mt-2 hover:underline"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {post.recentCategory.title}
+            </Link>
+          )}
+
+          <h2 className="text-xl font-medium text-gray-800 dark:text-gray-200 hover:underline">
+            {post.title}
+          </h2>
+
           <div className="flex flex-col md:flex-row justify-between">
-            <p className="text-xs text-gray-600 dark:text-gray-400 mt-2">
-              {post.author || "Author"}
-            </p>
+            {post.author && post.authorSlug ? (
+              <Link
+                href={`/authors/${post.authorSlug}`}
+                className="text-xs text-gray-600 dark:text-gray-400 mt-2 hover:underline"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {post.author}
+              </Link>
+            ) : (
+              <p className="text-xs text-gray-600 dark:text-gray-400 mt-2">Unknown</p>
+            )}
+
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
               {new Date(post.publishedAt).toLocaleDateString()}
             </p>
@@ -54,6 +73,4 @@ export default function PopularBlogCard() {
   );
 }
 
-
-// ISR: Revalidate page every 60 seconds
 export const revalidate = 60;

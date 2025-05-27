@@ -172,26 +172,33 @@ export async function fetchPostsByAuthorSlug(authorSlug: string) {
 }*/}
 
 export async function fetchMostRecentPopularPost(): Promise<Post | null> {
-  const posts = await client.fetch(
-    `*[_type == "post" && "Popular" in categories[]->title] | order(publishedAt desc)[0] {
-      _id,
-      title,
-      slug,
-      "author": author->name,
-      "latestCategory": categories[-1]->title,
-      description,
-      mainImage{
-        asset->{
-          url
-        }
-      },
-      publishedAt,
-      categories[]->{
-        title
-      }
-    }`
+  const post = await client.fetch(
+    `*[_type == "post" && "Popular" in categories[]->title] 
+      | order(publishedAt desc)[0] {
+        _id,
+        title,
+        slug,
+        "author": author->name,
+        "authorSlug": author->slug.current,
+        "recentCategory": categories[-1]->{
+          title,
+          slug
+        },
+        "latestCategory": categories[-1]->title,
+        description,
+        mainImage,
+        publishedAt
+      }`
   );
-  return posts ? posts : null;
+
+  // If no post found or latestCategory is null (can happen), handle it safely
+  if (!post) return null;
+
+  if (!post.recentCategory || !post.recentCategory.slug?.current) {
+    post.recentCategory = null;
+  }
+
+  return post;
 }
 
 export async function fetchPopularPosts(startIndex = 0, limit = 2): Promise<Post[]> {

@@ -26,6 +26,13 @@ export interface Post {
   latestCategories?: { title: string; slug: { current: string } }[];
   author: string
   authorSlug: string;
+  recentCategory?: {
+    title: string;
+    slug: {
+      current: string;
+    };
+  } | null;
+  
 }
 
 
@@ -37,3 +44,9 @@ export interface Author {
   image: string;
 }
 
+type LatestCategory = {
+  title: string;
+  slug: {
+    current: string;
+  };
+};
