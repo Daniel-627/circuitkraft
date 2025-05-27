@@ -15,7 +15,7 @@ export const fetchAllPosts = async (): Promise<Post[]> => {
     "authorSlug": author->slug.current,
     "latestCategory": categories[-1]->title,
     "categorySlug": categories[-1]->slug.current,
-    "latestCategories": categories[]->{title, slug}
+    "latestCategories": categories[]->{title, slug},
     description,
     "slug": slug.current,
     publishedAt,
