@@ -36,7 +36,7 @@ export default function PopularBlogCard() {
           />
         )}
         <div className="mt-4">
-          {post.latestCategory && post.recentCategory?.slug?.current && (
+          {post.recentCategory?.slug?.current && (
             <Link
               href={`/categories/${post.recentCategory.slug.current}`}
               className="text-xs text-blue-500 dark:text-green-500 mt-2 hover:underline"
