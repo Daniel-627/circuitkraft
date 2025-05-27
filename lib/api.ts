@@ -6,8 +6,7 @@ import { Category, Post, Author } from '@/types/blog'
 
 // Fetch all posts
 export const fetchAllPosts = async (): Promise<Post[]> => {
-  const query = 
-  `*[_type == "post"] | order(publishedAt desc) {
+  const query = `*[_type == "post"] | order(publishedAt desc) {
     _id,
     title,
     mainImage,
@@ -24,12 +23,16 @@ export const fetchAllPosts = async (): Promise<Post[]> => {
 
   const posts = await client.fetch(query);
 
-  // Add a 'latestCategories' field to each post by slicing the last three categories
-  return posts.map((post: Post) => ({
-    ...post,
-    latestCategories: post.latestCategories ? post.latestCategories.slice(-3) : [],
-  }));
+  return posts
+    .filter((post: any) => !!post.slug) // <-- skip posts without a slug
+    .map((post: Post) => ({
+      ...post,
+      latestCategories: post.latestCategories
+        ? post.latestCategories.slice(-3)
+        : [],
+    }));
 };
+
 
 // lib/api.ts
 
