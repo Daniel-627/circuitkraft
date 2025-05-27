@@ -191,15 +191,17 @@ export async function fetchMostRecentPopularPost(): Promise<Post | null> {
       }`
   );
 
-  // If no post found or latestCategory is null (can happen), handle it safely
-  if (!post) return null;
+  // If no post found or slug missing, return null
+  if (!post || !post.slug?.current) return null;
 
+  // Ensure recentCategory has a valid slug
   if (!post.recentCategory || !post.recentCategory.slug?.current) {
     post.recentCategory = null;
   }
 
   return post;
 }
+
 
 export async function fetchPopularPosts(startIndex = 0, limit = 2): Promise<Post[]> {
   const query = `
