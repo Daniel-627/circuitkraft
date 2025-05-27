@@ -24,7 +24,7 @@ export default function SearchPage() {
     const results = posts.filter((post) =>
       post.title.toLowerCase().includes(q) ||
       post.description?.toLowerCase().includes(q) ||
-      post.latestCategories?.some((cat) => cat.toLowerCase().includes(q))
+      post.latestCategories?.some((cat) => cat.title?.toLowerCase().includes(q))
     );
     setFilteredPosts(results);
     setSearchPerformed(true);
@@ -95,7 +95,7 @@ export default function SearchPage() {
                                 key={index}
                                 className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded"
                               >
-                                {category}
+                                {category.title}
                               </li>
                             ))}
                           </ul>
