@@ -21,8 +21,8 @@ export default function SocialWidget() {
   ];
 
   return (
-    <div className="p-2 rounded-lg max-w-sm m-2 border-b-2 dark:bg-gray-800">
-      <h2 className="text-xl font-semibold text-center mb-4 dark:text-white">
+    <div className="p-2 max-w-sm m-2 border-b-2">
+      <h2 className="text-xl font-semibold text-center mb-4">
         Follow Us
       </h2>
       <div className="flex justify-around">

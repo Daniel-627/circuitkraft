@@ -6,6 +6,7 @@ import { PortableText } from "@portabletext/react";
 import { notFound } from "next/navigation";
 import { useTheme } from "next-themes";
 import AllWidgets from "@/components/AllWidgets";
+import YouMayAlsoLike from "@/components/YouMayAlsoLike";
 
 interface pageProps {
   params: {
@@ -44,12 +45,17 @@ export default async function page({ params }: pageProps) {
           )}
 
           {/* Body Content */}
-          <div className="flex flex-row">
+          <div className="flex flex-row gap-2">
             <div className="hidden lg:block">
               <SocialMediaSideBar />
             </div>
-            <div className="mt-6 prose max-w-none text-black dark:text-white">
-              <PortableText value={post.body} />
+            <div>
+              <div className="mt-6 prose max-w-none text-black dark:text-white">
+                <PortableText value={post.body} />
+              </div>
+              <div>
+                <YouMayAlsoLike />
+              </div>
             </div>
           </div>
         </div>

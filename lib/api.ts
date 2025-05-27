@@ -482,6 +482,37 @@ export async function fetchRandomCategories(limit: number): Promise<Category[]> 
   return results;
 }
 
+export async function fetchExtraPosts() {
+  try {
+    // Fetch all categories first
+    const categoriesQuery = `*[_type == "category"]{_id, title}`;
+    const categories = await client.fetch(categoriesQuery);
 
+    if (!categories.length) throw new Error("No categories found");
+
+    // Select a random category
+    const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+    console.log("Selected category:", randomCategory);
+
+    // Fetch up to 3 posts from the selected category
+    const postsQuery = 
+    `*[_type == "post" && references("${randomCategory._id}")] | order(_createdAt desc) [0...6] {
+      _id,
+      title,
+      slug,
+      description,
+      mainImage{asset->{url}},
+      publishedAt,
+      "author": author->name,
+    }`;
+    const posts = await client.fetch(postsQuery);
+    console.log("Fetched posts for category:", posts);
+
+    return { category: randomCategory, posts };
+  } catch (error) {
+    console.error("Error fetching category posts:", error);
+    throw error;
+  }
+}
 
 
