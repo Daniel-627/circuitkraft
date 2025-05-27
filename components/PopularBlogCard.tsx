@@ -42,7 +42,6 @@ export default function PopularBlogCard() {
           <Link
             href={`/categories/${post.recentCategory.slug.current}`}
             className="text-xs text-blue-500 dark:text-green-500 mt-2 hover:underline"
-            onClick={(e) => e.stopPropagation()}
           >
             {post.recentCategory.title}
           </Link>
@@ -59,7 +58,6 @@ export default function PopularBlogCard() {
             <Link
               href={`/authors/${post.authorSlug}`}
               className="text-xs text-gray-600 dark:text-gray-400 mt-2 hover:underline"
-              onClick={(e) => e.stopPropagation()}
             >
               {post.author}
             </Link>
