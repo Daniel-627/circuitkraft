@@ -13,68 +13,70 @@ export default async function BlogPage() {
       ) : (
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
           {posts.map((post) => (
-            <Link key={post._id} href={`/blog/${post.slug}`} className="group block">
-              <div className="rounded-lg shadow-md overflow-hidden bg-white dark:bg-gray-800 hover:shadow-lg transition-shadow break-inside-avoid">
-                {/* Blog Image */}
-                {post.mainImage && urlFor(post.mainImage).url() && (
-                  <div
-                    className="w-full bg-cover bg-center aspect-[3/4]"
-                    style={{
-                      backgroundImage: `url(${urlFor(post.mainImage).url()})`,
-                    }}
-                  />
-                )}
+            <div
+              key={post._id}
+              className="group block rounded-lg shadow-md overflow-hidden bg-white dark:bg-gray-800 hover:shadow-lg transition-shadow break-inside-avoid"
+            >
+              {/* Blog Image */}
+              {post.mainImage && urlFor(post.mainImage).url() && (
+                <div
+                  className="w-full bg-cover bg-center aspect-[3/4]"
+                  style={{
+                    backgroundImage: `url(${urlFor(post.mainImage).url()})`,
+                  }}
+                />
+              )}
 
-                {/* Blog Content */}
-                <div className="p-4">
-                  <h2 className="text-xl font-semibold group-hover:text-blue-600 dark:group-hover:text-green-500 transition-colors">
+              {/* Blog Content */}
+              <div className="p-4">
+                <h2 className="text-xl font-semibold group-hover:text-blue-600 dark:group-hover:text-green-500 transition-colors">
+                  <Link href={`/blog/${post.slug}`} className="hover:underline">
                     {post.title}
-                  </h2>
-                  <p className="text-sm text-gray-500 dark:text-gray-300 mt-2">
-                    {post.description || "No description available"}
-                  </p>
+                  </Link>
+                </h2>
 
-                  {/* Metadata */}
-                  <div className="mt-4 text-gray-600 dark:text-gray-400 text-sm">
-                    {post.latestCategories && post.latestCategories.length > 0 ? (
-                      <ul className="mb-2 flex flex-wrap gap-2">
-                        {post.latestCategories.map((category, index) => (
-                          <li
-                            key={index}
-                            className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded"
-                          >
-                            <Link
-                              href={`/categories/${category.slug.current}`}
-                              className="hover:underline"
-                            >
-                              {category.title}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
+                <p className="text-sm text-gray-500 dark:text-gray-300 mt-2">
+                  {post.description || "No description available"}
+                </p>
 
-                    ) : (
-                      <p>Uncategorized</p>
-                    )}
-                    <div className="flex flex-col sm:flex-row justify-between">
-                      {/* Link to author page */}
-                      {post.authorSlug ? (
-                        <Link
-                          href={`/authors/${post.authorSlug}`}
-                          className="text-blue-600 dark:text-blue-400 hover:underline"
+                {/* Metadata */}
+                <div className="mt-4 text-gray-600 dark:text-gray-400 text-sm">
+                  {post.latestCategories && post.latestCategories.length > 0 ? (
+                    <ul className="mb-2 flex flex-wrap gap-2">
+                      {post.latestCategories.map((category, index) => (
+                        <li
+                          key={index}
+                          className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded"
                         >
-                          {post.author || "Unknown"}
-                        </Link>
-                      ) : (
-                        <p>{post.author || "Unknown"}</p>
-                      )}
-                      
-                      <p>{new Date(post.publishedAt).toLocaleDateString()}</p>
-                    </div>
+                          <Link
+                            href={`/categories/${category.slug.current}`}
+                            className="hover:underline"
+                          >
+                            {category.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p>Uncategorized</p>
+                  )}
+
+                  <div className="flex flex-col sm:flex-row justify-between">
+                    {post.authorSlug ? (
+                      <Link
+                        href={`/authors/${post.authorSlug}`}
+                        className="text-blue-600 dark:text-blue-400 hover:underline"
+                      >
+                        {post.author || "Unknown"}
+                      </Link>
+                    ) : (
+                      <p>{post.author || "Unknown"}</p>
+                    )}
+                    <p>{new Date(post.publishedAt).toLocaleDateString()}</p>
                   </div>
                 </div>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       )}
