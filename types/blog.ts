@@ -23,8 +23,9 @@ export interface Post {
   body: any;             // Sanity's rich text structure can be of type `any`
   category: Category;
   latestCategory: string;
-  latestCategories?: string[];
+  latestCategories?: { title: string; slug: { current: string } }[];
   author: string
+  authorSlug: string;
 }
 
 

@@ -43,15 +43,32 @@ export default async function BlogPage() {
                             key={index}
                             className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded"
                           >
-                            {category}
+                            <Link
+                              href={`/categories/${category.slug.current}`}
+                              className="hover:underline"
+                            >
+                              {category.title}
+                            </Link>
                           </li>
                         ))}
                       </ul>
+
                     ) : (
                       <p>Uncategorized</p>
                     )}
                     <div className="flex flex-col sm:flex-row justify-between">
-                      <p>{post.author || "Unknown"}</p>
+                      {/* Link to author page */}
+                      {post.authorSlug ? (
+                        <Link
+                          href={`/authors/${post.authorSlug}`}
+                          className="text-blue-600 dark:text-blue-400 hover:underline"
+                        >
+                          {post.author || "Unknown"}
+                        </Link>
+                      ) : (
+                        <p>{post.author || "Unknown"}</p>
+                      )}
+                      
                       <p>{new Date(post.publishedAt).toLocaleDateString()}</p>
                     </div>
                   </div>
