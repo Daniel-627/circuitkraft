@@ -69,9 +69,11 @@ const Navbar = () => {
         {/* Icons & Search */}
         <div className="flex items-center space-x-6">
           {/* Search Icon (Visible on all screens) */}
-          <button aria-label="Search" className="text-2xl text-gray-700 dark:text-gray-300 hover:text-blue-500">
-            <FaSearch />
-          </button>
+          <Link href="/search">
+            <button aria-label="Search" className="text-2xl text-gray-700 dark:text-gray-300 hover:text-blue-500">
+              <FaSearch />
+            </button>
+          </Link>
 
           <Link
             href="https://x.com"
