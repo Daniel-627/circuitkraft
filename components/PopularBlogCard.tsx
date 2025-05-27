@@ -26,50 +26,53 @@ export default function PopularBlogCard() {
   }
 
   return (
-    <Link href={`/blog/${encodeURIComponent(post.slug.current)}`} passHref>
-      <div className="p-4 cursor-pointer">
-        {post.mainImage && (
+    <div className="p-4 cursor-pointer">
+      {post.mainImage && (
+        <Link href={`/blog/${encodeURIComponent(post.slug.current)}`}>
           <img
             src={urlFor(post.mainImage).url()}
             alt={post.title}
             className="w-full h-96 object-cover rounded-lg"
           />
-        )}
-        <div className="mt-4">
-          {post.recentCategory?.slug?.current && (
-            <Link
-              href={`/categories/${post.recentCategory.slug.current}`}
-              className="text-xs text-blue-500 dark:text-green-500 mt-2 hover:underline"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {post.recentCategory.title}
-            </Link>
-          )}
+        </Link>
+      )}
 
-          <h2 className="text-xl font-medium text-gray-800 dark:text-gray-200 hover:underline">
+      <div className="mt-4">
+        {post.recentCategory?.slug?.current && (
+          <Link
+            href={`/categories/${post.recentCategory.slug.current}`}
+            className="text-xs text-blue-500 dark:text-green-500 mt-2 hover:underline"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {post.recentCategory.title}
+          </Link>
+        )}
+
+        <Link href={`/blog/${encodeURIComponent(post.slug.current)}`}>
+          <h2 className="text-xl font-medium text-gray-800 dark:text-gray-200 hover:underline mt-2">
             {post.title}
           </h2>
+        </Link>
 
-          <div className="flex flex-col md:flex-row justify-between">
-            {post.author && post.authorSlug ? (
-              <Link
-                href={`/authors/${post.authorSlug}`}
-                className="text-xs text-gray-600 dark:text-gray-400 mt-2 hover:underline"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {post.author}
-              </Link>
-            ) : (
-              <p className="text-xs text-gray-600 dark:text-gray-400 mt-2">Unknown</p>
-            )}
+        <div className="flex flex-col md:flex-row justify-between">
+          {post.author && post.authorSlug ? (
+            <Link
+              href={`/authors/${post.authorSlug}`}
+              className="text-xs text-gray-600 dark:text-gray-400 mt-2 hover:underline"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {post.author}
+            </Link>
+          ) : (
+            <p className="text-xs text-gray-600 dark:text-gray-400 mt-2">Unknown</p>
+          )}
 
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-              {new Date(post.publishedAt).toLocaleDateString()}
-            </p>
-          </div>
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+            {new Date(post.publishedAt).toLocaleDateString()}
+          </p>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
 
