@@ -14,7 +14,10 @@ export const fetchAllPosts = async (): Promise<Post[]> => {
     "authorSlug": author->slug.current,
     "latestCategory": categories[-1]->title,
     "categorySlug": categories[-1]->slug.current,
-    "latestCategories": categories[]->{title, slug},
+    "latestCategories": categories[]->{
+      title,
+      "slug": select(slug.current != null => slug)
+    },
     description,
     "slug": slug.current,
     publishedAt,
@@ -28,7 +31,9 @@ export const fetchAllPosts = async (): Promise<Post[]> => {
     .map((post: Post) => ({
       ...post,
       latestCategories: post.latestCategories
-        ? post.latestCategories.slice(-3)
+        ? post.latestCategories
+        .filter((cat: any) => cat && cat.slug && cat.slug.current)
+        .slice(-3)
         : [],
     }));
 };

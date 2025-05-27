@@ -48,14 +48,19 @@ export default async function BlogPage() {
                           key={index}
                           className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded"
                         >
-                          <Link
-                            href={`/categories/${category.slug.current}`}
-                            className="hover:underline"
-                          >
-                            {category.title}
-                          </Link>
+                          {category.slug?.current ? (
+                            <Link
+                              href={`/categories/${category.slug.current}`}
+                              className="hover:underline"
+                            >
+                              {category.title}
+                            </Link>
+                          ) : (
+                            <span>{category.title}</span>
+                          )}
                         </li>
                       ))}
+
                     </ul>
                   ) : (
                     <p>Uncategorized</p>
