@@ -26,9 +26,9 @@ export interface Post {
   latestCategories?: { title: string; slug: { current: string } }[];
   author: string
   authorSlug: string;
-  recentCategory?: {
+  recentCategory: {
     title: string;
-    slug: {
+    slug?: {
       current: string;
     };
   } | null;

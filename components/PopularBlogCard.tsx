@@ -28,7 +28,7 @@ export default function PopularBlogCard() {
   return (
     <div className="p-4 cursor-pointer">
       {post.mainImage && (
-        <Link href={`/blog/${encodeURIComponent(post.slug.current)}`}>
+        <Link href={`/blog/${encodeURIComponent(post.slug.current)}`} passHref>
           <img
             src={urlFor(post.mainImage).url()}
             alt={post.title}
@@ -36,9 +36,8 @@ export default function PopularBlogCard() {
           />
         </Link>
       )}
-
       <div className="mt-4">
-        {post.recentCategory?.slug?.current && (
+        {post.recentCategory && post.recentCategory.slug?.current && (
           <Link
             href={`/categories/${post.recentCategory.slug.current}`}
             className="text-xs text-blue-500 dark:text-green-500 mt-2 hover:underline"
@@ -46,13 +45,11 @@ export default function PopularBlogCard() {
             {post.recentCategory.title}
           </Link>
         )}
-
         <Link href={`/blog/${encodeURIComponent(post.slug.current)}`}>
-          <h2 className="text-xl font-medium text-gray-800 dark:text-gray-200 hover:underline mt-2">
+          <h2 className="text-xl font-medium text-gray-800 dark:text-gray-200 hover:underline">
             {post.title}
           </h2>
         </Link>
-
         <div className="flex flex-col md:flex-row justify-between">
           {post.author && post.authorSlug ? (
             <Link
@@ -64,7 +61,6 @@ export default function PopularBlogCard() {
           ) : (
             <p className="text-xs text-gray-600 dark:text-gray-400 mt-2">Unknown</p>
           )}
-
           <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
             {new Date(post.publishedAt).toLocaleDateString()}
           </p>
