@@ -27,14 +27,18 @@ export default async function page({ params }: pageProps) {
 
   return (
     <div className="container mx-auto p-4">
-      <div className='grid grid-cols-12'>
-        <div className='col-span-12 lg:col-span-9'>
+      <div className="grid grid-cols-12 gap-x-8"> {/* <-- Added gap-x-8 for spacing */}
+        <div className="col-span-12 lg:col-span-9">
           {/* Title */}
-          <h1 className="text-4xl font-bold mb-4 text-black dark:text-white">{post.title}</h1>
-          
+          <h1 className="text-4xl font-bold mb-4 text-black dark:text-white">
+            {post.title}
+          </h1>
+
           {/* Published Date */}
-          <p className="text-gray-600 dark:text-gray-400">Published on: {new Date(post.publishedAt).toDateString()}</p>
-          
+          <p className="text-gray-600 dark:text-gray-400">
+            Published on: {new Date(post.publishedAt).toDateString()}
+          </p>
+
           {/* Main Image */}
           {post.mainImage && (
             <img
@@ -53,13 +57,13 @@ export default async function page({ params }: pageProps) {
               <div className="mt-6 prose max-w-none text-black dark:text-white">
                 <PortableText value={post.body} />
               </div>
-              <div>
+              <div className="pt-3">
                 <YouMayAlsoLike />
               </div>
             </div>
           </div>
         </div>
-        <div className='hidden lg:block lg:col-span-3'>
+        <div className="hidden lg:block lg:col-span-3">
           <AllWidgets />
         </div>
       </div>
