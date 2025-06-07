@@ -203,22 +203,34 @@ export async function fetchMostRecentPopularPost(): Promise<Post | null> {
 
 
 export async function fetchPopularPosts(startIndex = 0, limit = 2): Promise<Post[]> {
-  const query = `
-    *[_type == "post" && "Popular" in categories[]->title] | order(publishedAt desc) [${startIndex}...${startIndex + limit}] {
-      _id,
-      title,
-      slug,
-      mainImage{asset->{url}},
-      description,
-      publishedAt,
-      "author": author->name,
-      "latestCategory": categories[-1]->title,
+  const posts: Post[] = await client.fetch(
+    `*[_type == "post" && "Popular" in categories[]->title]
+      | order(publishedAt desc)[${startIndex}...${startIndex + limit}] {
+        _id,
+        title,
+        slug,
+        mainImage,
+        description,
+        publishedAt,
+        "author": author->name,
+        "authorSlug": author->slug.current,
+        "recentCategory": categories[-1]->{
+          title,
+          "slug": select(slug.current != null => slug)
+        },
+        "latestCategory": categories[-1]->title
+      }`
+  );
+
+  posts.forEach((post: Post) => {
+    if (!post?.recentCategory?.slug?.current) {
+      post.recentCategory = null;
     }
-  `;
-  const posts = await client.fetch(query);
-  console.log("Fetched popular posts:", posts); // Log the posts to debug
+  });
+
   return posts;
 }
+
 
 export async function fetchNewsPosts(startIndex = 0, limit = 2): Promise<Post[]> {
   const query = `
