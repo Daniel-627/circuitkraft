@@ -1,5 +1,4 @@
-'use client'
-// components/NewsBlogCard.tsx
+'use client';
 import { useEffect, useState } from "react";
 import { fetchMostRecentNewsPost } from "@/lib/api";
 import { Post } from "@/types/blog";
@@ -12,7 +11,6 @@ export default function NewsBlogCard() {
   const { theme } = useTheme();
 
   useEffect(() => {
-    // Fetch the most recent post in the "News" category
     async function fetchPost() {
       const NewsPost = await fetchMostRecentNewsPost();
       setPost(NewsPost);
@@ -20,7 +18,6 @@ export default function NewsBlogCard() {
     fetchPost();
   }, []);
 
-  // Handle the case where no post is found
   if (!post) {
     return (
       <div className="p-4 text-center dark:text-white">
@@ -30,30 +27,43 @@ export default function NewsBlogCard() {
   }
 
   return (
-    <Link href={`/blog/${post.slug.current}`} passHref>
-      <div
-        className="relative h-96 bg-cover bg-center rounded-lg shadow-lg cursor-pointer m-2 my-4 transition-transform transform duration-300"
-        style={{
-          backgroundImage: `url(${urlFor(post.mainImage).url()})`,
-        }}
-      >
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-black bg-opacity-50 rounded-lg"></div>
+    <div
+      className="relative h-96 bg-cover bg-center rounded-lg shadow-lg cursor-pointer m-2 my-4 transition-transform transform duration-300"
+      style={{
+        backgroundImage: `url(${urlFor(post.mainImage).url()})`,
+      }}
+    >
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black bg-opacity-50 rounded-lg"></div>
 
-        {/* Content */}
-        <div className="absolute inset-0 flex flex-col justify-end p-6 z-10 text-white">
-          <p className="text-sm text-blue-500">{post.latestCategory}</p>
-          <h2 className="text-2xl font-medium mt-2 hover:underline">
-            {post.title}
-          </h2>
-          <div className="flex flex-row items-center space-x-2 mt-4 text-gray-300 text-sm">
-            <p>{post.author || "Author"}</p>
-            <span className="text-gray-400">•</span>
-            <p>{new Date(post.publishedAt).toLocaleDateString()}</p>
-          </div>
+      {/* Content */}
+      <div className="absolute inset-0 flex flex-col justify-end p-6 z-10 text-white">
+        {/* Category Link */}
+        {post.recentCategory && post.recentCategory.slug?.current && (
+          <Link href={`/categories/${post.recentCategory.slug.current}`}>
+            <a className="text-sm text-blue-500 hover:underline">{post.recentCategory.title}</a>
+          </Link>
+        )}
+
+        {/* Title Link */}
+        <Link href={`/blog/${post.slug.current}`}>
+          <a className="text-2xl font-medium mt-2 hover:underline">{post.title}</a>
+        </Link>
+
+        {/* Author and Date */}
+        <div className="flex flex-row items-center space-x-2 mt-4 text-gray-300 text-sm">
+          {post.author && post.authorSlug ? (
+            <Link href={`/authors/${post.authorSlug}`}>
+              <a>{post.author}</a>
+            </Link>
+          ) : (
+            <p>Author</p>
+          )}
+          <span className="text-gray-400">•</span>
+          <p>{new Date(post.publishedAt).toLocaleDateString()}</p>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
 
