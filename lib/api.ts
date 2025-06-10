@@ -409,7 +409,7 @@ export async function fetchEditorPosts(startIndex = 0, limit = 10): Promise<Post
 
 export async function fetchLatestPosts(startIndex = 0, limit = 20): Promise<Post[]> {
   const posts: Post[] = await client.fetch(
-    `*[_type == "post"
+    `*[_type == "post"]
       | order(publishedAt desc)[${startIndex}...${startIndex + limit}] {
         _id,
         title,
