@@ -234,7 +234,7 @@ export async function fetchPopularPosts(startIndex = 0, limit = 2): Promise<Post
 
 export async function fetchNewsPosts(startIndex = 0, limit = 2): Promise<Post[]> {
   const posts: Post[] = await client.fetch(
-    `*[_type == "post" && "Popular" in categories[]->title]
+    `*[_type == "post" && "News" in categories[]->title]
       | order(publishedAt desc)[${startIndex}...${startIndex + limit}] {
         _id,
         title,
@@ -289,99 +289,150 @@ export async function fetchMostRecentNewsPost(): Promise<Post | null> {
 
   return post;
 }
+
+
 export async function fetchMostRecentFeaturedPost(): Promise<Post | null> {
-  const posts = await client.fetch(
-    `*[_type == "post" && "Featured" in categories[]->title] | order(publishedAt desc)[0] {
-      _id,
-      title,
-      slug,
-      description,
-      "author": author->name,
-      "latestCategory": categories[-1]->title,
-      mainImage{
-        asset->{
-          url
-        }
-      },
-      publishedAt,
-      categories[]->{
-        title
-      }
-    }`
+  const post = await client.fetch(
+    `*[_type == "post" && "Featured" in categories[]->title] 
+      | order(publishedAt desc)[0] {
+        _id,
+        title,
+        slug,
+        "author": author->name,
+        "authorSlug": author->slug.current,
+        "recentCategory": categories[-1]->{
+          title,
+          "slug": select(slug.current != null => slug)
+        },
+        "latestCategory": categories[-1]->title,
+        description,
+        mainImage,
+        publishedAt
+      }`
   );
-  return posts ? posts : null;
+
+  if (!post?.slug?.current) return null;
+
+  if (!post.recentCategory?.slug?.current) {
+    post.recentCategory = null;
+  }
+
+  return post;
 }
 
 export async function fetchFeaturedPosts(startIndex = 0, limit = 10): Promise<Post[]> {
-  const query = `
-    *[_type == "post" && "Featured" in categories[]->title] | order(publishedAt desc) [${startIndex}...${startIndex + limit}] {
-      _id,
-      title,
-      slug,
-      mainImage{asset->{url}},
-      description,
-      "author": author->name,
-      "latestCategory": categories[-1]->title,
-      publishedAt
+  const posts: Post[] = await client.fetch(
+    `*[_type == "post" && "Featured" in categories[]->title]
+      | order(publishedAt desc)[${startIndex}...${startIndex + limit}] {
+        _id,
+        title,
+        slug,
+        mainImage,
+        description,
+        publishedAt,
+        "author": author->name,
+        "authorSlug": author->slug.current,
+        "recentCategory": categories[-1]->{
+          title,
+          "slug": select(slug.current != null => slug)
+        },
+        "latestCategory": categories[-1]->title
+      }`
+  );
+
+  posts.forEach((post: Post) => {
+    if (!post?.recentCategory?.slug?.current) {
+      post.recentCategory = null;
     }
-  `;
-  const posts = await client.fetch(query);
-  console.log("Fetched Featured posts:", posts); // Log the posts to debug
+  });
+
   return posts;
 }
 
 export async function fetchMostRecentEditorPost(): Promise<Post | null> {
-  const posts = await client.fetch(
-    `*[_type == "post" && "Editor" in categories[]->title] | order(publishedAt desc)[0] {
-      _id,
-      title,
-      slug,
-      description,
-      "author": author->name,
-      "latestCategory": categories[-1]->title,
-      mainImage,
-      publishedAt,
-      categories[]->{
-        title
-      }
-    }`
+  const post = await client.fetch(
+    `*[_type == "post" && "Editor" in categories[]->title] 
+      | order(publishedAt desc)[0] {
+        _id,
+        title,
+        slug,
+        "author": author->name,
+        "authorSlug": author->slug.current,
+        "recentCategory": categories[-1]->{
+          title,
+          "slug": select(slug.current != null => slug)
+        },
+        "latestCategory": categories[-1]->title,
+        description,
+        mainImage,
+        publishedAt
+      }`
   );
-  return posts ? posts : null;
+
+  if (!post?.slug?.current) return null;
+
+  if (!post.recentCategory?.slug?.current) {
+    post.recentCategory = null;
+  }
+
+  return post;
 }
 
 export async function fetchEditorPosts(startIndex = 0, limit = 10): Promise<Post[]> {
-  const query = `
-    *[_type == "post" && "Editor" in categories[]->title] | order(publishedAt desc) [${startIndex}...${startIndex + limit}] {
-      _id,
-      title,
-      slug,
-      mainImage{asset->{url}},
-      description,
-      "author": author->name,
-      "latestCategory": categories[-1]->title,
-      publishedAt
+  const posts: Post[] = await client.fetch(
+    `*[_type == "post" && "Editor" in categories[]->title]
+      | order(publishedAt desc)[${startIndex}...${startIndex + limit}] {
+        _id,
+        title,
+        slug,
+        mainImage,
+        description,
+        publishedAt,
+        "author": author->name,
+        "authorSlug": author->slug.current,
+        "recentCategory": categories[-1]->{
+          title,
+          "slug": select(slug.current != null => slug)
+        },
+        "latestCategory": categories[-1]->title
+      }`
+  );
+
+  posts.forEach((post: Post) => {
+    if (!post?.recentCategory?.slug?.current) {
+      post.recentCategory = null;
     }
-  `;
-  const posts = await client.fetch(query);
-  console.log("Fetched Editor posts:", posts); // Log the posts to debug
+  });
+
   return posts;
 }
 
 export async function fetchLatestPosts(startIndex = 0, limit = 20): Promise<Post[]> {
-  const query = `
-    *[_type == "post"] | order(publishedAt desc) [${startIndex}...${startIndex + limit}] {
-      _id,
-      title,
-      slug,
-      mainImage{asset->{url}},
-      description,
-      "author": author->name,
-      "latestCategory": categories[-1]->title,
-      publishedAt
+  const posts: Post[] = await client.fetch(
+    `*[_type == "post"
+      | order(publishedAt desc)[${startIndex}...${startIndex + limit}] {
+        _id,
+        title,
+        slug,
+        mainImage,
+        description,
+        publishedAt,
+        "author": author->name,
+        "authorSlug": author->slug.current,
+        "recentCategory": categories[-1]->{
+          title,
+          "slug": select(slug.current != null => slug)
+        },
+        "latestCategory": categories[-1]->title
+      }`
+  );
+
+  posts.forEach((post: Post) => {
+    if (!post?.recentCategory?.slug?.current) {
+      post.recentCategory = null;
     }
-  `;
-  const posts = await client.fetch(query);
-  console.log("Fetched Latest posts:", posts); // Log the posts to debug
+  });
+
   return posts;
 }
 
