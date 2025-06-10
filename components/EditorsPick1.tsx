@@ -38,17 +38,36 @@ export default function EditorsPick1() {
 
       {/* Content */}
       <div className="absolute inset-0 flex flex-col justify-end p-6 text-white z-10">
-        <p className="text-sm text-blue-500 dark:text-green-500">
-          {post.latestCategory}
-        </p>
+        {/* Category Link */}
+        {post.recentCategory?.slug?.current && post.recentCategory?.title && (
+          <Link
+            href={`/categories/${encodeURIComponent(post.recentCategory.slug.current)}`}
+            passHref
+          >
+            <p className="text-sm text-blue-500 dark:text-green-500 hover:underline">
+              {post.recentCategory.title}
+            </p>
+          </Link>
+        )}
+
+        {/* Post Title Link */}
         <Link href={`/blog/${encodeURIComponent(post.slug.current)}`} passHref>
           <h2 className="text-2xl font-medium mt-2 hover:underline transition">
             {post.title}
           </h2>
         </Link>
 
+        {/* Author and Date */}
         <div className="flex items-center space-x-2 mt-4 text-gray-300 dark:text-gray-400 text-sm">
-          <p>{post.author || "Author"}</p>
+          {post.author && (
+            <Link
+              href={`/authors/${post.authorSlug}`}
+              passHref
+              className="hover:underline"
+            >
+              {post.author}
+            </Link>
+          )}
           <span className="text-gray-400">•</span>
           <p>{new Date(post.publishedAt).toLocaleDateString()}</p>
         </div>

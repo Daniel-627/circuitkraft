@@ -30,23 +30,36 @@ export default function FeaturedBlogList() {
   return (
     <div className="flex flex-col">
       {posts.map((post) => (
-        <Link href={`/blog/${encodeURIComponent(post.slug.current)}`} key={post._id} passHref>
-          <div className="p-3 cursor-pointer border-t-2 border-gray-300 dark:border-gray-700 mx-4 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-            <div className="mt-1">
-              <p className="text-xs text-blue-500 dark:text-green-500 mt-2">
-                {post.latestCategory}
+        <div
+          key={post._id}
+          className="p-3 border-t-2 border-gray-300 dark:border-gray-700 mx-4 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+        >
+          {/* Category Link */}
+          {post.recentCategory?.slug?.current && post.recentCategory?.title && (
+            <Link
+              href={`/categories/${encodeURIComponent(post.recentCategory.slug.current)}`}
+              passHref
+            >
+              <p className="text-xs text-blue-500 dark:text-green-500 mt-2 hover:underline">
+                {post.recentCategory.title}
               </p>
-              <h2 className="text-base font-medium text-gray-800 dark:text-gray-200">
-                {post.title}
-              </h2>
-            </div>
-          </div>
-        </Link>
+            </Link>
+          )}
+
+          {/* Post Title Link */}
+          <Link
+            href={`/blog/${encodeURIComponent(post.slug.current)}`}
+            passHref
+          >
+            <h2 className="text-base font-medium text-gray-800 dark:text-gray-200 hover:underline mt-1">
+              {post.title}
+            </h2>
+          </Link>
+        </div>
       ))}
     </div>
   );
 }
-
 
 // ISR: Revalidate page every 60 seconds
 export const revalidate = 60;

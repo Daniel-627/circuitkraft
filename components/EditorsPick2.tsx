@@ -52,3 +52,5 @@ export default function EditorsPick2() {
     </div>
   );
 }
+
+export const revalidate = 60;

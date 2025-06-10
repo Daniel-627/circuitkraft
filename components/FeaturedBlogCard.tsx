@@ -1,4 +1,4 @@
-'use client'
+'use client';
 // components/FeaturedBlogCard.tsx
 import { useEffect, useState } from "react";
 import { fetchMostRecentFeaturedPost } from "@/lib/api";
@@ -39,12 +39,30 @@ export default function FeaturedBlogCard() {
 
         {/* Content */}
         <div className="absolute bottom-0 w-full p-6 z-10 bg-gradient-to-t from-black via-transparent to-transparent rounded-b-lg">
-          <p className="text-sm text-blue-500">{post.latestCategory}</p>
-          <h2 className="text-2xl font-medium mt-2 hover:underline">
-            {post.title}
-          </h2>
+          {post.recentCategory && post.recentCategory.slug?.current && (
+            <Link
+              href={`/categories/${post.recentCategory.slug.current}`}
+              className="text-sm text-blue-500 dark:text-green-400 hover:underline"
+            >
+              {post.recentCategory.title}
+            </Link>
+          )}
+          <Link href={`/blog/${post.slug.current}`} className="hover:underline">
+            <h2 className="text-2xl font-medium mt-2">
+              {post.title}
+            </h2>
+          </Link>
           <div className="flex flex-wrap space-x-2 mt-4 text-sm">
-            <p className="text-gray-300 dark:text-gray-400">{post.author || "Author"}</p>
+            {post.author && post.authorSlug ? (
+              <Link
+                href={`/authors/${post.authorSlug}`}
+                className="text-gray-300 dark:text-gray-400 hover:underline"
+              >
+                {post.author}
+              </Link>
+            ) : (
+              <p className="text-gray-300 dark:text-gray-400">Unknown</p>
+            )}
             <span className="text-gray-400">•</span>
             <p className="text-gray-400">{new Date(post.publishedAt).toLocaleDateString()}</p>
           </div>
@@ -53,7 +71,6 @@ export default function FeaturedBlogCard() {
     </Link>
   );
 }
-
 
 // ISR: Revalidate page every 60 seconds
 export const revalidate = 60;
